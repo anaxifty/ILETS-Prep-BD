@@ -39,7 +39,7 @@ fun CenterDetailScreen(
     var studentName by remember { mutableStateOf("") }
     var studentPhone by remember { mutableStateOf("") }
 
-    val darkGreen = Color(0xFF003C33)
+    val darkGreen = MaterialTheme.colorScheme.primary // Emerald Focus brand green
 
     Scaffold(
         topBar = {
@@ -119,7 +119,7 @@ fun CenterDetailScreen(
 
                             // Rating Badge
                             Surface(
-                                shape = RoundedCornerShape(12.dp),
+                                shape = RoundedCornerShape(10.dp),
                                 color = Color.White.copy(alpha = 0.18f)
                             ) {
                                 Row(
@@ -129,7 +129,7 @@ fun CenterDetailScreen(
                                     Icon(
                                         imageVector = Icons.Default.Star,
                                         contentDescription = null,
-                                        tint = Color(0xFFFFD54F),
+                                        tint = Color(0xFFF2B968),
                                         modifier = Modifier.size(16.dp)
                                     )
                                     Spacer(modifier = Modifier.width(4.dp))
@@ -200,7 +200,7 @@ fun CenterDetailScreen(
                 Surface(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(14.dp),
-                    color = Color(0xFFE8F5E9)
+                    color = Color(0xFFCDF4E0)
                 ) {
                     Row(
                         modifier = Modifier.padding(14.dp),
@@ -209,7 +209,7 @@ fun CenterDetailScreen(
                         Icon(
                             imageVector = Icons.Default.Info,
                             contentDescription = null,
-                            tint = Color(0xFF2E7D32),
+                            tint = Color(0xFF1B8A5A),
                             modifier = Modifier.size(20.dp)
                         )
                         Spacer(modifier = Modifier.width(10.dp))
@@ -217,7 +217,7 @@ fun CenterDetailScreen(
                             text = "Practice Mock Test & Coaching Slots. Seats reserved via secure SSLCommerz payment.",
                             style = MaterialTheme.typography.labelMedium,
                             fontWeight = FontWeight.Medium,
-                            color = Color(0xFF1B5E20)
+                            color = Color(0xFF00341D)
                         )
                     }
                 }
@@ -333,13 +333,13 @@ private fun SlotCard(
     slot: PartnerSlot,
     onBookClick: () -> Unit
 ) {
-    val darkGreen = Color(0xFF003C33)
+    val darkGreen = MaterialTheme.colorScheme.primary // Emerald Focus brand green
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .testTag("center_slot_card_${slot.slotId}"),
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)),
         elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
     ) {
@@ -350,14 +350,14 @@ private fun SlotCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Surface(
-                    shape = RoundedCornerShape(8.dp),
-                    color = if (slot.slotType == "PRACTICE_MOCK") darkGreen.copy(alpha = 0.12f) else Color(0xFF0288D1).copy(alpha = 0.12f)
+                    shape = RoundedCornerShape(10.dp),
+                    color = if (slot.slotType == "PRACTICE_MOCK") darkGreen.copy(alpha = 0.12f) else Color(0xFF00658F).copy(alpha = 0.12f)
                 ) {
                     Text(
                         text = if (slot.slotType == "PRACTICE_MOCK") "PRACTICE MOCK TEST" else "COACHING SESSION",
                         style = MaterialTheme.typography.labelSmall,
                         fontWeight = FontWeight.Bold,
-                        color = if (slot.slotType == "PRACTICE_MOCK") darkGreen else Color(0xFF0288D1),
+                        color = if (slot.slotType == "PRACTICE_MOCK") darkGreen else Color(0xFF00658F),
                         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
                     )
                 }
@@ -404,14 +404,14 @@ private fun SlotCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Surface(
-                    shape = RoundedCornerShape(8.dp),
-                    color = if (slot.seatsRemaining > 3) Color(0xFFE8F5E9) else Color(0xFFFFEBEE)
+                    shape = RoundedCornerShape(10.dp),
+                    color = if (slot.seatsRemaining > 3) Color(0xFFCDF4E0) else Color(0xFFFFDAD6)
                 ) {
                     Text(
                         text = if (slot.seatsRemaining > 0) "${slot.seatsRemaining} of ${slot.capacity} Seats Available" else "FULLY BOOKED",
                         style = MaterialTheme.typography.labelSmall,
                         fontWeight = FontWeight.Bold,
-                        color = if (slot.seatsRemaining > 3) Color(0xFF2E7D32) else Color(0xFFC62828),
+                        color = if (slot.seatsRemaining > 3) Color(0xFF1B8A5A) else Color(0xFFBA1A1A),
                         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
                     )
                 }
@@ -420,7 +420,7 @@ private fun SlotCard(
                     onClick = onBookClick,
                     enabled = slot.seatsRemaining > 0,
                     colors = ButtonDefaults.buttonColors(containerColor = darkGreen),
-                    shape = RoundedCornerShape(12.dp),
+                    shape = RoundedCornerShape(10.dp),
                     modifier = Modifier.testTag("book_slot_button_${slot.slotId}")
                 ) {
                     Text(

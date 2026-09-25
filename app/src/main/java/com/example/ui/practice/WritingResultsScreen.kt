@@ -118,7 +118,7 @@ fun WritingResultsScreen(
             // Overall Band Hero Banner
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(24.dp),
+                shape = RoundedCornerShape(26.dp),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
             ) {
                 Column(
@@ -129,7 +129,7 @@ fun WritingResultsScreen(
                 ) {
                     Box(
                         modifier = Modifier
-                            .clip(RoundedCornerShape(12.dp))
+                            .clip(RoundedCornerShape(10.dp))
                             .background(MaterialTheme.colorScheme.primary)
                             .padding(horizontal = 12.dp, vertical = 4.dp)
                     ) {
@@ -167,7 +167,7 @@ fun WritingResultsScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Surface(
-                            shape = RoundedCornerShape(12.dp),
+                            shape = RoundedCornerShape(10.dp),
                             color = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f)
                         ) {
                             Text(
@@ -184,7 +184,7 @@ fun WritingResultsScreen(
                         val mins = attempt.timeTakenSeconds / 60
                         val secs = attempt.timeTakenSeconds % 60
                         Surface(
-                            shape = RoundedCornerShape(12.dp),
+                            shape = RoundedCornerShape(10.dp),
                             color = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f)
                         ) {
                             Text(
@@ -281,9 +281,9 @@ private fun CriterionCard(criterion: WritingCriterionScore) {
             .border(
                 width = 1.dp,
                 color = MaterialTheme.colorScheme.outlineVariant,
-                shape = RoundedCornerShape(16.dp)
+                shape = RoundedCornerShape(20.dp)
             ),
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
@@ -294,7 +294,7 @@ private fun CriterionCard(criterion: WritingCriterionScore) {
             ) {
                 // Mono-label style tag for criterion
                 Surface(
-                    shape = RoundedCornerShape(8.dp),
+                    shape = RoundedCornerShape(10.dp),
                     color = MaterialTheme.colorScheme.secondaryContainer
                 ) {
                     Text(

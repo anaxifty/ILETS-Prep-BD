@@ -27,7 +27,9 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-val DarkFeatureBandColor = Color(0xFF003C33)
+// Feature-band color is resolved inside composables (Emerald Focus brand primary).
+val DarkFeatureBandColor: androidx.compose.ui.graphics.Color
+  @Composable get() = MaterialTheme.colorScheme.primary
 
 @Composable
 fun MockExamListScreen(
@@ -181,7 +183,7 @@ fun MockExamListScreen(
                                             viewModel.startOrResumeMockExam(exam)
                                             onStartExam(exam)
                                         },
-                                        shape = RoundedCornerShape(12.dp)
+                                        shape = RoundedCornerShape(10.dp)
                                     ) {
                                         Text("Resume")
                                     }
@@ -253,7 +255,7 @@ fun MockExamCard(
         modifier = modifier
             .fillMaxWidth()
             .testTag("mock_exam_card_${exam.id}"),
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
@@ -263,7 +265,7 @@ fun MockExamCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Surface(
-                    shape = RoundedCornerShape(8.dp),
+                    shape = RoundedCornerShape(10.dp),
                     color = if (exam.examType == "WEEKLY") MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.secondaryContainer
                 ) {
                     Text(
@@ -276,7 +278,7 @@ fun MockExamCard(
                 }
 
                 Surface(
-                    shape = RoundedCornerShape(8.dp),
+                    shape = RoundedCornerShape(10.dp),
                     color = MaterialTheme.colorScheme.surface
                 ) {
                     Text(
@@ -332,7 +334,7 @@ fun MockExamCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .testTag("start_mock_exam_btn_${exam.id}"),
-                shape = RoundedCornerShape(12.dp),
+                shape = RoundedCornerShape(10.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = if (isCurrentActive) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.primary
                 )
@@ -363,7 +365,7 @@ fun PastMockResultCard(
             .fillMaxWidth()
             .clickable { onClick() }
             .testTag("past_result_card_${attempt.attemptId}"),
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
     ) {
         Row(
@@ -400,7 +402,7 @@ fun PastMockResultCard(
             Box(
                 modifier = Modifier
                     .size(54.dp)
-                    .clip(RoundedCornerShape(12.dp))
+                    .clip(RoundedCornerShape(10.dp))
                     .background(DarkFeatureBandColor),
                 contentAlignment = Alignment.Center
             ) {

@@ -18,8 +18,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
@@ -27,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.data.models.UserProfile
 import com.example.data.repository.UserPreferencesRepository
+import com.example.ui.theme.AmberGold
 
 @Composable
 fun HomeScreen(
@@ -51,7 +56,7 @@ fun HomeScreen(
                 .verticalScroll(rememberScrollState())
                 .padding(horizontal = 20.dp, vertical = 16.dp)
         ) {
-            // Header Bar - Geometric Balance Aesthetic
+            // Header Bar - Emerald Focus Aesthetic
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -112,20 +117,64 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Title Banner
-            Text(
-                text = "Target Band ${"%.1f".format(userProfileState.targetBand)} Roadmap",
-                style = MaterialTheme.typography.headlineMedium.copy(
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 28.sp,
-                    letterSpacing = (-0.5).sp
-                ),
-                color = MaterialTheme.colorScheme.onBackground
-            )
+            // ===== HERO: Goal-gradient band progress card (Emerald Focus) =====
+            val baseline = userProfileState.overallStartingBand
+            val target = userProfileState.targetBand
+            val latestAvg = listOf(
+                userProfileState.readingBand,
+                userProfileState.listeningBand,
+                userProfileState.writingBand,
+                userProfileState.speakingBand
+            ).filter { it > 0 }.average().takeIf { it > 0 } ?: baseline
+            val progress = if (target > baseline) {
+                ((latestAvg - baseline) / (target - baseline)).toFloat().coerceIn(0f, 1f)
+            } else 0f
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .testTag("band_progress_hero_card"),
+                shape = RoundedCornerShape(26.dp),
+                elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(
+                            Brush.linearGradient(
+                                colors = listOf(
+                                    MaterialTheme.colorScheme.primary,
+                                    MaterialTheme.colorScheme.secondary
+                                )
+                            )
+                        )
+                        .padding(20.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    BandProgressRing(progress = progress)
+                    Spacer(modifier = Modifier.width(18.dp))
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = "Target Band ${"%.1f".format(target)} Roadmap",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = if (progress >= 1f)
+                                "Goal reached — keep it sharp! 🏆"
+                            else
+                                "Now Band ${"%.1f".format(latestAvg)} • +${"%.1f".format(maxOf(0.0, target - latestAvg))} to go. You're ${(progress * 100).toInt()}% there.",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = Color.White.copy(alpha = 0.85f)
+                        )
+                    }
+                }
+            }
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Grid Cards - Geometric Balance Style (D3E4FF & E1E2EC Container Cards)
+            // Grid Cards - Emerald Focus (Mint & Paper Container Cards)
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -135,9 +184,9 @@ fun HomeScreen(
                     modifier = Modifier
                         .weight(1f)
                         .height(150.dp)
-                        .clip(RoundedCornerShape(24.dp))
+                        .clip(RoundedCornerShape(26.dp))
                         .testTag("target_band_card"),
-                    shape = RoundedCornerShape(24.dp),
+                    shape = RoundedCornerShape(26.dp),
                     colors = CardDefaults.cardColors(
                         containerColor = MaterialTheme.colorScheme.primaryContainer
                     )
@@ -184,9 +233,9 @@ fun HomeScreen(
                     modifier = Modifier
                         .weight(1f)
                         .height(150.dp)
-                        .clip(RoundedCornerShape(24.dp))
+                        .clip(RoundedCornerShape(26.dp))
                         .testTag("milestone_card"),
-                    shape = RoundedCornerShape(24.dp),
+                    shape = RoundedCornerShape(26.dp),
                     colors = CardDefaults.cardColors(
                         containerColor = MaterialTheme.colorScheme.secondaryContainer
                     )
@@ -238,9 +287,9 @@ fun HomeScreen(
                     .border(
                         width = 1.dp,
                         color = MaterialTheme.colorScheme.outline,
-                        shape = RoundedCornerShape(24.dp)
+                        shape = RoundedCornerShape(26.dp)
                     ),
-                shape = RoundedCornerShape(24.dp),
+                shape = RoundedCornerShape(26.dp),
                 colors = CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.surface
                 )
@@ -269,9 +318,9 @@ fun HomeScreen(
 
                     Box(
                         modifier = Modifier
-                            .clip(RoundedCornerShape(16.dp))
+                            .clip(RoundedCornerShape(20.dp))
                             .background(MaterialTheme.colorScheme.surfaceVariant)
-                            .border(1.dp, MaterialTheme.colorScheme.outlineVariant, RoundedCornerShape(16.dp))
+                            .border(1.dp, MaterialTheme.colorScheme.outlineVariant, RoundedCornerShape(20.dp))
                             .padding(horizontal = 14.dp, vertical = 8.dp)
                     ) {
                         Text(
@@ -286,6 +335,77 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
+            // ===== Section: Your 4 Skills (chunked navigation, Miller's Law) =====
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Practice your 4 skills",
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+
+                TextButton(
+                    onClick = onNavigateToPractice,
+                    modifier = Modifier.testTag("open_practice_hub_button")
+                ) {
+                    Text(
+                        text = "Practice Hub →",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.primary,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                SkillProgressRow(
+                    name = "Reading",
+                    icon = Icons.Default.MenuBook,
+                    currentBand = userProfileState.readingBand,
+                    targetBand = userProfileState.targetBand,
+                    onClick = onNavigateToPractice
+                )
+                SkillProgressRow(
+                    name = "Listening",
+                    icon = Icons.Default.Headphones,
+                    currentBand = userProfileState.listeningBand,
+                    targetBand = userProfileState.targetBand,
+                    onClick = onNavigateToPractice
+                )
+                SkillProgressRow(
+                    name = "Writing",
+                    icon = Icons.Default.EditNote,
+                    currentBand = userProfileState.writingBand,
+                    targetBand = userProfileState.targetBand,
+                    onClick = onNavigateToPractice
+                )
+                SkillProgressRow(
+                    name = "Speaking",
+                    icon = Icons.Default.Mic,
+                    currentBand = userProfileState.speakingBand,
+                    targetBand = userProfileState.targetBand,
+                    onClick = onNavigateToPractice
+                )
+            }
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // ===== Section: Level up & book in person =====
+            Text(
+                text = "Level up & book in person",
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onBackground
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
             // Video Lessons Passive Learning Card
             Card(
                 modifier = Modifier
@@ -294,10 +414,10 @@ fun HomeScreen(
                     .border(
                         width = 1.dp,
                         color = MaterialTheme.colorScheme.outlineVariant,
-                        shape = RoundedCornerShape(24.dp)
+                        shape = RoundedCornerShape(26.dp)
                     )
                     .testTag("video_lessons_banner_card"),
-                shape = RoundedCornerShape(24.dp),
+                shape = RoundedCornerShape(26.dp),
                 colors = CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.secondaryContainer
                 )
@@ -316,7 +436,7 @@ fun HomeScreen(
                         Box(
                             modifier = Modifier
                                 .size(48.dp)
-                                .clip(RoundedCornerShape(16.dp))
+                                .clip(RoundedCornerShape(20.dp))
                                 .background(MaterialTheme.colorScheme.primary),
                             contentAlignment = Alignment.Center
                         ) {
@@ -362,9 +482,9 @@ fun HomeScreen(
                     .fillMaxWidth()
                     .clickable { onNavigateToMockExams() }
                     .testTag("mock_exam_banner_card"),
-                shape = RoundedCornerShape(24.dp),
+                shape = RoundedCornerShape(26.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = Color(0xFF003C33)
+                    containerColor = MaterialTheme.colorScheme.primary
                 )
             ) {
                 Row(
@@ -381,7 +501,7 @@ fun HomeScreen(
                         Box(
                             modifier = Modifier
                                 .size(48.dp)
-                                .clip(RoundedCornerShape(16.dp))
+                                .clip(RoundedCornerShape(20.dp))
                                 .background(Color.White.copy(alpha = 0.15f)),
                             contentAlignment = Alignment.Center
                         ) {
@@ -427,7 +547,7 @@ fun HomeScreen(
                     .fillMaxWidth()
                     .clickable { onNavigateToCenterLocator() }
                     .testTag("partner_center_locator_home_card"),
-                shape = RoundedCornerShape(24.dp),
+                shape = RoundedCornerShape(26.dp),
                 colors = CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.surfaceVariant
                 ),
@@ -447,8 +567,8 @@ fun HomeScreen(
                         Box(
                             modifier = Modifier
                                 .size(48.dp)
-                                .clip(RoundedCornerShape(16.dp))
-                                .background(Color(0xFF003C33)),
+                                .clip(RoundedCornerShape(20.dp))
+                                .background(MaterialTheme.colorScheme.primary),
                             contentAlignment = Alignment.Center
                         ) {
                             Icon(
@@ -479,85 +599,24 @@ fun HomeScreen(
                     Icon(
                         imageVector = Icons.Default.ArrowForward,
                         contentDescription = "Find Center",
-                        tint = Color(0xFF003C33),
+                        tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(20.dp)
                     )
                 }
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-            // 4 Skill Cards Section
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "Skill Breakdown",
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-
-                TextButton(
-                    onClick = onNavigateToPractice,
-                    modifier = Modifier.testTag("open_practice_hub_button")
-                ) {
-                    Text(
-                        text = "Open Practice Hub →",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.primary,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-            }
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                SkillProgressRow(
-                    name = "Reading (Unlocked)",
-                    icon = Icons.Default.MenuBook,
-                    currentBand = userProfileState.readingBand,
-                    targetBand = userProfileState.targetBand,
-                    onClick = onNavigateToPractice
-                )
-                SkillProgressRow(
-                    name = "Listening (Unlocked)",
-                    icon = Icons.Default.Headphones,
-                    currentBand = userProfileState.listeningBand,
-                    targetBand = userProfileState.targetBand,
-                    onClick = onNavigateToPractice
-                )
-                SkillProgressRow(
-                    name = "Writing (Unlocked)",
-                    icon = Icons.Default.EditNote,
-                    currentBand = userProfileState.writingBand,
-                    targetBand = userProfileState.targetBand,
-                    onClick = onNavigateToPractice
-                )
-                SkillProgressRow(
-                    name = "Speaking (Unlocked)",
-                    icon = Icons.Default.Mic,
-                    currentBand = userProfileState.speakingBand,
-                    targetBand = userProfileState.targetBand,
-                    onClick = onNavigateToPractice
-                )
-            }
-
-            Spacer(modifier = Modifier.height(24.dp))
-
-            // Partner Coaching Center Mock Test Banner
+            // Partner Coaching Center info strip (replaces duplicate locator card)
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
                     .border(
                         width = 1.dp,
                         color = MaterialTheme.colorScheme.outline,
-                        shape = RoundedCornerShape(24.dp)
+                        shape = RoundedCornerShape(26.dp)
                     ),
-                shape = RoundedCornerShape(24.dp),
+                shape = RoundedCornerShape(26.dp),
                 colors = CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.surfaceVariant
                 )
@@ -565,14 +624,15 @@ fun HomeScreen(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
+                        .clickable { onNavigateToCenterLocator() }
                         .padding(20.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Box(
                         modifier = Modifier
                             .size(48.dp)
-                            .clip(RoundedCornerShape(16.dp))
-                            .background(MaterialTheme.colorScheme.primary),
+                            .clip(RoundedCornerShape(20.dp))
+                            .background(MaterialTheme.colorScheme.tertiaryContainer),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
@@ -603,6 +663,42 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
         }
+    }
+}
+
+@Composable
+fun BandProgressRing(progress: Float) {
+    // Goal-gradient effect: seeing how close you are to the target accelerates effort.
+    val trackColor = Color.White.copy(alpha = 0.25f)
+    val arcColor = AmberGold
+    Box(
+        modifier = Modifier.size(64.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        androidx.compose.foundation.Canvas(modifier = Modifier.fillMaxSize()) {
+            val stroke = 7.dp.toPx()
+            val inset = stroke / 2
+            drawArc(
+                color = trackColor,
+                startAngle = 0f, sweepAngle = 360f, useCenter = false,
+                style = Stroke(width = stroke, cap = StrokeCap.Round),
+                topLeft = androidx.compose.ui.geometry.Offset(inset, inset),
+                size = Size(size.width - stroke, size.height - stroke)
+            )
+            drawArc(
+                color = arcColor,
+                startAngle = -90f, sweepAngle = 360f * progress.coerceIn(0.02f, 1f), useCenter = false,
+                style = Stroke(width = stroke, cap = StrokeCap.Round),
+                topLeft = androidx.compose.ui.geometry.Offset(inset, inset),
+                size = Size(size.width - stroke, size.height - stroke)
+            )
+        }
+        Text(
+            text = "${(progress * 100).toInt()}%",
+            style = MaterialTheme.typography.titleSmall,
+            fontWeight = FontWeight.ExtraBold,
+            color = Color.White
+        )
     }
 }
 
@@ -665,6 +761,31 @@ fun SkillProgressRow(
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
+                    Spacer(modifier = Modifier.height(6.dp))
+                    // Mini band progress bar (immediate visual feedback loop)
+                    val frac = if (targetBand > 0) (currentBand / targetBand).toFloat().coerceIn(0f, 1f) else 0f
+                    Box(
+                        modifier = Modifier
+                            .width(150.dp)
+                            .height(6.dp)
+                            .clip(RoundedCornerShape(10.dp))
+                            .background(MaterialTheme.colorScheme.surfaceVariant)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth(frac)
+                                .height(6.dp)
+                                .clip(RoundedCornerShape(10.dp))
+                                .background(
+                                    Brush.horizontalGradient(
+                                        colors = listOf(
+                                            MaterialTheme.colorScheme.primary,
+                                            MaterialTheme.colorScheme.secondary
+                                        )
+                                    )
+                                )
+                        )
+                    }
                 }
             }
 
@@ -673,7 +794,7 @@ fun SkillProgressRow(
             val gapText = if (gap <= 0) "Goal Reached" else "+${"%.1f".format(gap)} needed"
             Box(
                 modifier = Modifier
-                    .clip(RoundedCornerShape(12.dp))
+                    .clip(RoundedCornerShape(10.dp))
                     .background(
                         if (gap <= 0) MaterialTheme.colorScheme.primaryContainer
                         else MaterialTheme.colorScheme.surfaceVariant

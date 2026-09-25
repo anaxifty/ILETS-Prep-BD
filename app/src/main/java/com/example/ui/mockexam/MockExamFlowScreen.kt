@@ -138,7 +138,7 @@ fun MockExamFlowScreen(
 
                             // Continuous Live Timer / Grace Timer Badge
                             Surface(
-                                shape = RoundedCornerShape(12.dp),
+                                shape = RoundedCornerShape(10.dp),
                                 color = if (isOfficialTimeExpired) MaterialTheme.colorScheme.error else Color.White.copy(alpha = 0.15f)
                             ) {
                                 Row(
@@ -339,10 +339,10 @@ fun SkillStepPill(
 ) {
     Surface(
         modifier = modifier,
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(10.dp),
         color = when {
             isCurrent -> MaterialTheme.colorScheme.primary
-            isDone -> Color(0xFF007A60)
+            isDone -> Color(0xFF1B8A5A)
             else -> Color.White.copy(alpha = 0.2f)
         }
     ) {
@@ -422,7 +422,7 @@ fun MockTransitionBreakScreen(
 
         Card(
             modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(16.dp),
+            shape = RoundedCornerShape(20.dp),
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
         ) {
             Column(
@@ -464,7 +464,7 @@ fun MockTransitionBreakScreen(
                 .fillMaxWidth()
                 .height(52.dp)
                 .testTag("begin_next_section_btn"),
-            shape = RoundedCornerShape(12.dp)
+            shape = RoundedCornerShape(10.dp)
         ) {
             Text(
                 text = "Begin $nextSectionName Section Now",
@@ -508,7 +508,7 @@ fun MockListeningSection(
 
         Card(
             modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(12.dp),
+            shape = RoundedCornerShape(10.dp),
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
         ) {
             Row(
@@ -539,7 +539,7 @@ fun MockListeningSection(
         questions.forEach { question ->
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(12.dp),
+                shape = RoundedCornerShape(10.dp),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
@@ -553,7 +553,7 @@ fun MockListeningSection(
                     if (!question.formContext.isNullOrEmpty()) {
                         Spacer(modifier = Modifier.height(8.dp))
                         Surface(
-                            shape = RoundedCornerShape(8.dp),
+                            shape = RoundedCornerShape(10.dp),
                             color = MaterialTheme.colorScheme.surfaceVariant
                         ) {
                             Text(
@@ -613,7 +613,7 @@ fun MockListeningSection(
                 .fillMaxWidth()
                 .height(50.dp)
                 .testTag("submit_listening_section_btn"),
-            shape = RoundedCornerShape(12.dp)
+            shape = RoundedCornerShape(10.dp)
         ) {
             Text("Submit Listening & Proceed to Reading", fontWeight = FontWeight.Bold)
         }
@@ -654,7 +654,7 @@ fun MockReadingSection(
         // Passage card
         Card(
             modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(12.dp),
+            shape = RoundedCornerShape(10.dp),
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
@@ -677,7 +677,7 @@ fun MockReadingSection(
         questions.forEach { question ->
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(12.dp),
+                shape = RoundedCornerShape(10.dp),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
@@ -735,7 +735,7 @@ fun MockReadingSection(
                 .fillMaxWidth()
                 .height(50.dp)
                 .testTag("submit_reading_section_btn"),
-            shape = RoundedCornerShape(12.dp)
+            shape = RoundedCornerShape(10.dp)
         ) {
             Text("Submit Reading & Proceed to Writing", fontWeight = FontWeight.Bold)
         }
@@ -779,7 +779,7 @@ fun MockWritingSection(
 
         Card(
             modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(12.dp),
+            shape = RoundedCornerShape(10.dp),
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
@@ -810,7 +810,7 @@ fun MockWritingSection(
             )
 
             Surface(
-                shape = RoundedCornerShape(8.dp),
+                shape = RoundedCornerShape(10.dp),
                 color = if (wordCount >= (task?.targetWordCount ?: 250)) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceVariant
             ) {
                 Text(
@@ -831,7 +831,7 @@ fun MockWritingSection(
                 .height(260.dp)
                 .testTag("mock_writing_essay_input"),
             placeholder = { Text("Write your full essay here...") },
-            shape = RoundedCornerShape(12.dp)
+            shape = RoundedCornerShape(10.dp)
         )
 
         Button(
@@ -840,7 +840,7 @@ fun MockWritingSection(
                 .fillMaxWidth()
                 .height(50.dp)
                 .testTag("submit_writing_section_btn"),
-            shape = RoundedCornerShape(12.dp)
+            shape = RoundedCornerShape(10.dp)
         ) {
             Text("Submit Writing & Proceed to Speaking", fontWeight = FontWeight.Bold)
         }
@@ -880,7 +880,7 @@ fun MockSpeakingSection(
 
         Card(
             modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(12.dp),
+            shape = RoundedCornerShape(10.dp),
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
@@ -914,7 +914,7 @@ fun MockSpeakingSection(
         // Record Audio Simulation Component
         Card(
             modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(16.dp),
+            shape = RoundedCornerShape(20.dp),
             colors = CardDefaults.cardColors(
                 containerColor = if (isRecorded) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface
             )
@@ -960,7 +960,7 @@ fun MockSpeakingSection(
                 .fillMaxWidth()
                 .height(52.dp)
                 .testTag("finish_full_mock_exam_btn"),
-            shape = RoundedCornerShape(12.dp),
+            shape = RoundedCornerShape(10.dp),
             colors = ButtonDefaults.buttonColors(containerColor = DarkFeatureBandColor)
         ) {
             Text(

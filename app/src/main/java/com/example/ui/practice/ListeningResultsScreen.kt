@@ -63,9 +63,9 @@ fun ListeningResultsScreen(
                     .border(
                         width = 1.dp,
                         color = MaterialTheme.colorScheme.primary,
-                        shape = RoundedCornerShape(24.dp)
+                        shape = RoundedCornerShape(26.dp)
                     ),
-                shape = RoundedCornerShape(24.dp),
+                shape = RoundedCornerShape(26.dp),
                 colors = CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer
                 )
@@ -185,7 +185,7 @@ fun ListeningResultsScreen(
                     .fillMaxWidth()
                     .height(50.dp)
                     .testTag("back_to_hub_button"),
-                shape = RoundedCornerShape(12.dp)
+                shape = RoundedCornerShape(10.dp)
             ) {
                 Text("Return to Practice Hub", fontWeight = FontWeight.Bold)
             }
@@ -206,10 +206,10 @@ private fun ListeningQuestionResultCard(
             .fillMaxWidth()
             .border(
                 width = 1.dp,
-                color = if (isCorrect) Color(0xFF4CAF50) else MaterialTheme.colorScheme.error,
-                shape = RoundedCornerShape(16.dp)
+                color = if (isCorrect) Color(0xFF1B8A5A) else MaterialTheme.colorScheme.error,
+                shape = RoundedCornerShape(20.dp)
             ),
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
     ) {
         Column(
@@ -224,7 +224,7 @@ private fun ListeningQuestionResultCard(
             ) {
                 Box(
                     modifier = Modifier
-                        .clip(RoundedCornerShape(8.dp))
+                        .clip(RoundedCornerShape(10.dp))
                         .background(MaterialTheme.colorScheme.surfaceVariant)
                         .padding(horizontal = 8.dp, vertical = 4.dp)
                 ) {
@@ -238,15 +238,15 @@ private fun ListeningQuestionResultCard(
 
                 Box(
                     modifier = Modifier
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(if (isCorrect) Color(0xFFE8F5E9) else Color(0xFFFFEBEE))
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(if (isCorrect) Color(0xFFCDF4E0) else Color(0xFFFFDAD6))
                         .padding(horizontal = 10.dp, vertical = 4.dp)
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
                             imageVector = if (isCorrect) Icons.Default.CheckCircle else Icons.Default.Cancel,
                             contentDescription = null,
-                            tint = if (isCorrect) Color(0xFF2E7D32) else Color(0xFFC62828),
+                            tint = if (isCorrect) Color(0xFF1B8A5A) else Color(0xFFBA1A1A),
                             modifier = Modifier.size(16.dp)
                         )
                         Spacer(modifier = Modifier.width(4.dp))
@@ -254,7 +254,7 @@ private fun ListeningQuestionResultCard(
                             text = if (isCorrect) "Correct" else "Incorrect",
                             style = MaterialTheme.typography.labelSmall,
                             fontWeight = FontWeight.Bold,
-                            color = if (isCorrect) Color(0xFF2E7D32) else Color(0xFFC62828)
+                            color = if (isCorrect) Color(0xFF1B8A5A) else Color(0xFFBA1A1A)
                         )
                     }
                 }
@@ -280,7 +280,7 @@ private fun ListeningQuestionResultCard(
                 Text(
                     text = "Your Answer: ${if (userAnswer.isEmpty()) "No answer provided" else userAnswer}",
                     style = MaterialTheme.typography.bodySmall,
-                    color = if (isCorrect) Color(0xFF2E7D32) else MaterialTheme.colorScheme.error,
+                    color = if (isCorrect) Color(0xFF1B8A5A) else MaterialTheme.colorScheme.error,
                     fontWeight = FontWeight.SemiBold
                 )
 
@@ -289,7 +289,7 @@ private fun ListeningQuestionResultCard(
                     Text(
                         text = "Correct Answer: ${question.correctAnswer}",
                         style = MaterialTheme.typography.bodySmall,
-                        color = Color(0xFF2E7D32),
+                        color = Color(0xFF1B8A5A),
                         fontWeight = FontWeight.Bold
                     )
                 }

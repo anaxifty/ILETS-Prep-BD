@@ -78,7 +78,7 @@ fun ReadingPracticeScreen(
                     }
                 },
                 actions = {
-                    // Timer Chip - Geometric Balance Mono Label Style
+                    // Timer Chip - Emerald Focus Mono Label Style
                     val minutes = uiState.timeRemainingSeconds / 60
                     val seconds = uiState.timeRemainingSeconds % 60
                     val timeString = String.format("%02d:%02d", minutes, seconds)
@@ -363,7 +363,7 @@ private fun QuestionCard(
             ) {
                 Box(
                     modifier = Modifier
-                        .clip(RoundedCornerShape(8.dp))
+                        .clip(RoundedCornerShape(10.dp))
                         .background(MaterialTheme.colorScheme.primaryContainer)
                         .padding(horizontal = 10.dp, vertical = 4.dp)
                 ) {
@@ -377,7 +377,7 @@ private fun QuestionCard(
 
                 Box(
                     modifier = Modifier
-                        .clip(RoundedCornerShape(8.dp))
+                        .clip(RoundedCornerShape(10.dp))
                         .background(MaterialTheme.colorScheme.surfaceVariant)
                         .padding(horizontal = 8.dp, vertical = 4.dp)
                 ) {

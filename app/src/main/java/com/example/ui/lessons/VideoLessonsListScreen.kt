@@ -199,7 +199,7 @@ fun VideoLessonsListScreen(
                         item {
                             Card(
                                 modifier = Modifier.fillMaxWidth(),
-                                shape = RoundedCornerShape(16.dp),
+                                shape = RoundedCornerShape(20.dp),
                                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer)
                             ) {
                                 Row(
@@ -291,7 +291,7 @@ fun LessonRowCard(
             .fillMaxWidth()
             .clickable { onSelect() }
             .testTag("video_lesson_card_${lesson.id}"),
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(10.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant
         )
@@ -305,7 +305,7 @@ fun LessonRowCard(
                 Box(
                     modifier = Modifier
                         .size(width = 110.dp, height = 80.dp)
-                        .clip(RoundedCornerShape(22.dp))
+                        .clip(RoundedCornerShape(20.dp))
                         .background(MaterialTheme.colorScheme.surface)
                 ) {
                     if (lesson.thumbnailUrl.isNotEmpty()) {
@@ -456,7 +456,7 @@ fun LessonRowCard(
                 when {
                     isCompleted -> {
                         Surface(
-                            shape = RoundedCornerShape(12.dp),
+                            shape = RoundedCornerShape(10.dp),
                             color = MaterialTheme.colorScheme.primaryContainer
                         ) {
                             Row(
@@ -481,7 +481,7 @@ fun LessonRowCard(
                     }
                     progressPercent > 0 -> {
                         Surface(
-                            shape = RoundedCornerShape(12.dp),
+                            shape = RoundedCornerShape(10.dp),
                             color = MaterialTheme.colorScheme.secondaryContainer
                         ) {
                             Row(
@@ -506,7 +506,7 @@ fun LessonRowCard(
                     }
                     else -> {
                         Surface(
-                            shape = RoundedCornerShape(12.dp),
+                            shape = RoundedCornerShape(10.dp),
                             color = MaterialTheme.colorScheme.surface
                         ) {
                             Text(
@@ -530,7 +530,7 @@ fun LessonRowCard(
                                 .height(32.dp)
                                 .testTag("download_lesson_button_${lesson.id}"),
                             contentPadding = PaddingValues(horizontal = 10.dp, vertical = 0.dp),
-                            shape = RoundedCornerShape(16.dp)
+                            shape = RoundedCornerShape(20.dp)
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Download,
@@ -549,7 +549,7 @@ fun LessonRowCard(
                     DownloadStatus.DOWNLOADING -> {
                         val percent = downloadState?.progressPercent ?: 0
                         Surface(
-                            shape = RoundedCornerShape(16.dp),
+                            shape = RoundedCornerShape(20.dp),
                             color = MaterialTheme.colorScheme.primaryContainer
                         ) {
                             Row(
@@ -576,7 +576,7 @@ fun LessonRowCard(
                     DownloadStatus.DOWNLOADED -> {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Surface(
-                                shape = RoundedCornerShape(16.dp),
+                                shape = RoundedCornerShape(20.dp),
                                 color = MaterialTheme.colorScheme.tertiaryContainer
                             ) {
                                 Row(
@@ -618,7 +618,7 @@ fun LessonRowCard(
                             onClick = onDownload,
                             modifier = Modifier.height(32.dp),
                             contentPadding = PaddingValues(horizontal = 8.dp, vertical = 0.dp),
-                            shape = RoundedCornerShape(16.dp),
+                            shape = RoundedCornerShape(20.dp),
                             colors = ButtonDefaults.outlinedButtonColors(
                                 contentColor = MaterialTheme.colorScheme.error
                             )

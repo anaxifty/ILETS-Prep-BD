@@ -49,7 +49,7 @@ fun CenterLocatorScreen(
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
-    val darkGreen = Color(0xFF003C33)
+    val darkGreen = MaterialTheme.colorScheme.primary // Emerald Focus brand green
 
     var showMapCanvas by remember { mutableStateOf(true) }
 
@@ -86,7 +86,7 @@ fun CenterLocatorScreen(
                     Icon(
                         imageVector = Icons.Default.Bookmark,
                         contentDescription = null,
-                        tint = Color(0xFF2E7D32)
+                        tint = Color(0xFF1B8A5A)
                     )
                 },
                 title = { Text("Booking Confirmed!") },
@@ -210,7 +210,7 @@ fun CenterLocatorScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .testTag("official_exam_disclaimer_banner"),
-                color = Color(0xFFFFF3E0)
+                color = Color(0xFFFFE5B0)
             ) {
                 Row(
                     modifier = Modifier
@@ -221,7 +221,7 @@ fun CenterLocatorScreen(
                     Icon(
                         imageVector = Icons.Default.Info,
                         contentDescription = "Notice",
-                        tint = Color(0xFFE65100),
+                        tint = Color(0xFF8A5A00),
                         modifier = Modifier.size(20.dp)
                     )
                     Spacer(modifier = Modifier.width(10.dp))
@@ -230,12 +230,12 @@ fun CenterLocatorScreen(
                             text = "PRACTICE MOCK SITTINGS ONLY",
                             style = MaterialTheme.typography.labelSmall,
                             fontWeight = FontWeight.Bold,
-                            color = Color(0xFFE65100)
+                            color = Color(0xFF8A5A00)
                         )
                         Text(
                             text = "This locator books practice mock tests and coaching at partner centers. Does NOT register for official IELTS exam.",
                             style = MaterialTheme.typography.bodySmall,
-                            color = Color(0xFF4E342E)
+                            color = Color(0xFF45524B)
                         )
                     }
                     TextButton(
@@ -250,13 +250,13 @@ fun CenterLocatorScreen(
                                 text = "Official IDP",
                                 style = MaterialTheme.typography.labelSmall,
                                 fontWeight = FontWeight.Bold,
-                                color = Color(0xFFE65100)
+                                color = Color(0xFF8A5A00)
                             )
                             Spacer(modifier = Modifier.width(2.dp))
                             Icon(
                                 imageVector = Icons.Default.OpenInNew,
                                 contentDescription = null,
-                                tint = Color(0xFFE65100),
+                                tint = Color(0xFF8A5A00),
                                 modifier = Modifier.size(12.dp)
                             )
                         }
@@ -283,7 +283,7 @@ fun CenterLocatorScreen(
                         )
                     },
                     singleLine = true,
-                    shape = RoundedCornerShape(16.dp),
+                    shape = RoundedCornerShape(20.dp),
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedContainerColor = Color.White,
                         unfocusedContainerColor = Color.White
@@ -319,7 +319,7 @@ fun CenterLocatorScreen(
                     .height(160.dp)
                     .testTag("google_maps_canvas_card"),
                 shape = RoundedCornerShape(20.dp),
-                colors = CardDefaults.cardColors(containerColor = Color(0xFFE0F2F1))
+                colors = CardDefaults.cardColors(containerColor = Color(0xFFBFF1D8))
             ) {
                 Box(modifier = Modifier.fillMaxSize()) {
                     // Stylized Map Canvas Graphics
@@ -351,7 +351,7 @@ fun CenterLocatorScreen(
                             }
 
                             Surface(
-                                shape = RoundedCornerShape(12.dp),
+                                shape = RoundedCornerShape(10.dp),
                                 color = darkGreen
                             ) {
                                 Text(
@@ -426,14 +426,14 @@ private fun PartnerCenterCard(
     center: PartnerCenter,
     onClick: () -> Unit
 ) {
-    val darkGreen = Color(0xFF003C33)
+    val darkGreen = MaterialTheme.colorScheme.primary // Emerald Focus brand green
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onClick() }
             .testTag("partner_center_card_${center.id}"),
-        shape = RoundedCornerShape(18.dp),
+        shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
@@ -478,7 +478,7 @@ private fun PartnerCenterCard(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Surface(
-                        shape = RoundedCornerShape(8.dp),
+                        shape = RoundedCornerShape(10.dp),
                         color = darkGreen.copy(alpha = 0.1f)
                     ) {
                         Text(
@@ -494,7 +494,7 @@ private fun PartnerCenterCard(
                         Icon(
                             imageVector = Icons.Default.Star,
                             contentDescription = null,
-                            tint = Color(0xFFF57F17),
+                            tint = Color(0xFFB26A00),
                             modifier = Modifier.size(14.dp)
                         )
                         Spacer(modifier = Modifier.width(2.dp))
