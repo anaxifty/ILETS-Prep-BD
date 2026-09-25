@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-emerald-deep: #00543C;
+    --color-emerald-mid: #00785A;
+    --color-emerald-bright: #6FD6AC;
+    --color-emerald-mint: #BFF1D8;
+    --color-emerald-ink: #002015;
+    --color-amber-gold: #B26A00;
+    --color-amber-container: #FFDFBD;
+    --color-paper-bg: #F5FAF7;
+    --color-paper-card: #F0F5F1;
+    --color-paper-surface: #FBFDFB;
+  }
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  padding: 0;
+}
