@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Emerald Focus: branded pre-launch window (icon psychology: consistent
+         brand exposure from first frame builds trust & recognition). -->
+    <style name="Theme.MyApplication" parent="android:Theme.DeviceDefault.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_brand</item>
+        <item name="android:statusBarColor">@color/emerald_deep</item>
+        <item name="android:navigationBarColor">@color/emerald_ink</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>

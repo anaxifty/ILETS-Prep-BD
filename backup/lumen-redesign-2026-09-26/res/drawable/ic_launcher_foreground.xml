@@ -1,0 +1,22 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Open book (study) with rising amber progress bars (leveling up) -->
+    <!-- left page -->
+    <path android:fillColor="#FFF3FBF6"
+        android:pathData="M52,66 L52,40 C45,35.5 36.5,34.5 27,36.5 L27,62.5 C36.5,60.5 45,61.5 52,66 Z"/>
+    <!-- right page -->
+    <path android:fillColor="#FFFFFFFF"
+        android:pathData="M56,66 L56,40 C63,35.5 71.5,34.5 81,36.5 L81,62.5 C71.5,60.5 63,61.5 56,66 Z"/>
+    <!-- spine shadow -->
+    <path android:fillColor="#FFD8E8DE" android:pathData="M52,40h4v26h-4z"/>
+    <!-- rising progress bars bookmarked on the right page -->
+    <path android:fillColor="#FFFFC266" android:pathData="M62,58 L67,58 L67,49 L62,49 Z"/>
+    <path android:fillColor="#FFFFAB40" android:pathData="M70,58 L75,58 L75,44 L70,44 Z"/>
+    <!-- upward arrow over tallest bar -->
+    <path android:fillColor="#FFFFD9A0" android:pathData="M72.5,33.5 L78.5,41 L75.6,41 L75.6,43.6 L69.4,43.6 L69.4,41 L66.5,41 Z"/>
+    <!-- text lines on left page -->
+    <path android:fillColor="#FFBFE0CE" android:pathData="M32,44h15v2.4h-15z M32,50h15v2.4h-15z M32,56h11v2.4h-11z"/>
+</vector>
