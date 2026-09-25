@@ -1,0 +1,6 @@
+{
+  "name": "IELTS Prep BD",
+  "description": "IELTS exam preparation app for Bangladeshi students with phone OTP auth, skill assessment, practice tests, and center locator.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
