@@ -89,16 +89,16 @@ fun ReadingResultsScreen(
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            // Score Banner Card - Geometric Balance Style
+            // Score Banner Card - Emerald Focus Style
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
                     .border(
                         width = 1.dp,
                         color = MaterialTheme.colorScheme.primary,
-                        shape = RoundedCornerShape(28.dp)
+                        shape = RoundedCornerShape(26.dp)
                     ),
-                shape = RoundedCornerShape(28.dp),
+                shape = RoundedCornerShape(26.dp),
                 colors = CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.surface
                 )
@@ -229,7 +229,7 @@ private fun ResultQuestionItem(
             .fillMaxWidth()
             .border(
                 width = 1.dp,
-                color = if (isCorrect) Color(0xFF4CAF50) else MaterialTheme.colorScheme.error,
+                color = if (isCorrect) Color(0xFF1B8A5A) else MaterialTheme.colorScheme.error,
                 shape = RoundedCornerShape(20.dp)
             ),
         shape = RoundedCornerShape(20.dp),
@@ -250,13 +250,13 @@ private fun ResultQuestionItem(
                         modifier = Modifier
                             .size(28.dp)
                             .clip(CircleShape)
-                            .background(if (isCorrect) Color(0xFFE8F5E9) else MaterialTheme.colorScheme.errorContainer),
+                            .background(if (isCorrect) Color(0xFFCDF4E0) else MaterialTheme.colorScheme.errorContainer),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
                             imageVector = if (isCorrect) Icons.Default.CheckCircle else Icons.Default.Close,
                             contentDescription = null,
-                            tint = if (isCorrect) Color(0xFF2E7D32) else MaterialTheme.colorScheme.error,
+                            tint = if (isCorrect) Color(0xFF1B8A5A) else MaterialTheme.colorScheme.error,
                             modifier = Modifier.size(18.dp)
                         )
                     }
@@ -273,15 +273,15 @@ private fun ResultQuestionItem(
 
                 Box(
                     modifier = Modifier
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(if (isCorrect) Color(0xFFE8F5E9) else MaterialTheme.colorScheme.errorContainer)
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(if (isCorrect) Color(0xFFCDF4E0) else MaterialTheme.colorScheme.errorContainer)
                         .padding(horizontal = 10.dp, vertical = 4.dp)
                 ) {
                     Text(
                         text = if (isCorrect) "CORRECT" else "INCORRECT",
                         style = MaterialTheme.typography.labelSmall,
                         fontWeight = FontWeight.Bold,
-                        color = if (isCorrect) Color(0xFF2E7D32) else MaterialTheme.colorScheme.error
+                        color = if (isCorrect) Color(0xFF1B8A5A) else MaterialTheme.colorScheme.error
                     )
                 }
             }
@@ -300,7 +300,7 @@ private fun ResultQuestionItem(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clip(RoundedCornerShape(12.dp))
+                    .clip(RoundedCornerShape(10.dp))
                     .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
                     .padding(12.dp)
             ) {
@@ -315,7 +315,7 @@ private fun ResultQuestionItem(
                         text = userAnswer.ifEmpty { "(No answer provided)" },
                         style = MaterialTheme.typography.labelSmall,
                         fontWeight = FontWeight.Bold,
-                        color = if (isCorrect) Color(0xFF2E7D32) else MaterialTheme.colorScheme.error
+                        color = if (isCorrect) Color(0xFF1B8A5A) else MaterialTheme.colorScheme.error
                     )
                 }
 
@@ -332,7 +332,7 @@ private fun ResultQuestionItem(
                             text = question.correctAnswer,
                             style = MaterialTheme.typography.labelSmall,
                             fontWeight = FontWeight.Bold,
-                            color = Color(0xFF2E7D32)
+                            color = Color(0xFF1B8A5A)
                         )
                     }
                 }

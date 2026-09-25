@@ -165,7 +165,7 @@ fun WritingPracticeScreen(
                         Column {
                             Box(
                                 modifier = Modifier
-                                    .clip(RoundedCornerShape(8.dp))
+                                    .clip(RoundedCornerShape(10.dp))
                                     .background(MaterialTheme.colorScheme.primaryContainer)
                                     .padding(horizontal = 8.dp, vertical = 2.dp)
                             ) {
@@ -238,7 +238,7 @@ fun WritingPracticeScreen(
 
                             Box(
                                 modifier = Modifier
-                                    .clip(RoundedCornerShape(12.dp))
+                                    .clip(RoundedCornerShape(10.dp))
                                     .background(MaterialTheme.colorScheme.surface)
                                     .padding(horizontal = 8.dp, vertical = 4.dp)
                             ) {
@@ -267,7 +267,7 @@ fun WritingPracticeScreen(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .height(200.dp),
-                                shape = RoundedCornerShape(12.dp)
+                                shape = RoundedCornerShape(10.dp)
                             ) {
                                 AsyncImage(
                                     model = task.imageUrl,
@@ -296,7 +296,7 @@ fun WritingPracticeScreen(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clip(RoundedCornerShape(16.dp))
+                        .clip(RoundedCornerShape(20.dp))
                         .background(MaterialTheme.colorScheme.surfaceVariant)
                         .padding(4.dp)
                 ) {
@@ -306,7 +306,7 @@ fun WritingPracticeScreen(
                     Box(
                         modifier = Modifier
                             .weight(1f)
-                            .clip(RoundedCornerShape(12.dp))
+                            .clip(RoundedCornerShape(10.dp))
                             .background(if (isText) MaterialTheme.colorScheme.surface else Color.Transparent)
                             .clickable { onInputMethodChanged("TEXT") }
                             .padding(vertical = 10.dp)
@@ -333,7 +333,7 @@ fun WritingPracticeScreen(
                     Box(
                         modifier = Modifier
                             .weight(1f)
-                            .clip(RoundedCornerShape(12.dp))
+                            .clip(RoundedCornerShape(10.dp))
                             .background(if (isPhoto) MaterialTheme.colorScheme.surface else Color.Transparent)
                             .clickable { onInputMethodChanged("PHOTO_SCAN") }
                             .padding(vertical = 10.dp)
@@ -375,7 +375,7 @@ fun WritingPracticeScreen(
                                 style = MaterialTheme.typography.bodyMedium
                             )
                         },
-                        shape = RoundedCornerShape(16.dp),
+                        shape = RoundedCornerShape(20.dp),
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedContainerColor = MaterialTheme.colorScheme.surface,
                             unfocusedContainerColor = MaterialTheme.colorScheme.surface
@@ -397,7 +397,7 @@ fun WritingPracticeScreen(
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .height(260.dp)
-                                        .clip(RoundedCornerShape(16.dp))
+                                        .clip(RoundedCornerShape(20.dp))
                                 ) {
                                     AsyncImage(
                                         model = uiState.writingPhotoUri,
@@ -505,7 +505,7 @@ fun WritingPracticeScreen(
                         modifier = Modifier
                             .padding(24.dp)
                             .fillMaxWidth(),
-                        shape = RoundedCornerShape(24.dp),
+                        shape = RoundedCornerShape(26.dp),
                         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
                     ) {
                         Column(

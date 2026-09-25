@@ -246,7 +246,7 @@ fun SpeakingPracticeScreen(
                         Column {
                             Box(
                                 modifier = Modifier
-                                    .clip(RoundedCornerShape(8.dp))
+                                    .clip(RoundedCornerShape(10.dp))
                                     .background(MaterialTheme.colorScheme.primaryContainer)
                                     .padding(horizontal = 8.dp, vertical = 2.dp)
                             ) {
@@ -306,7 +306,7 @@ fun SpeakingPracticeScreen(
                             .fillMaxWidth()
                             .padding(bottom = 16.dp),
                         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
-                        shape = RoundedCornerShape(16.dp)
+                        shape = RoundedCornerShape(20.dp)
                     ) {
                         Row(
                             modifier = Modifier.padding(16.dp),
@@ -345,7 +345,7 @@ fun SpeakingPracticeScreen(
                 // Main Prompt Card
                 Card(
                     modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(24.dp),
+                    shape = RoundedCornerShape(26.dp),
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
                 ) {
                     Column(modifier = Modifier.padding(20.dp)) {
@@ -365,7 +365,7 @@ fun SpeakingPracticeScreen(
                             if (task.partNumber == 1 || task.partNumber == 3) {
                                 val totalQ = if (task.partNumber == 1) task.part1Questions.size else task.part3Questions.size
                                 Surface(
-                                    shape = RoundedCornerShape(12.dp),
+                                    shape = RoundedCornerShape(10.dp),
                                     color = MaterialTheme.colorScheme.surface
                                 ) {
                                     Text(
@@ -532,7 +532,7 @@ fun SpeakingPracticeScreen(
                         modifier = Modifier
                             .padding(24.dp)
                             .fillMaxWidth(),
-                        shape = RoundedCornerShape(24.dp),
+                        shape = RoundedCornerShape(26.dp),
                         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
                     ) {
                         Column(

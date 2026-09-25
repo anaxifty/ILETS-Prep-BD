@@ -29,7 +29,7 @@ fun MyCenterBookingsScreen(
     onBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val darkGreen = Color(0xFF003C33)
+    val darkGreen = MaterialTheme.colorScheme.primary // Emerald Focus brand green
 
     Scaffold(
         topBar = {
@@ -100,8 +100,8 @@ fun MyCenterBookingsScreen(
                     // Disclaimer Notice Box
                     Surface(
                         modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(12.dp),
-                        color = Color(0xFFFFF8E1)
+                        shape = RoundedCornerShape(10.dp),
+                        color = Color(0xFFFFE5B0)
                     ) {
                         Row(
                             modifier = Modifier.padding(12.dp),
@@ -110,14 +110,14 @@ fun MyCenterBookingsScreen(
                             Icon(
                                 imageVector = Icons.Default.Info,
                                 contentDescription = null,
-                                tint = Color(0xFFF57F17),
+                                tint = Color(0xFFB26A00),
                                 modifier = Modifier.size(20.dp)
                             )
                             Spacer(modifier = Modifier.width(10.dp))
                             Text(
                                 text = "Note: These bookings are for practice mock tests at partner centers. They do NOT register you for the official IDP / British Council IELTS exam.",
                                 style = MaterialTheme.typography.labelSmall,
-                                color = Color(0xFF5D4037)
+                                color = Color(0xFF3A2500)
                             )
                         }
                     }
@@ -133,13 +133,13 @@ fun MyCenterBookingsScreen(
 
 @Composable
 private fun BookingCard(booking: CenterBooking) {
-    val darkGreen = Color(0xFF003C33)
+    val darkGreen = MaterialTheme.colorScheme.primary // Emerald Focus brand green
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .testTag("booking_card_${booking.bookingId}"),
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
@@ -150,8 +150,8 @@ private fun BookingCard(booking: CenterBooking) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Surface(
-                    shape = RoundedCornerShape(8.dp),
-                    color = Color(0xFFE8F5E9)
+                    shape = RoundedCornerShape(10.dp),
+                    color = Color(0xFFCDF4E0)
                 ) {
                     Row(
                         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
@@ -160,7 +160,7 @@ private fun BookingCard(booking: CenterBooking) {
                         Icon(
                             imageVector = Icons.Default.CheckCircle,
                             contentDescription = null,
-                            tint = Color(0xFF2E7D32),
+                            tint = Color(0xFF1B8A5A),
                             modifier = Modifier.size(14.dp)
                         )
                         Spacer(modifier = Modifier.width(4.dp))
@@ -168,7 +168,7 @@ private fun BookingCard(booking: CenterBooking) {
                             text = booking.bookingStatus,
                             style = MaterialTheme.typography.labelSmall,
                             fontWeight = FontWeight.Bold,
-                            color = Color(0xFF2E7D32)
+                            color = Color(0xFF1B8A5A)
                         )
                     }
                 }
@@ -244,7 +244,7 @@ private fun BookingCard(booking: CenterBooking) {
                     Icon(
                         imageVector = Icons.Default.Shield,
                         contentDescription = null,
-                        tint = Color(0xFF0288D1),
+                        tint = Color(0xFF00658F),
                         modifier = Modifier.size(16.dp)
                     )
                     Spacer(modifier = Modifier.width(4.dp))

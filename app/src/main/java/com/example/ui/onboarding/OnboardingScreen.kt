@@ -517,7 +517,7 @@ fun SkillSliderCard(
                     Box(
                         modifier = Modifier
                             .size(36.dp)
-                            .clip(RoundedCornerShape(12.dp))
+                            .clip(RoundedCornerShape(10.dp))
                             .background(MaterialTheme.colorScheme.primaryContainer),
                         contentAlignment = Alignment.Center
                     ) {
@@ -542,7 +542,7 @@ fun SkillSliderCard(
                 // Band Tag
                 Box(
                     modifier = Modifier
-                        .clip(RoundedCornerShape(12.dp))
+                        .clip(RoundedCornerShape(10.dp))
                         .background(MaterialTheme.colorScheme.secondaryContainer)
                         .padding(horizontal = 12.dp, vertical = 6.dp)
                 ) {

@@ -90,7 +90,7 @@ fun MockExamResultsScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .testTag("overall_band_feature_card"),
-                    shape = RoundedCornerShape(24.dp),
+                    shape = RoundedCornerShape(26.dp),
                     colors = CardDefaults.cardColors(containerColor = DarkFeatureBandColor)
                 ) {
                     Column(
@@ -149,7 +149,7 @@ fun MockExamResultsScreen(
                         if (delaySeconds > 0) {
                             Surface(
                                 shape = RoundedCornerShape(20.dp),
-                                color = Color(0xFFFFEBEE),
+                                color = Color(0xFFFFDAD6),
                                 modifier = Modifier.testTag("grace_period_used_badge")
                             ) {
                                 Row(
@@ -159,7 +159,7 @@ fun MockExamResultsScreen(
                                     Icon(
                                         imageVector = Icons.Default.Timer,
                                         contentDescription = null,
-                                        tint = Color(0xFFC62828),
+                                        tint = Color(0xFFBA1A1A),
                                         modifier = Modifier.size(16.dp)
                                     )
                                     Spacer(modifier = Modifier.width(6.dp))
@@ -167,7 +167,7 @@ fun MockExamResultsScreen(
                                         text = "Grace Buffer Used: +${delaySeconds}s after time limit",
                                         style = MaterialTheme.typography.labelMedium,
                                         fontWeight = FontWeight.Bold,
-                                        color = Color(0xFFC62828)
+                                        color = Color(0xFFBA1A1A)
                                     )
                                 }
                             }
@@ -230,7 +230,7 @@ fun MockExamResultsScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .testTag("trend_comparison_card"),
-                    shape = RoundedCornerShape(16.dp),
+                    shape = RoundedCornerShape(20.dp),
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
                 ) {
                     Column(modifier = Modifier.padding(20.dp)) {
@@ -286,7 +286,7 @@ fun MockExamResultsScreen(
                                     }
 
                                     Surface(
-                                        shape = RoundedCornerShape(8.dp),
+                                        shape = RoundedCornerShape(10.dp),
                                         color = MaterialTheme.colorScheme.primaryContainer
                                     ) {
                                         Text(
@@ -313,7 +313,7 @@ fun MockExamResultsScreen(
                         .fillMaxWidth()
                         .height(52.dp)
                         .testTag("return_to_mock_list_btn"),
-                    shape = RoundedCornerShape(12.dp)
+                    shape = RoundedCornerShape(10.dp)
                 ) {
                     Text(
                         text = "Return to Mock Exams Dashboard",
@@ -334,7 +334,7 @@ fun SkillScoreTile(
 ) {
     Card(
         modifier = modifier,
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(10.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
     ) {
         Column(

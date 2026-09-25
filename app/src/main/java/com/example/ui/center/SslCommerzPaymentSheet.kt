@@ -45,7 +45,7 @@ fun SslCommerzPaymentSheet(
     var selectedMethod by remember { mutableStateOf("bKash") }
     var isProcessing by remember { mutableStateOf(false) }
 
-    val primaryGreen = Color(0xFF003C33)
+    val primaryGreen = MaterialTheme.colorScheme.primary
 
     ModalBottomSheet(
         onDismissRequest = { if (!isProcessing) onDismiss() },
@@ -70,13 +70,13 @@ fun SslCommerzPaymentSheet(
                         modifier = Modifier
                             .size(36.dp)
                             .clip(CircleShape)
-                            .background(Color(0xFF0288D1).copy(alpha = 0.12f)),
+                            .background(Color(0xFF00658F).copy(alpha = 0.12f)),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
                             imageVector = Icons.Default.Shield,
                             contentDescription = "Secured Payment",
-                            tint = Color(0xFF0288D1),
+                            tint = Color(0xFF00658F),
                             modifier = Modifier.size(20.dp)
                         )
                     }
@@ -114,8 +114,8 @@ fun SslCommerzPaymentSheet(
             // Transaction Summary Card
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(containerColor = Color(0xFFF5F7FA))
+                shape = RoundedCornerShape(20.dp),
+                colors = CardDefaults.cardColors(containerColor = Color(0xFFEFF4F0))
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Row(
@@ -216,8 +216,8 @@ fun SslCommerzPaymentSheet(
             // Disclaimer Banner (Hard Requirement)
             Surface(
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(12.dp),
-                color = Color(0xFFFFF8E1)
+                shape = RoundedCornerShape(10.dp),
+                color = Color(0xFFFFE5B0)
             ) {
                 Row(
                     modifier = Modifier.padding(12.dp),
@@ -226,14 +226,14 @@ fun SslCommerzPaymentSheet(
                     Icon(
                         imageVector = Icons.Default.Lock,
                         contentDescription = null,
-                        tint = Color(0xFFF57F17),
+                        tint = Color(0xFFB26A00),
                         modifier = Modifier.size(18.dp)
                     )
                     Spacer(modifier = Modifier.width(10.dp))
                     Text(
                         text = "Booking is for a practice mock test / coaching sitting at partner center. Does NOT register for official IELTS exam.",
                         style = MaterialTheme.typography.labelSmall,
-                        color = Color(0xFF5D4037)
+                        color = Color(0xFF3A2500)
                     )
                 }
             }
@@ -273,7 +273,7 @@ fun SslCommerzPaymentSheet(
                         .fillMaxWidth()
                         .height(52.dp)
                         .testTag("sslcommerz_pay_now_button"),
-                    shape = RoundedCornerShape(16.dp),
+                    shape = RoundedCornerShape(20.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = primaryGreen)
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -314,14 +314,14 @@ private fun PaymentMethodChip(
     onSelect: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val borderColor = if (isSelected) Color(0xFF003C33) else Color.LightGray
-    val bgColor = if (isSelected) Color(0xFF003C33).copy(alpha = 0.08f) else Color.White
+    val borderColor = if (isSelected) MaterialTheme.colorScheme.primary else Color.LightGray
+    val bgColor = if (isSelected) MaterialTheme.colorScheme.primary.copy(alpha = 0.08f) else Color.White
 
     Surface(
         modifier = modifier
             .clickable { onSelect() }
-            .border(1.5.dp, borderColor, RoundedCornerShape(12.dp)),
-        shape = RoundedCornerShape(12.dp),
+            .border(1.5.dp, borderColor, RoundedCornerShape(10.dp)),
+        shape = RoundedCornerShape(10.dp),
         color = bgColor
     ) {
         Column(
@@ -333,7 +333,7 @@ private fun PaymentMethodChip(
             Icon(
                 imageVector = icon,
                 contentDescription = name,
-                tint = if (isSelected) Color(0xFF003C33) else Color.Gray,
+                tint = if (isSelected) MaterialTheme.colorScheme.primary else Color.Gray,
                 modifier = Modifier.size(20.dp)
             )
             Spacer(modifier = Modifier.height(4.dp))
@@ -341,7 +341,7 @@ private fun PaymentMethodChip(
                 text = name,
                 style = MaterialTheme.typography.labelMedium,
                 fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
-                color = if (isSelected) Color(0xFF003C33) else Color.DarkGray
+                color = if (isSelected) MaterialTheme.colorScheme.primary else Color.DarkGray
             )
         }
     }
