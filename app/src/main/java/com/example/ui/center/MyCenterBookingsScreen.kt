@@ -12,7 +12,8 @@ import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Shield
-import androidx.compose.material3.*
+import com.example.ui.components.*
+import com.example.ui.theme.LumenTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,21 +30,20 @@ fun MyCenterBookingsScreen(
     onBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val darkGreen = MaterialTheme.colorScheme.primary // Emerald Focus brand green
+    val darkGreen = LumenTheme.colors.primary // Emerald Focus brand green
 
-    Scaffold(
+    LumenScaffold(
         topBar = {
-            TopAppBar(
+            LumenTopBar(
                 title = {
                     Text(
-                        text = "My Practice Bookings",
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.White
-                    )
+    text = "My Practice Bookings",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = Color.White
+)
                 },
                 navigationIcon = {
-                    IconButton(onClick = onBack, modifier = Modifier.testTag("my_bookings_back_button")) {
+                    LumenIconButton(onClick = onBack, modifier = Modifier.testTag("my_bookings_back_button")) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back",
@@ -51,11 +51,11 @@ fun MyCenterBookingsScreen(
                         )
                     }
                 },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = darkGreen),
+                colors = LumenTopBarDefaults.topAppBarColors(containerColor = darkGreen),
                 modifier = Modifier.statusBarsPadding()
             )
         },
-        containerColor = MaterialTheme.colorScheme.background,
+        containerColor = LumenTheme.colors.background,
         modifier = modifier.fillMaxSize().testTag("my_bookings_screen")
     ) { innerPadding ->
         if (bookings.isEmpty()) {
@@ -75,15 +75,14 @@ fun MyCenterBookingsScreen(
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = "No Practice Slot Bookings Found",
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onBackground
-                    )
+    text = "No Practice Slot Bookings Found",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onBackground
+)
                     Spacer(modifier = Modifier.height(6.dp))
                     Text(
                         text = "You haven't booked any practice mock sittings or coaching sessions yet.",
-                        style = MaterialTheme.typography.bodyMedium,
+                        style = LumenTheme.typography.bodyMedium,
                         color = Color.Gray
                     )
                 }
@@ -98,7 +97,7 @@ fun MyCenterBookingsScreen(
             ) {
                 item {
                     // Disclaimer Notice Box
-                    Surface(
+                    LumenSurface(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(10.dp),
                         color = Color(0xFFFFE5B0)
@@ -116,7 +115,7 @@ fun MyCenterBookingsScreen(
                             Spacer(modifier = Modifier.width(10.dp))
                             Text(
                                 text = "Note: These bookings are for practice mock tests at partner centers. They do NOT register you for the official IDP / British Council IELTS exam.",
-                                style = MaterialTheme.typography.labelSmall,
+                                style = LumenTheme.typography.labelSmall,
                                 color = Color(0xFF3A2500)
                             )
                         }
@@ -133,15 +132,15 @@ fun MyCenterBookingsScreen(
 
 @Composable
 private fun BookingCard(booking: CenterBooking) {
-    val darkGreen = MaterialTheme.colorScheme.primary // Emerald Focus brand green
+    val darkGreen = LumenTheme.colors.primary // Emerald Focus brand green
 
-    Card(
+    LumenCard(
         modifier = Modifier
             .fillMaxWidth()
             .testTag("booking_card_${booking.bookingId}"),
         shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        colors = LumenCardDefaults.cardColors(containerColor = LumenTheme.colors.surface),
+        elevation = 2.dp
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(
@@ -149,7 +148,7 @@ private fun BookingCard(booking: CenterBooking) {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Surface(
+                LumenSurface(
                     shape = RoundedCornerShape(10.dp),
                     color = Color(0xFFCDF4E0)
                 ) {
@@ -165,17 +164,16 @@ private fun BookingCard(booking: CenterBooking) {
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
-                            text = booking.bookingStatus,
-                            style = MaterialTheme.typography.labelSmall,
-                            fontWeight = FontWeight.Bold,
-                            color = Color(0xFF1B8A5A)
-                        )
+    text = booking.bookingStatus,
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = Color(0xFF1B8A5A)
+)
                     }
                 }
 
                 Text(
                     text = "ID: ${booking.bookingId}",
-                    style = MaterialTheme.typography.labelSmall,
+                    style = LumenTheme.typography.labelSmall,
                     color = Color.Gray
                 )
             }
@@ -183,20 +181,18 @@ private fun BookingCard(booking: CenterBooking) {
             Spacer(modifier = Modifier.height(10.dp))
 
             Text(
-                text = booking.slotTitle,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-                color = darkGreen
-            )
+    text = booking.slotTitle,
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = darkGreen
+)
 
             Spacer(modifier = Modifier.height(4.dp))
 
             Text(
-                text = booking.centerName,
-                style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.onSurface
-            )
+    text = booking.centerName,
+    style = (LumenTheme.typography.bodyMedium).copy(fontWeight = FontWeight.SemiBold),
+    color = LumenTheme.colors.onSurface
+)
 
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
@@ -208,7 +204,7 @@ private fun BookingCard(booking: CenterBooking) {
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
                     text = booking.centerAddress,
-                    style = MaterialTheme.typography.bodySmall,
+                    style = LumenTheme.typography.bodySmall,
                     color = Color.Gray
                 )
             }
@@ -224,15 +220,14 @@ private fun BookingCard(booking: CenterBooking) {
                 )
                 Spacer(modifier = Modifier.width(6.dp))
                 Text(
-                    text = "${booking.slotDate} (${booking.slotTime})",
-                    style = MaterialTheme.typography.bodySmall,
-                    fontWeight = FontWeight.Bold,
-                    color = darkGreen
-                )
+    text = "${booking.slotDate} (${booking.slotTime})",
+    style = (LumenTheme.typography.bodySmall).copy(fontWeight = FontWeight.Bold),
+    color = darkGreen
+)
             }
 
             Spacer(modifier = Modifier.height(12.dp))
-            Divider(color = Color.LightGray.copy(alpha = 0.5f))
+            LumenDivider(color = Color.LightGray.copy(alpha = 0.5f))
             Spacer(modifier = Modifier.height(10.dp))
 
             Row(
@@ -250,17 +245,16 @@ private fun BookingCard(booking: CenterBooking) {
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
                         text = "SSLCommerz: ${booking.paymentTranId}",
-                        style = MaterialTheme.typography.labelSmall,
+                        style = LumenTheme.typography.labelSmall,
                         color = Color.Gray
                     )
                 }
 
                 Text(
-                    text = "৳${booking.priceBdt.toInt()} BDT",
-                    style = MaterialTheme.typography.titleSmall,
-                    fontWeight = FontWeight.Bold,
-                    color = darkGreen
-                )
+    text = "৳${booking.priceBdt.toInt()} BDT",
+    style = (LumenTheme.typography.titleSmall).copy(fontWeight = FontWeight.Bold),
+    color = darkGreen
+)
             }
         }
     }

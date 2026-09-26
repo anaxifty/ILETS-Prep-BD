@@ -9,7 +9,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.material3.*
+import com.example.ui.components.*
+import com.example.ui.theme.LumenTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,13 +33,16 @@ fun ListeningResultsScreen(
     val test = uiState.selectedListeningTest
     val scrollState = rememberScrollState()
 
-    Scaffold(
+    LumenScaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
-            TopAppBar(
-                title = { Text("Listening Test Results", fontWeight = FontWeight.Bold) },
+            LumenTopBar(
+                title = { Text(
+    "Listening Test Results",
+    style = LumenTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
+) },
                 navigationIcon = {
-                    IconButton(
+                    LumenIconButton(
                         onClick = onBackToHub,
                         modifier = Modifier.testTag("results_back_button")
                     ) {
@@ -56,18 +60,18 @@ fun ListeningResultsScreen(
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Hero Score Card
-            Card(
+            // Hero Score LumenCard
+            LumenCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .border(
                         width = 1.dp,
-                        color = MaterialTheme.colorScheme.primary,
+                        color = LumenTheme.colors.primary,
                         shape = RoundedCornerShape(26.dp)
                     ),
                 shape = RoundedCornerShape(26.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer
+                colors = LumenCardDefaults.cardColors(
+                    containerColor = LumenTheme.colors.primaryContainer
                 )
             ) {
                 Column(
@@ -80,13 +84,13 @@ fun ListeningResultsScreen(
                         modifier = Modifier
                             .size(64.dp)
                             .clip(CircleShape)
-                            .background(MaterialTheme.colorScheme.primary),
+                            .background(LumenTheme.colors.primary),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
                             imageVector = Icons.Default.EmojiEvents,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onPrimary,
+                            tint = LumenTheme.colors.onPrimary,
                             modifier = Modifier.size(36.dp)
                         )
                     }
@@ -95,16 +99,15 @@ fun ListeningResultsScreen(
 
                     Text(
                         text = "IELTS Listening Band",
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
+                        style = LumenTheme.typography.labelMedium,
+                        color = LumenTheme.colors.onPrimaryContainer.copy(alpha = 0.8f)
                     )
 
                     Text(
-                        text = "Band ${"%.1f".format(attempt.bandScore)}",
-                        style = MaterialTheme.typography.headlineMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer
-                    )
+    text = "Band ${"%.1f".format(attempt.bandScore)}",
+    style = (LumenTheme.typography.headlineMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onPrimaryContainer
+)
 
                     Spacer(modifier = Modifier.height(16.dp))
 
@@ -114,23 +117,22 @@ fun ListeningResultsScreen(
                     ) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             Text(
-                                text = "${attempt.score} / ${attempt.totalQuestions}",
-                                style = MaterialTheme.typography.titleLarge,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onPrimaryContainer
-                            )
+    text = "${attempt.score} / ${attempt.totalQuestions}",
+    style = (LumenTheme.typography.titleLarge).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onPrimaryContainer
+)
                             Text(
                                 text = "Raw Score",
-                                style = MaterialTheme.typography.labelSmall,
-                                color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
+                                style = LumenTheme.typography.labelSmall,
+                                color = LumenTheme.colors.onPrimaryContainer.copy(alpha = 0.8f)
                             )
                         }
 
-                        Divider(
+                        LumenDivider(
                             modifier = Modifier
                                 .height(32.dp)
                                 .width(1.dp),
-                            color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.2f)
+                            color = LumenTheme.colors.onPrimaryContainer.copy(alpha = 0.2f)
                         )
 
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -139,15 +141,14 @@ fun ListeningResultsScreen(
                             val timeStr = String.format(Locale.getDefault(), "%dm %02ds", mins, secs)
 
                             Text(
-                                text = timeStr,
-                                style = MaterialTheme.typography.titleLarge,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onPrimaryContainer
-                            )
+    text = timeStr,
+    style = (LumenTheme.typography.titleLarge).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onPrimaryContainer
+)
                             Text(
                                 text = "Time Spent",
-                                style = MaterialTheme.typography.labelSmall,
-                                color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
+                                style = LumenTheme.typography.labelSmall,
+                                color = LumenTheme.colors.onPrimaryContainer.copy(alpha = 0.8f)
                             )
                         }
                     }
@@ -157,11 +158,10 @@ fun ListeningResultsScreen(
             Spacer(modifier = Modifier.height(24.dp))
 
             Text(
-                text = "Question & Answer Breakdown",
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.fillMaxWidth()
-            )
+    text = "Question & Answer Breakdown",
+    style = (LumenTheme.typography.titleLarge).copy(fontWeight = FontWeight.Bold),
+    modifier = Modifier.fillMaxWidth()
+)
 
             Spacer(modifier = Modifier.height(12.dp))
 
@@ -179,7 +179,7 @@ fun ListeningResultsScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Button(
+            LumenButton(
                 onClick = onBackToHub,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -187,7 +187,10 @@ fun ListeningResultsScreen(
                     .testTag("back_to_hub_button"),
                 shape = RoundedCornerShape(10.dp)
             ) {
-                Text("Return to Practice Hub", fontWeight = FontWeight.Bold)
+                Text(
+    "Return to Practice Hub",
+    style = LumenTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
+)
             }
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -201,16 +204,16 @@ private fun ListeningQuestionResultCard(
     userAnswer: String,
     isCorrect: Boolean
 ) {
-    Card(
+    LumenCard(
         modifier = Modifier
             .fillMaxWidth()
             .border(
                 width = 1.dp,
-                color = if (isCorrect) Color(0xFF1B8A5A) else MaterialTheme.colorScheme.error,
+                color = if (isCorrect) Color(0xFF1B8A5A) else LumenTheme.colors.error,
                 shape = RoundedCornerShape(20.dp)
             ),
         shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+        colors = LumenCardDefaults.cardColors(containerColor = LumenTheme.colors.surface)
     ) {
         Column(
             modifier = Modifier
@@ -225,15 +228,14 @@ private fun ListeningQuestionResultCard(
                 Box(
                     modifier = Modifier
                         .clip(RoundedCornerShape(10.dp))
-                        .background(MaterialTheme.colorScheme.surfaceVariant)
+                        .background(LumenTheme.colors.surfaceVariant)
                         .padding(horizontal = 8.dp, vertical = 4.dp)
                 ) {
                     Text(
-                        text = "Q${question.id} • ${question.type.name.replace("_", " ")}",
-                        style = MaterialTheme.typography.labelSmall,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+    text = "Q${question.id} • ${question.type.name.replace("_", " ")}",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSurfaceVariant
+)
                 }
 
                 Box(
@@ -251,11 +253,10 @@ private fun ListeningQuestionResultCard(
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
-                            text = if (isCorrect) "Correct" else "Incorrect",
-                            style = MaterialTheme.typography.labelSmall,
-                            fontWeight = FontWeight.Bold,
-                            color = if (isCorrect) Color(0xFF1B8A5A) else Color(0xFFBA1A1A)
-                        )
+    text = if (isCorrect) "Correct" else "Incorrect",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = if (isCorrect) Color(0xFF1B8A5A) else Color(0xFFBA1A1A)
+)
                     }
                 }
             }
@@ -263,10 +264,9 @@ private fun ListeningQuestionResultCard(
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = question.questionText,
-                style = MaterialTheme.typography.titleSmall,
-                fontWeight = FontWeight.Bold
-            )
+    text = question.questionText,
+    style = (LumenTheme.typography.titleSmall).copy(fontWeight = FontWeight.Bold)
+)
 
             Spacer(modifier = Modifier.height(8.dp))
 
@@ -274,24 +274,22 @@ private fun ListeningQuestionResultCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(10.dp))
-                    .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
+                    .background(LumenTheme.colors.surfaceVariant.copy(alpha = 0.5f))
                     .padding(10.dp)
             ) {
                 Text(
-                    text = "Your Answer: ${if (userAnswer.isEmpty()) "No answer provided" else userAnswer}",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = if (isCorrect) Color(0xFF1B8A5A) else MaterialTheme.colorScheme.error,
-                    fontWeight = FontWeight.SemiBold
-                )
+    text = "Your Answer: ${if (userAnswer.isEmpty()) "No answer provided" else userAnswer}",
+    style = (LumenTheme.typography.bodySmall).copy(fontWeight = FontWeight.SemiBold),
+    color = if (isCorrect) Color(0xFF1B8A5A) else LumenTheme.colors.error
+)
 
                 if (!isCorrect) {
                     Spacer(modifier = Modifier.height(2.dp))
                     Text(
-                        text = "Correct Answer: ${question.correctAnswer}",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = Color(0xFF1B8A5A),
-                        fontWeight = FontWeight.Bold
-                    )
+    text = "Correct Answer: ${question.correctAnswer}",
+    style = (LumenTheme.typography.bodySmall).copy(fontWeight = FontWeight.Bold),
+    color = Color(0xFF1B8A5A)
+)
                 }
             }
 
@@ -299,8 +297,8 @@ private fun ListeningQuestionResultCard(
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = "Explanation: ${question.explanation}",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    style = LumenTheme.typography.bodySmall,
+                    color = LumenTheme.colors.onSurfaceVariant
                 )
             }
         }

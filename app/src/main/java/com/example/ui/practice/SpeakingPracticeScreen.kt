@@ -19,7 +19,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.material3.*
+import com.example.ui.components.*
+import com.example.ui.theme.LumenTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -128,14 +129,14 @@ fun SpeakingPracticeScreen(
         label = "scale"
     )
 
-    Scaffold(
+    LumenScaffold(
         modifier = modifier.fillMaxSize(),
-        containerColor = MaterialTheme.colorScheme.background,
+        containerColor = LumenTheme.colors.background,
         bottomBar = {
-            Surface(
+            LumenSurface(
                 modifier = Modifier.fillMaxWidth(),
                 shadowElevation = 8.dp,
-                color = MaterialTheme.colorScheme.surface
+                color = LumenTheme.colors.surface
             ) {
                 Row(
                     modifier = Modifier
@@ -145,7 +146,7 @@ fun SpeakingPracticeScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     if (uiState.speakingPhase == SpeakingPhase.PREP_TIMER) {
-                        OutlinedButton(
+                        LumenOutlinedButton(
                             onClick = onSkipPrep,
                             shape = RoundedCornerShape(50),
                             modifier = Modifier.testTag("skip_prep_button")
@@ -161,7 +162,7 @@ fun SpeakingPracticeScreen(
                         val isLastQuestion = (uiState.speakingQuestionIndex >= totalQuestions - 1)
 
                         if (!isLastQuestion) {
-                            Button(
+                            LumenButton(
                                 onClick = onNextQuestion,
                                 shape = RoundedCornerShape(50),
                                 modifier = Modifier.testTag("next_speaking_q_button")
@@ -171,7 +172,7 @@ fun SpeakingPracticeScreen(
                                 Icon(Icons.Default.ArrowForward, contentDescription = null, modifier = Modifier.size(18.dp))
                             }
                         } else {
-                            Button(
+                            LumenButton(
                                 onClick = {
                                     // Stop recorder if running
                                     if (isRecordingActive) {
@@ -189,14 +190,17 @@ fun SpeakingPracticeScreen(
                                 enabled = !uiState.isSpeakingEvaluating,
                                 shape = RoundedCornerShape(50),
                                 colors = ButtonDefaults.buttonColors(
-                                    containerColor = MaterialTheme.colorScheme.primary,
-                                    contentColor = MaterialTheme.colorScheme.onPrimary
+                                    containerColor = LumenTheme.colors.primary,
+                                    contentColor = LumenTheme.colors.onPrimary
                                 ),
                                 modifier = Modifier
                                     .height(48.dp)
                                     .testTag("submit_speaking_button")
                             ) {
-                                Text("Complete & Evaluate", fontWeight = FontWeight.Bold)
+                                Text(
+    "Complete & Evaluate",
+    style = LumenTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
+)
                                 Spacer(modifier = Modifier.width(6.dp))
                                 Icon(Icons.Default.Check, contentDescription = null, modifier = Modifier.size(18.dp))
                             }
@@ -226,18 +230,18 @@ fun SpeakingPracticeScreen(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        IconButton(
+                        LumenIconButton(
                             onClick = onBack,
                             modifier = Modifier
                                 .size(40.dp)
                                 .clip(CircleShape)
-                                .background(MaterialTheme.colorScheme.surfaceVariant)
+                                .background(LumenTheme.colors.surfaceVariant)
                                 .testTag("speaking_back_button")
                         ) {
                             Icon(
                                 imageVector = Icons.Default.ArrowBack,
                                 contentDescription = "Back",
-                                tint = MaterialTheme.colorScheme.onSurface
+                                tint = LumenTheme.colors.onSurface
                             )
                         }
 
@@ -247,22 +251,20 @@ fun SpeakingPracticeScreen(
                             Box(
                                 modifier = Modifier
                                     .clip(RoundedCornerShape(10.dp))
-                                    .background(MaterialTheme.colorScheme.primaryContainer)
+                                    .background(LumenTheme.colors.primaryContainer)
                                     .padding(horizontal = 8.dp, vertical = 2.dp)
                             ) {
                                 Text(
-                                    text = "PART ${task.partNumber}",
-                                    style = MaterialTheme.typography.labelSmall,
-                                    fontWeight = FontWeight.Bold,
-                                    color = MaterialTheme.colorScheme.onPrimaryContainer
-                                )
+    text = "PART ${task.partNumber}",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onPrimaryContainer
+)
                             }
                             Text(
-                                text = task.title,
-                                style = MaterialTheme.typography.titleMedium,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onBackground
-                            )
+    text = task.title,
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onBackground
+)
                         }
                     }
 
@@ -273,9 +275,9 @@ fun SpeakingPracticeScreen(
                     val secs = secondsLeft % 60
                     val timeStr = "%02d:%02d".format(mins, secs)
 
-                    Surface(
+                    LumenSurface(
                         shape = RoundedCornerShape(20.dp),
-                        color = if (isPrep) MaterialTheme.colorScheme.tertiaryContainer else MaterialTheme.colorScheme.errorContainer,
+                        color = if (isPrep) LumenTheme.colors.tertiaryContainer else LumenTheme.colors.errorContainer,
                         modifier = Modifier.testTag("speaking_timer_pill")
                     ) {
                         Row(
@@ -285,27 +287,26 @@ fun SpeakingPracticeScreen(
                             Icon(
                                 imageVector = if (isPrep) Icons.Default.Timer else Icons.Default.Mic,
                                 contentDescription = null,
-                                tint = if (isPrep) MaterialTheme.colorScheme.onTertiaryContainer else MaterialTheme.colorScheme.onErrorContainer,
+                                tint = if (isPrep) LumenTheme.colors.onTertiaryContainer else LumenTheme.colors.onErrorContainer,
                                 modifier = Modifier.size(16.dp)
                             )
                             Spacer(modifier = Modifier.width(4.dp))
                             Text(
-                                text = if (isPrep) "Prep $timeStr" else "Rec $timeStr",
-                                style = MaterialTheme.typography.labelLarge,
-                                fontWeight = FontWeight.Bold,
-                                color = if (isPrep) MaterialTheme.colorScheme.onTertiaryContainer else MaterialTheme.colorScheme.onErrorContainer
-                            )
+    text = if (isPrep) "Prep $timeStr" else "Rec $timeStr",
+    style = (LumenTheme.typography.labelLarge).copy(fontWeight = FontWeight.Bold),
+    color = if (isPrep) LumenTheme.colors.onTertiaryContainer else LumenTheme.colors.onErrorContainer
+)
                         }
                     }
                 }
 
                 // Mic Permission Warning Banner if missing
                 if (!hasMicPermission) {
-                    Card(
+                    LumenCard(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(bottom = 16.dp),
-                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
+                        colors = LumenCardDefaults.cardColors(containerColor = LumenTheme.colors.errorContainer),
                         shape = RoundedCornerShape(20.dp)
                     ) {
                         Row(
@@ -315,24 +316,23 @@ fun SpeakingPracticeScreen(
                             Icon(
                                 imageVector = Icons.Default.MicOff,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onErrorContainer
+                                tint = LumenTheme.colors.onErrorContainer
                             )
                             Spacer(modifier = Modifier.width(12.dp))
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(
-                                    text = "Microphone Permission Required",
-                                    style = MaterialTheme.typography.titleSmall,
-                                    fontWeight = FontWeight.Bold,
-                                    color = MaterialTheme.colorScheme.onErrorContainer
-                                )
+    text = "Microphone Permission Required",
+    style = (LumenTheme.typography.titleSmall).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onErrorContainer
+)
                                 Text(
                                     text = "Grant mic access to record your voice. In emulator mode, Gemini fallback simulates real responses.",
-                                    style = MaterialTheme.typography.bodySmall,
-                                    color = MaterialTheme.colorScheme.onErrorContainer
+                                    style = LumenTheme.typography.bodySmall,
+                                    color = LumenTheme.colors.onErrorContainer
                                 )
                             }
                             Spacer(modifier = Modifier.width(8.dp))
-                            Button(
+                            LumenButton(
                                 onClick = { permissionLauncher.launch(Manifest.permission.RECORD_AUDIO) },
                                 shape = RoundedCornerShape(50)
                             ) {
@@ -342,11 +342,11 @@ fun SpeakingPracticeScreen(
                     }
                 }
 
-                // Main Prompt Card
-                Card(
+                // Main Prompt LumenCard
+                LumenCard(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(26.dp),
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+                    colors = LumenCardDefaults.cardColors(containerColor = LumenTheme.colors.surfaceVariant)
                 ) {
                     Column(modifier = Modifier.padding(20.dp)) {
                         Row(
@@ -355,25 +355,22 @@ fun SpeakingPracticeScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "EXAMINER QUESTION PROMPT",
-                                style = MaterialTheme.typography.labelMedium,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.primary,
-                                letterSpacing = 1.sp
-                            )
+    text = "EXAMINER QUESTION PROMPT",
+    style = (LumenTheme.typography.labelMedium).copy(fontWeight = FontWeight.Bold, letterSpacing = 1.sp),
+    color = LumenTheme.colors.primary
+)
 
                             if (task.partNumber == 1 || task.partNumber == 3) {
                                 val totalQ = if (task.partNumber == 1) task.part1Questions.size else task.part3Questions.size
-                                Surface(
+                                LumenSurface(
                                     shape = RoundedCornerShape(10.dp),
-                                    color = MaterialTheme.colorScheme.surface
+                                    color = LumenTheme.colors.surface
                                 ) {
                                     Text(
-                                        text = "Q ${uiState.speakingQuestionIndex + 1} of $totalQ",
-                                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
-                                        style = MaterialTheme.typography.labelSmall,
-                                        fontWeight = FontWeight.Bold
-                                    )
+    text = "Q ${uiState.speakingQuestionIndex + 1} of $totalQ",
+    modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold)
+)
                                 }
                             }
                         }
@@ -385,34 +382,34 @@ fun SpeakingPracticeScreen(
                                 val currentQ = task.part1Questions.getOrNull(uiState.speakingQuestionIndex)
                                     ?: "Tell me about your daily routine."
                                 Text(
-                                    text = "\"$currentQ\"",
-                                    style = MaterialTheme.typography.titleLarge,
-                                    fontWeight = FontWeight.Bold,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    lineHeight = 30.sp
-                                )
+    text = "\"$currentQ\"",
+    style = (LumenTheme.typography.titleLarge).copy(fontWeight = FontWeight.Bold, lineHeight = 30.sp),
+    color = LumenTheme.colors.onSurfaceVariant
+)
                             }
                             2 -> {
                                 Text(
-                                    text = task.part2CueCard,
-                                    style = MaterialTheme.typography.titleMedium,
-                                    fontWeight = FontWeight.Bold,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
+    text = task.part2CueCard,
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSurfaceVariant
+)
 
                                 if (task.part2Bullets.isNotEmpty()) {
                                     Spacer(modifier = Modifier.height(12.dp))
                                     Text(
-                                        text = "You should say:",
-                                        style = MaterialTheme.typography.labelMedium,
-                                        fontWeight = FontWeight.SemiBold,
-                                        color = MaterialTheme.colorScheme.primary
-                                    )
+    text = "You should say:",
+    style = (LumenTheme.typography.labelMedium).copy(fontWeight = FontWeight.SemiBold),
+    color = LumenTheme.colors.primary
+)
                                     Spacer(modifier = Modifier.height(4.dp))
                                     task.part2Bullets.forEach { bullet ->
                                         Row(modifier = Modifier.padding(vertical = 2.dp)) {
-                                            Text("• ", fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
-                                            Text(text = bullet, style = MaterialTheme.typography.bodyMedium)
+                                            Text(
+    "• ",
+    color = LumenTheme.colors.primary,
+    style = LumenTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
+)
+                                            Text(text = bullet, style = LumenTheme.typography.bodyMedium)
                                         }
                                     }
                                 }
@@ -421,12 +418,10 @@ fun SpeakingPracticeScreen(
                                 val currentQ = task.part3Questions.getOrNull(uiState.speakingQuestionIndex)
                                     ?: "How do you think this issue will evolve in the future?"
                                 Text(
-                                    text = "\"$currentQ\"",
-                                    style = MaterialTheme.typography.titleLarge,
-                                    fontWeight = FontWeight.Bold,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    lineHeight = 30.sp
-                                )
+    text = "\"$currentQ\"",
+    style = (LumenTheme.typography.titleLarge).copy(fontWeight = FontWeight.Bold, lineHeight = 30.sp),
+    color = LumenTheme.colors.onSurfaceVariant
+)
                             }
                         }
                     }
@@ -435,10 +430,10 @@ fun SpeakingPracticeScreen(
                 Spacer(modifier = Modifier.height(24.dp))
 
                 // Live Audio Waveform / Status Visualizer
-                Card(
+                LumenCard(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(20.dp),
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+                    colors = LumenCardDefaults.cardColors(containerColor = LumenTheme.colors.surface)
                 ) {
                     Column(
                         modifier = Modifier
@@ -450,25 +445,24 @@ fun SpeakingPracticeScreen(
                             Icon(
                                 imageVector = Icons.Default.HourglassTop,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.tertiary,
+                                tint = LumenTheme.colors.tertiary,
                                 modifier = Modifier.size(56.dp)
                             )
 
                             Spacer(modifier = Modifier.height(12.dp))
 
                             Text(
-                                text = "1-Minute Preparation Time",
-                                style = MaterialTheme.typography.titleMedium,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onSurface
-                            )
+    text = "1-Minute Preparation Time",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSurface
+)
 
                             Spacer(modifier = Modifier.height(4.dp))
 
                             Text(
                                 text = "Organize your thoughts and key bullet points before speaking.",
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                style = LumenTheme.typography.bodySmall,
+                                color = LumenTheme.colors.onSurfaceVariant
                             )
                         } else {
                             // Recording pulse animation
@@ -477,14 +471,14 @@ fun SpeakingPracticeScreen(
                                     .size(72.dp)
                                     .scale(pulseScale)
                                     .clip(CircleShape)
-                                    .background(MaterialTheme.colorScheme.errorContainer),
+                                    .background(LumenTheme.colors.errorContainer),
                                 contentAlignment = Alignment.Center
                             ) {
                                 Box(
                                     modifier = Modifier
                                         .size(48.dp)
                                         .clip(CircleShape)
-                                        .background(MaterialTheme.colorScheme.error),
+                                        .background(LumenTheme.colors.error),
                                     contentAlignment = Alignment.Center
                                 ) {
                                     Icon(
@@ -499,18 +493,17 @@ fun SpeakingPracticeScreen(
                             Spacer(modifier = Modifier.height(16.dp))
 
                             Text(
-                                text = "Recording Active — Speak Clearly",
-                                style = MaterialTheme.typography.titleSmall,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.error
-                            )
+    text = "Recording Active — Speak Clearly",
+    style = (LumenTheme.typography.titleSmall).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.error
+)
 
                             Spacer(modifier = Modifier.height(4.dp))
 
                             Text(
                                 text = "Maintain a steady speaking pace and use formal IELTS vocabulary.",
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                style = LumenTheme.typography.bodySmall,
+                                color = LumenTheme.colors.onSurfaceVariant
                             )
                         }
                     }
@@ -528,39 +521,38 @@ fun SpeakingPracticeScreen(
                         .clickable(enabled = false) {},
                     contentAlignment = Alignment.Center
                 ) {
-                    Card(
+                    LumenCard(
                         modifier = Modifier
                             .padding(24.dp)
                             .fillMaxWidth(),
                         shape = RoundedCornerShape(26.dp),
-                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+                        colors = LumenCardDefaults.cardColors(containerColor = LumenTheme.colors.surface)
                     ) {
                         Column(
                             modifier = Modifier.padding(32.dp),
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center
                         ) {
-                            CircularProgressIndicator(
+                            LumenSpinner(
                                 modifier = Modifier.size(56.dp),
-                                color = MaterialTheme.colorScheme.primary,
+                                color = LumenTheme.colors.primary,
                                 strokeWidth = 4.dp
                             )
 
                             Spacer(modifier = Modifier.height(20.dp))
 
                             Text(
-                                text = "Analyzing Spoken Audio...",
-                                style = MaterialTheme.typography.titleLarge,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onSurface
-                            )
+    text = "Analyzing Spoken Audio...",
+    style = (LumenTheme.typography.titleLarge).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSurface
+)
 
                             Spacer(modifier = Modifier.height(8.dp))
 
                             Text(
                                 text = "Senior Examiner is assessing Fluency, Vocabulary, Grammar, and Multimodal Pronunciation...",
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                style = LumenTheme.typography.bodySmall,
+                                color = LumenTheme.colors.onSurfaceVariant
                             )
                         }
                     }

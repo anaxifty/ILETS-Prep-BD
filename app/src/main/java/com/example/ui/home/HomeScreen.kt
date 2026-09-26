@@ -12,7 +12,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.material3.*
+import com.example.ui.components.*
+import com.example.ui.theme.LumenTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -45,9 +46,9 @@ fun HomeScreen(
 ) {
     val userProfileState by userPreferencesRepository.userProfileFlow.collectAsState(initial = UserProfile())
 
-    Scaffold(
+    LumenScaffold(
         modifier = modifier.fillMaxSize(),
-        containerColor = MaterialTheme.colorScheme.background
+        containerColor = LumenTheme.colors.background
     ) { padding ->
         Column(
             modifier = Modifier
@@ -69,16 +70,15 @@ fun HomeScreen(
                         modifier = Modifier
                             .size(48.dp)
                             .clip(CircleShape)
-                            .background(MaterialTheme.colorScheme.primaryContainer)
-                            .border(2.dp, MaterialTheme.colorScheme.surface, CircleShape),
+                            .background(LumenTheme.colors.primaryContainer)
+                            .border(2.dp, LumenTheme.colors.surface, CircleShape),
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = "BD",
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onPrimaryContainer
-                        )
+    text = "BD",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onPrimaryContainer
+)
                     }
 
                     Spacer(modifier = Modifier.width(12.dp))
@@ -86,30 +86,29 @@ fun HomeScreen(
                     Column {
                         Text(
                             text = "Assalamu Alaikum 👋",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                            style = LumenTheme.typography.bodySmall,
+                            color = LumenTheme.colors.onSurfaceVariant
                         )
                         Text(
-                            text = if (userProfileState.phone.isNotEmpty()) userProfileState.phone else "IELTS Student",
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onBackground
-                        )
+    text = if (userProfileState.phone.isNotEmpty()) userProfileState.phone else "IELTS Student",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onBackground
+)
                     }
                 }
 
-                IconButton(
+                LumenIconButton(
                     onClick = onSignOut,
                     modifier = Modifier
                         .size(44.dp)
                         .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.surfaceVariant)
+                        .background(LumenTheme.colors.surfaceVariant)
                         .testTag("sign_out_button")
                 ) {
                     Icon(
                         imageVector = Icons.Default.Logout,
                         contentDescription = "Sign Out",
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        tint = LumenTheme.colors.onSurfaceVariant,
                         modifier = Modifier.size(20.dp)
                     )
                 }
@@ -129,12 +128,12 @@ fun HomeScreen(
             val progress = if (target > baseline) {
                 ((latestAvg - baseline) / (target - baseline)).toFloat().coerceIn(0f, 1f)
             } else 0f
-            Card(
+            LumenCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .testTag("band_progress_hero_card"),
                 shape = RoundedCornerShape(26.dp),
-                elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+                elevation = 0.dp
             ) {
                 Row(
                     modifier = Modifier
@@ -142,8 +141,8 @@ fun HomeScreen(
                         .background(
                             Brush.linearGradient(
                                 colors = listOf(
-                                    MaterialTheme.colorScheme.primary,
-                                    MaterialTheme.colorScheme.secondary
+                                    LumenTheme.colors.primary,
+                                    LumenTheme.colors.secondary
                                 )
                             )
                         )
@@ -154,18 +153,17 @@ fun HomeScreen(
                     Spacer(modifier = Modifier.width(18.dp))
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = "Target Band ${"%.1f".format(target)} Roadmap",
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.White
-                        )
+    text = "Target Band ${"%.1f".format(target)} Roadmap",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = Color.White
+)
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
                             text = if (progress >= 1f)
                                 "Goal reached — keep it sharp! 🏆"
                             else
                                 "Now Band ${"%.1f".format(latestAvg)} • +${"%.1f".format(maxOf(0.0, target - latestAvg))} to go. You're ${(progress * 100).toInt()}% there.",
-                            style = MaterialTheme.typography.bodySmall,
+                            style = LumenTheme.typography.bodySmall,
                             color = Color.White.copy(alpha = 0.85f)
                         )
                     }
@@ -179,16 +177,16 @@ fun HomeScreen(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                // Active Target Band Card
-                Card(
+                // Active Target Band LumenCard
+                LumenCard(
                     modifier = Modifier
                         .weight(1f)
                         .height(150.dp)
                         .clip(RoundedCornerShape(26.dp))
                         .testTag("target_band_card"),
                     shape = RoundedCornerShape(26.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer
+                    colors = LumenCardDefaults.cardColors(
+                        containerColor = LumenTheme.colors.primaryContainer
                     )
                 ) {
                     Column(
@@ -201,43 +199,42 @@ fun HomeScreen(
                             modifier = Modifier
                                 .size(36.dp)
                                 .clip(CircleShape)
-                                .background(MaterialTheme.colorScheme.surface),
+                                .background(LumenTheme.colors.surface),
                             contentAlignment = Alignment.Center
                         ) {
                             Icon(
                                 imageVector = Icons.Default.EmojiEvents,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary,
+                                tint = LumenTheme.colors.primary,
                                 modifier = Modifier.size(20.dp)
                             )
                         }
 
                         Column {
                             Text(
-                                text = "Band ${"%.1f".format(userProfileState.targetBand)}",
-                                style = MaterialTheme.typography.headlineSmall,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onPrimaryContainer
-                            )
+    text = "Band ${"%.1f".format(userProfileState.targetBand)}",
+    style = (LumenTheme.typography.headlineSmall).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onPrimaryContainer
+)
                             Text(
                                 text = "Target Goal",
-                                style = MaterialTheme.typography.labelSmall,
-                                color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
+                                style = LumenTheme.typography.labelSmall,
+                                color = LumenTheme.colors.onPrimaryContainer.copy(alpha = 0.8f)
                             )
                         }
                     }
                 }
 
-                // Next Milestone Card
-                Card(
+                // Next Milestone LumenCard
+                LumenCard(
                     modifier = Modifier
                         .weight(1f)
                         .height(150.dp)
                         .clip(RoundedCornerShape(26.dp))
                         .testTag("milestone_card"),
                     shape = RoundedCornerShape(26.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.secondaryContainer
+                    colors = LumenCardDefaults.cardColors(
+                        containerColor = LumenTheme.colors.secondaryContainer
                     )
                 ) {
                     Column(
@@ -250,28 +247,27 @@ fun HomeScreen(
                             modifier = Modifier
                                 .size(36.dp)
                                 .clip(CircleShape)
-                                .background(MaterialTheme.colorScheme.surface),
+                                .background(LumenTheme.colors.surface),
                             contentAlignment = Alignment.Center
                         ) {
                             Icon(
                                 imageVector = Icons.Default.CalendarMonth,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onSecondaryContainer,
+                                tint = LumenTheme.colors.onSecondaryContainer,
                                 modifier = Modifier.size(20.dp)
                             )
                         }
 
                         Column {
                             Text(
-                                text = userProfileState.testDate,
-                                style = MaterialTheme.typography.titleLarge,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onSecondaryContainer
-                            )
+    text = userProfileState.testDate,
+    style = (LumenTheme.typography.titleLarge).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSecondaryContainer
+)
                             Text(
                                 text = "Exam Timeline",
-                                style = MaterialTheme.typography.labelSmall,
-                                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                                style = LumenTheme.typography.labelSmall,
+                                color = LumenTheme.colors.onSecondaryContainer.copy(alpha = 0.8f)
                             )
                         }
                     }
@@ -280,18 +276,18 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Overall Starting Estimate Card
-            Card(
+            // Overall Starting Estimate LumenCard
+            LumenCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .border(
                         width = 1.dp,
-                        color = MaterialTheme.colorScheme.outline,
+                        color = LumenTheme.colors.outline,
                         shape = RoundedCornerShape(26.dp)
                     ),
                 shape = RoundedCornerShape(26.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surface
+                colors = LumenCardDefaults.cardColors(
+                    containerColor = LumenTheme.colors.surface
                 )
             ) {
                 Row(
@@ -304,31 +300,29 @@ fun HomeScreen(
                     Column {
                         Text(
                             text = "Starting Estimated Level",
-                            style = MaterialTheme.typography.labelMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                            style = LumenTheme.typography.labelMedium,
+                            color = LumenTheme.colors.onSurfaceVariant
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
-                            text = "Overall Band ${"%.1f".format(userProfileState.overallStartingBand)}",
-                            style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
+    text = "Overall Band ${"%.1f".format(userProfileState.overallStartingBand)}",
+    style = (LumenTheme.typography.titleLarge).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSurface
+)
                     }
 
                     Box(
                         modifier = Modifier
                             .clip(RoundedCornerShape(20.dp))
-                            .background(MaterialTheme.colorScheme.surfaceVariant)
-                            .border(1.dp, MaterialTheme.colorScheme.outlineVariant, RoundedCornerShape(20.dp))
+                            .background(LumenTheme.colors.surfaceVariant)
+                            .border(1.dp, LumenTheme.colors.outlineVariant, RoundedCornerShape(20.dp))
                             .padding(horizontal = 14.dp, vertical = 8.dp)
                     ) {
                         Text(
-                            text = "Initial Baseline",
-                            style = MaterialTheme.typography.labelSmall,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+    text = "Initial Baseline",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSurfaceVariant
+)
                     }
                 }
             }
@@ -342,22 +336,20 @@ fun HomeScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Practice your 4 skills",
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onBackground
-                )
+    text = "Practice your 4 skills",
+    style = (LumenTheme.typography.titleLarge).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onBackground
+)
 
-                TextButton(
+                LumenTextButton(
                     onClick = onNavigateToPractice,
                     modifier = Modifier.testTag("open_practice_hub_button")
                 ) {
                     Text(
-                        text = "Practice Hub →",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.primary,
-                        fontWeight = FontWeight.Bold
-                    )
+    text = "Practice Hub →",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.primary
+)
                 }
             }
 
@@ -398,28 +390,27 @@ fun HomeScreen(
 
             // ===== Section: Level up & book in person =====
             Text(
-                text = "Level up & book in person",
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onBackground
-            )
+    text = "Level up & book in person",
+    style = (LumenTheme.typography.titleLarge).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onBackground
+)
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Video Lessons Passive Learning Card
-            Card(
+            // Video Lessons Passive Learning LumenCard
+            LumenCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable { onNavigateToVideoLessons() }
                     .border(
                         width = 1.dp,
-                        color = MaterialTheme.colorScheme.outlineVariant,
+                        color = LumenTheme.colors.outlineVariant,
                         shape = RoundedCornerShape(26.dp)
                     )
                     .testTag("video_lessons_banner_card"),
                 shape = RoundedCornerShape(26.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.secondaryContainer
+                colors = LumenCardDefaults.cardColors(
+                    containerColor = LumenTheme.colors.secondaryContainer
                 )
             ) {
                 Row(
@@ -437,13 +428,13 @@ fun HomeScreen(
                             modifier = Modifier
                                 .size(48.dp)
                                 .clip(RoundedCornerShape(20.dp))
-                                .background(MaterialTheme.colorScheme.primary),
+                                .background(LumenTheme.colors.primary),
                             contentAlignment = Alignment.Center
                         ) {
                             Icon(
                                 imageVector = Icons.Default.OndemandVideo,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onPrimary,
+                                tint = LumenTheme.colors.onPrimary,
                                 modifier = Modifier.size(24.dp)
                             )
                         }
@@ -452,15 +443,14 @@ fun HomeScreen(
 
                         Column {
                             Text(
-                                text = "Video Lessons Library",
-                                style = MaterialTheme.typography.titleMedium,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onSecondaryContainer
-                            )
+    text = "Video Lessons Library",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSecondaryContainer
+)
                             Text(
                                 text = "Watch strategy lessons, download for offline",
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                                style = LumenTheme.typography.bodySmall,
+                                color = LumenTheme.colors.onSecondaryContainer.copy(alpha = 0.8f)
                             )
                         }
                     }
@@ -468,7 +458,7 @@ fun HomeScreen(
                     Icon(
                         imageVector = Icons.Default.ArrowForward,
                         contentDescription = "Open Video Lessons",
-                        tint = MaterialTheme.colorScheme.onSecondaryContainer,
+                        tint = LumenTheme.colors.onSecondaryContainer,
                         modifier = Modifier.size(20.dp)
                     )
                 }
@@ -476,15 +466,15 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Mock Exam Full Sitting Card (Dark Feature Band Treatment)
-            Card(
+            // Mock Exam Full Sitting LumenCard (Dark Feature Band Treatment)
+            LumenCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable { onNavigateToMockExams() }
                     .testTag("mock_exam_banner_card"),
                 shape = RoundedCornerShape(26.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.primary
+                colors = LumenCardDefaults.cardColors(
+                    containerColor = LumenTheme.colors.primary
                 )
             ) {
                 Row(
@@ -517,14 +507,13 @@ fun HomeScreen(
 
                         Column {
                             Text(
-                                text = "Weekly & Monthly Mock Exams",
-                                style = MaterialTheme.typography.titleMedium,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.White
-                            )
+    text = "Weekly & Monthly Mock Exams",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = Color.White
+)
                             Text(
                                 text = "Full 4-skill exam, timed exactly like the real thing",
-                                style = MaterialTheme.typography.bodySmall,
+                                style = LumenTheme.typography.bodySmall,
                                 color = Color.White.copy(alpha = 0.8f)
                             )
                         }
@@ -541,17 +530,17 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Find Partner Practice Center Locator Card
-            Card(
+            // Find Partner Practice Center Locator LumenCard
+            LumenCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable { onNavigateToCenterLocator() }
                     .testTag("partner_center_locator_home_card"),
                 shape = RoundedCornerShape(26.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant
+                colors = LumenCardDefaults.cardColors(
+                    containerColor = LumenTheme.colors.surfaceVariant
                 ),
-                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                elevation = 2.dp
             ) {
                 Row(
                     modifier = Modifier
@@ -568,7 +557,7 @@ fun HomeScreen(
                             modifier = Modifier
                                 .size(48.dp)
                                 .clip(RoundedCornerShape(20.dp))
-                                .background(MaterialTheme.colorScheme.primary),
+                                .background(LumenTheme.colors.primary),
                             contentAlignment = Alignment.Center
                         ) {
                             Icon(
@@ -583,15 +572,14 @@ fun HomeScreen(
 
                         Column {
                             Text(
-                                text = "Find Partner Practice Center",
-                                style = MaterialTheme.typography.titleMedium,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onSurface
-                            )
+    text = "Find Partner Practice Center",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSurface
+)
                             Text(
                                 text = "Book in-person practice mock tests & coaching sessions near you",
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                style = LumenTheme.typography.bodySmall,
+                                color = LumenTheme.colors.onSurfaceVariant
                             )
                         }
                     }
@@ -599,7 +587,7 @@ fun HomeScreen(
                     Icon(
                         imageVector = Icons.Default.ArrowForward,
                         contentDescription = "Find Center",
-                        tint = MaterialTheme.colorScheme.primary,
+                        tint = LumenTheme.colors.primary,
                         modifier = Modifier.size(20.dp)
                     )
                 }
@@ -608,17 +596,17 @@ fun HomeScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             // Partner Coaching Center info strip (replaces duplicate locator card)
-            Card(
+            LumenCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .border(
                         width = 1.dp,
-                        color = MaterialTheme.colorScheme.outline,
+                        color = LumenTheme.colors.outline,
                         shape = RoundedCornerShape(26.dp)
                     ),
                 shape = RoundedCornerShape(26.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant
+                colors = LumenCardDefaults.cardColors(
+                    containerColor = LumenTheme.colors.surfaceVariant
                 )
             ) {
                 Row(
@@ -632,13 +620,13 @@ fun HomeScreen(
                         modifier = Modifier
                             .size(48.dp)
                             .clip(RoundedCornerShape(20.dp))
-                            .background(MaterialTheme.colorScheme.tertiaryContainer),
+                            .background(LumenTheme.colors.tertiaryContainer),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
                             imageVector = Icons.Default.LocationOn,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onPrimary,
+                            tint = LumenTheme.colors.onPrimary,
                             modifier = Modifier.size(24.dp)
                         )
                     }
@@ -647,15 +635,14 @@ fun HomeScreen(
 
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = "Partner Center Mock Slots",
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
+    text = "Partner Center Mock Slots",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSurface
+)
                         Text(
                             text = "Find practice mock test slots at coaching centers near Dhaka, CTG & Sylhet.",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                            style = LumenTheme.typography.bodySmall,
+                            color = LumenTheme.colors.onSurfaceVariant
                         )
                     }
                 }
@@ -694,11 +681,10 @@ fun BandProgressRing(progress: Float) {
             )
         }
         Text(
-            text = "${(progress * 100).toInt()}%",
-            style = MaterialTheme.typography.titleSmall,
-            fontWeight = FontWeight.ExtraBold,
-            color = Color.White
-        )
+    text = "${(progress * 100).toInt()}%",
+    style = (LumenTheme.typography.titleSmall).copy(fontWeight = FontWeight.ExtraBold),
+    color = Color.White
+)
     }
 }
 
@@ -710,18 +696,18 @@ fun SkillProgressRow(
     targetBand: Double,
     onClick: (() -> Unit)? = null
 ) {
-    Card(
+    LumenCard(
         modifier = Modifier
             .fillMaxWidth()
             .then(if (onClick != null) Modifier.clickable { onClick() } else Modifier)
             .border(
                 width = 1.dp,
-                color = MaterialTheme.colorScheme.outline,
+                color = LumenTheme.colors.outline,
                 shape = RoundedCornerShape(20.dp)
             ),
         shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
+        colors = LumenCardDefaults.cardColors(
+            containerColor = LumenTheme.colors.surface
         )
     ) {
         Row(
@@ -736,13 +722,13 @@ fun SkillProgressRow(
                     modifier = Modifier
                         .size(40.dp)
                         .clip(RoundedCornerShape(14.dp))
-                        .background(MaterialTheme.colorScheme.primaryContainer),
+                        .background(LumenTheme.colors.primaryContainer),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
                         imageVector = icon,
                         contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                        tint = LumenTheme.colors.onPrimaryContainer,
                         modifier = Modifier.size(20.dp)
                     )
                 }
@@ -751,15 +737,14 @@ fun SkillProgressRow(
 
                 Column {
                     Text(
-                        text = name,
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
+    text = name,
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSurface
+)
                     Text(
                         text = "Current: Band ${"%.1f".format(currentBand)} / Target ${"%.1f".format(targetBand)}",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        style = LumenTheme.typography.bodySmall,
+                        color = LumenTheme.colors.onSurfaceVariant
                     )
                     Spacer(modifier = Modifier.height(6.dp))
                     // Mini band progress bar (immediate visual feedback loop)
@@ -769,7 +754,7 @@ fun SkillProgressRow(
                             .width(150.dp)
                             .height(6.dp)
                             .clip(RoundedCornerShape(10.dp))
-                            .background(MaterialTheme.colorScheme.surfaceVariant)
+                            .background(LumenTheme.colors.surfaceVariant)
                     ) {
                         Box(
                             modifier = Modifier
@@ -779,8 +764,8 @@ fun SkillProgressRow(
                                 .background(
                                     Brush.horizontalGradient(
                                         colors = listOf(
-                                            MaterialTheme.colorScheme.primary,
-                                            MaterialTheme.colorScheme.secondary
+                                            LumenTheme.colors.primary,
+                                            LumenTheme.colors.secondary
                                         )
                                     )
                                 )
@@ -796,17 +781,16 @@ fun SkillProgressRow(
                 modifier = Modifier
                     .clip(RoundedCornerShape(10.dp))
                     .background(
-                        if (gap <= 0) MaterialTheme.colorScheme.primaryContainer
-                        else MaterialTheme.colorScheme.surfaceVariant
+                        if (gap <= 0) LumenTheme.colors.primaryContainer
+                        else LumenTheme.colors.surfaceVariant
                     )
                     .padding(horizontal = 10.dp, vertical = 6.dp)
             ) {
                 Text(
-                    text = gapText,
-                    style = MaterialTheme.typography.labelSmall,
-                    fontWeight = FontWeight.Bold,
-                    color = if (gap <= 0) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
-                )
+    text = gapText,
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = if (gap <= 0) LumenTheme.colors.primary else LumenTheme.colors.onSurfaceVariant
+)
             }
         }
     }

@@ -6,7 +6,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Surface
+import com.example.ui.components.*
+import com.example.ui.theme.LumenTheme
 import androidx.compose.ui.Modifier
 import com.example.ui.navigation.AppNavigation
 import com.example.ui.theme.IELTSPrepTheme
@@ -27,7 +28,7 @@ class MainActivity : ComponentActivity() {
     enableEdgeToEdge()
     setContent {
       IELTSPrepTheme {
-        Surface(modifier = Modifier.fillMaxSize()) {
+        LumenSurface(modifier = Modifier.fillMaxSize()) {
           AppNavigation()
         }
       }

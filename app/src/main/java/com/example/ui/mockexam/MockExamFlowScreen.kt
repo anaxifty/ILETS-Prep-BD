@@ -10,7 +10,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.material3.*
+import com.example.ui.components.*
+import com.example.ui.theme.LumenTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,7 +43,7 @@ fun MockExamFlowScreen(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            CircularProgressIndicator()
+            LumenSpinner()
         }
         return
     }
@@ -99,12 +100,12 @@ fun MockExamFlowScreen(
         }
     }
 
-    Scaffold(
+    LumenScaffold(
         modifier = modifier.fillMaxSize(),
-        containerColor = MaterialTheme.colorScheme.background,
+        containerColor = LumenTheme.colors.background,
         topBar = {
             Column(modifier = Modifier.fillMaxWidth()) {
-                Surface(
+                LumenSurface(
                     modifier = Modifier
                         .fillMaxWidth()
                         .statusBarsPadding(),
@@ -123,23 +124,21 @@ fun MockExamFlowScreen(
                         ) {
                             Column {
                                 Text(
-                                    text = "MOCK EXAM IN PROGRESS",
-                                    style = MaterialTheme.typography.labelSmall,
-                                    fontWeight = FontWeight.Bold,
-                                    color = Color.White.copy(alpha = 0.8f)
-                                )
+    text = "MOCK EXAM IN PROGRESS",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = Color.White.copy(alpha = 0.8f)
+)
                                 Text(
-                                    text = attempt.examTitle,
-                                    style = MaterialTheme.typography.titleMedium,
-                                    fontWeight = FontWeight.Bold,
-                                    color = Color.White
-                                )
+    text = attempt.examTitle,
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = Color.White
+)
                             }
 
-                            // Continuous Live Timer / Grace Timer Badge
-                            Surface(
+                            // Continuous Live Timer / Grace Timer LumenBadge
+                            LumenSurface(
                                 shape = RoundedCornerShape(10.dp),
-                                color = if (isOfficialTimeExpired) MaterialTheme.colorScheme.error else Color.White.copy(alpha = 0.15f)
+                                color = if (isOfficialTimeExpired) LumenTheme.colors.error else Color.White.copy(alpha = 0.15f)
                             ) {
                                 Row(
                                     modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
@@ -153,12 +152,11 @@ fun MockExamFlowScreen(
                                     )
                                     Spacer(modifier = Modifier.width(6.dp))
                                     Text(
-                                        text = if (isOfficialTimeExpired) "Grace: ${formatTime(graceRemainingSeconds)}" else formatTime(remainingSeconds),
-                                        style = MaterialTheme.typography.titleSmall,
-                                        fontWeight = FontWeight.Bold,
-                                        color = Color.White,
-                                        modifier = Modifier.testTag("exam_continuous_timer")
-                                    )
+    text = if (isOfficialTimeExpired) "Grace: ${formatTime(graceRemainingSeconds)}" else formatTime(remainingSeconds),
+    style = (LumenTheme.typography.titleSmall).copy(fontWeight = FontWeight.Bold),
+    color = Color.White,
+    modifier = Modifier.testTag("exam_continuous_timer")
+)
                                 }
                             }
                         }
@@ -181,11 +179,11 @@ fun MockExamFlowScreen(
 
                 // Official Time-Up Grace Period Warning Banner
                 if (isOfficialTimeExpired && !isGracePeriodExpired) {
-                    Surface(
+                    LumenSurface(
                         modifier = Modifier
                             .fillMaxWidth()
                             .testTag("grace_period_warning_banner"),
-                        color = MaterialTheme.colorScheme.errorContainer
+                        color = LumenTheme.colors.errorContainer
                     ) {
                         Row(
                             modifier = Modifier
@@ -196,21 +194,20 @@ fun MockExamFlowScreen(
                             Icon(
                                 imageVector = Icons.Default.Warning,
                                 contentDescription = "Time Up Warning",
-                                tint = MaterialTheme.colorScheme.onErrorContainer,
+                                tint = LumenTheme.colors.onErrorContainer,
                                 modifier = Modifier.size(20.dp)
                             )
                             Spacer(modifier = Modifier.width(10.dp))
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(
-                                    text = "EXAM TIME IS UP!",
-                                    style = MaterialTheme.typography.labelLarge,
-                                    fontWeight = FontWeight.Bold,
-                                    color = MaterialTheme.colorScheme.onErrorContainer
-                                )
+    text = "EXAM TIME IS UP!",
+    style = (LumenTheme.typography.labelLarge).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onErrorContainer
+)
                                 Text(
                                     text = "3-minute grace period active (${formatTime(graceRemainingSeconds)} remaining) to finish current answer. Auto-submitting when buffer expires.",
-                                    style = MaterialTheme.typography.bodySmall,
-                                    color = MaterialTheme.colorScheme.onErrorContainer
+                                    style = LumenTheme.typography.bodySmall,
+                                    color = LumenTheme.colors.onErrorContainer
                                 )
                             }
                         }
@@ -337,23 +334,21 @@ fun SkillStepPill(
     isDone: Boolean,
     modifier: Modifier = Modifier
 ) {
-    Surface(
+    LumenSurface(
         modifier = modifier,
         shape = RoundedCornerShape(10.dp),
         color = when {
-            isCurrent -> MaterialTheme.colorScheme.primary
+            isCurrent -> LumenTheme.colors.primary
             isDone -> Color(0xFF1B8A5A)
             else -> Color.White.copy(alpha = 0.2f)
         }
     ) {
         Text(
-            text = label,
-            style = MaterialTheme.typography.labelSmall,
-            fontWeight = FontWeight.Bold,
-            color = Color.White,
-            fontSize = 11.sp,
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
-        )
+    text = label,
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold, fontSize = 11.sp),
+    color = Color.White,
+    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+)
     }
 }
 
@@ -389,13 +384,13 @@ fun MockTransitionBreakScreen(
             modifier = Modifier
                 .size(72.dp)
                 .clip(CircleShape)
-                .background(MaterialTheme.colorScheme.primaryContainer),
+                .background(LumenTheme.colors.primaryContainer),
             contentAlignment = Alignment.Center
         ) {
             Icon(
                 imageVector = Icons.Default.CheckCircle,
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary,
+                tint = LumenTheme.colors.primary,
                 modifier = Modifier.size(40.dp)
             )
         }
@@ -403,62 +398,58 @@ fun MockTransitionBreakScreen(
         Spacer(modifier = Modifier.height(20.dp))
 
         Text(
-            text = "$completedSectionName Section Complete!",
-            style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onSurface
-        )
+    text = "$completedSectionName Section Complete!",
+    style = (LumenTheme.typography.headlineSmall).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSurface
+)
 
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            text = "Estimated Section Score: Band $completedSectionBand",
-            style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.primary,
-            fontWeight = FontWeight.SemiBold
-        )
+    text = "Estimated Section Score: Band $completedSectionBand",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.SemiBold),
+    color = LumenTheme.colors.primary
+)
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        Card(
+        LumenCard(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(20.dp),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+            colors = LumenCardDefaults.cardColors(containerColor = LumenTheme.colors.surfaceVariant)
         ) {
             Column(
                 modifier = Modifier.padding(20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "NEXT SECTION: ${nextSectionName.uppercase()}",
-                    style = MaterialTheme.typography.labelMedium,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.primary
-                )
+    text = "NEXT SECTION: ${nextSectionName.uppercase()}",
+    style = (LumenTheme.typography.labelMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.primary
+)
 
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "Allowed Duration: $nextSectionDurationMinutes Minutes",
-                    style = MaterialTheme.typography.bodyLarge,
-                    fontWeight = FontWeight.Medium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+    text = "Allowed Duration: $nextSectionDurationMinutes Minutes",
+    style = (LumenTheme.typography.bodyLarge).copy(fontWeight = FontWeight.Medium),
+    color = LumenTheme.colors.onSurfaceVariant
+)
 
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
                     text = "Take a short 2-minute transition break. Remember, the continuous exam clock is running.",
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = LumenTheme.typography.bodyMedium,
                     textAlign = TextAlign.Center,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f)
+                    color = LumenTheme.colors.onSurfaceVariant.copy(alpha = 0.8f)
                 )
             }
         }
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        Button(
+        LumenButton(
             onClick = onStartNext,
             modifier = Modifier
                 .fillMaxWidth()
@@ -467,10 +458,9 @@ fun MockTransitionBreakScreen(
             shape = RoundedCornerShape(10.dp)
         ) {
             Text(
-                text = "Begin $nextSectionName Section Now",
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold
-            )
+    text = "Begin $nextSectionName Section Now",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold)
+)
         }
     }
 }
@@ -493,23 +483,21 @@ fun MockListeningSection(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
-            text = "SECTION 1: LISTENING",
-            style = MaterialTheme.typography.labelMedium,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary
-        )
+    text = "SECTION 1: LISTENING",
+    style = (LumenTheme.typography.labelMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.primary
+)
 
         Text(
-            text = test?.title ?: "Listening Section",
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onSurface
-        )
+    text = test?.title ?: "Listening Section",
+    style = (LumenTheme.typography.titleLarge).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSurface
+)
 
-        Card(
+        LumenCard(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(10.dp),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+            colors = LumenCardDefaults.cardColors(containerColor = LumenTheme.colors.surfaceVariant)
         ) {
             Row(
                 modifier = Modifier.padding(16.dp),
@@ -518,18 +506,17 @@ fun MockListeningSection(
                 Icon(
                     imageVector = Icons.Default.VolumeUp,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary
+                    tint = LumenTheme.colors.primary
                 )
                 Spacer(modifier = Modifier.width(12.dp))
                 Column {
                     Text(
-                        text = "Official Recording Playing",
-                        style = MaterialTheme.typography.titleSmall,
-                        fontWeight = FontWeight.Bold
-                    )
+    text = "Official Recording Playing",
+    style = (LumenTheme.typography.titleSmall).copy(fontWeight = FontWeight.Bold)
+)
                     Text(
                         text = "Listen carefully and answer the questions below.",
-                        style = MaterialTheme.typography.bodySmall
+                        style = LumenTheme.typography.bodySmall
                     )
                 }
             }
@@ -537,30 +524,29 @@ fun MockListeningSection(
 
         val questions = test?.questions ?: emptyList()
         questions.forEach { question ->
-            Card(
+            LumenCard(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(10.dp),
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+                colors = LumenCardDefaults.cardColors(containerColor = LumenTheme.colors.surface)
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
-                        text = "Q${question.id}. ${question.questionText}",
-                        style = MaterialTheme.typography.titleSmall,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
+    text = "Q${question.id}. ${question.questionText}",
+    style = (LumenTheme.typography.titleSmall).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSurface
+)
 
                     if (!question.formContext.isNullOrEmpty()) {
                         Spacer(modifier = Modifier.height(8.dp))
-                        Surface(
+                        LumenSurface(
                             shape = RoundedCornerShape(10.dp),
-                            color = MaterialTheme.colorScheme.surfaceVariant
+                            color = LumenTheme.colors.surfaceVariant
                         ) {
                             Text(
                                 text = question.formContext,
                                 modifier = Modifier.padding(10.dp),
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                style = LumenTheme.typography.bodySmall,
+                                color = LumenTheme.colors.onSurfaceVariant
                             )
                         }
                     }
@@ -579,19 +565,19 @@ fun MockListeningSection(
                                     .padding(vertical = 4.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                RadioButton(
+                                LumenRadio(
                                     selected = selected == optKey || selected == opt,
                                     onClick = { onAnswerChanged(question.id, optKey) }
                                 )
                                 Text(
                                     text = opt,
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = MaterialTheme.colorScheme.onSurface
+                                    style = LumenTheme.typography.bodyMedium,
+                                    color = LumenTheme.colors.onSurface
                                 )
                             }
                         }
                     } else {
-                        OutlinedTextField(
+                        LumenField(
                             value = selected,
                             onValueChange = { onAnswerChanged(question.id, it) },
                             modifier = Modifier
@@ -607,7 +593,7 @@ fun MockListeningSection(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(
+        LumenButton(
             onClick = onSubmitSection,
             modifier = Modifier
                 .fillMaxWidth()
@@ -615,7 +601,10 @@ fun MockListeningSection(
                 .testTag("submit_listening_section_btn"),
             shape = RoundedCornerShape(10.dp)
         ) {
-            Text("Submit Listening & Proceed to Reading", fontWeight = FontWeight.Bold)
+            Text(
+    "Submit Listening & Proceed to Reading",
+    style = LumenTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
+)
         }
     }
 }
@@ -638,55 +627,51 @@ fun MockReadingSection(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
-            text = "SECTION 2: READING",
-            style = MaterialTheme.typography.labelMedium,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary
-        )
+    text = "SECTION 2: READING",
+    style = (LumenTheme.typography.labelMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.primary
+)
 
         Text(
-            text = test?.title ?: "Reading Passage",
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onSurface
-        )
+    text = test?.title ?: "Reading Passage",
+    style = (LumenTheme.typography.titleLarge).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSurface
+)
 
         // Passage card
-        Card(
+        LumenCard(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(10.dp),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+            colors = LumenCardDefaults.cardColors(containerColor = LumenTheme.colors.surfaceVariant)
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(
-                    text = "PASSAGE TEXT",
-                    style = MaterialTheme.typography.labelSmall,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.primary
-                )
+    text = "PASSAGE TEXT",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.primary
+)
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = test?.passageText ?: "",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    style = LumenTheme.typography.bodyMedium,
+                    color = LumenTheme.colors.onSurfaceVariant
                 )
             }
         }
 
         val questions = test?.questions ?: emptyList()
         questions.forEach { question ->
-            Card(
+            LumenCard(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(10.dp),
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+                colors = LumenCardDefaults.cardColors(containerColor = LumenTheme.colors.surface)
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
-                        text = "Q${question.id}. ${question.questionText}",
-                        style = MaterialTheme.typography.titleSmall,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
+    text = "Q${question.id}. ${question.questionText}",
+    style = (LumenTheme.typography.titleSmall).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSurface
+)
 
                     Spacer(modifier = Modifier.height(12.dp))
 
@@ -701,19 +686,19 @@ fun MockReadingSection(
                                     .padding(vertical = 4.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                RadioButton(
+                                LumenRadio(
                                     selected = selected == optKey || selected == opt,
                                     onClick = { onAnswerChanged(question.id, if (question.type == QuestionType.TRUE_FALSE_NOT_GIVEN) opt else optKey) }
                                 )
                                 Text(
                                     text = opt,
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = MaterialTheme.colorScheme.onSurface
+                                    style = LumenTheme.typography.bodyMedium,
+                                    color = LumenTheme.colors.onSurface
                                 )
                             }
                         }
                     } else {
-                        OutlinedTextField(
+                        LumenField(
                             value = selected,
                             onValueChange = { onAnswerChanged(question.id, it) },
                             modifier = Modifier
@@ -729,7 +714,7 @@ fun MockReadingSection(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(
+        LumenButton(
             onClick = onSubmitSection,
             modifier = Modifier
                 .fillMaxWidth()
@@ -737,7 +722,10 @@ fun MockReadingSection(
                 .testTag("submit_reading_section_btn"),
             shape = RoundedCornerShape(10.dp)
         ) {
-            Text("Submit Reading & Proceed to Writing", fontWeight = FontWeight.Bold)
+            Text(
+    "Submit Reading & Proceed to Writing",
+    style = LumenTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
+)
         }
     }
 }
@@ -764,36 +752,33 @@ fun MockWritingSection(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
-            text = "SECTION 3: WRITING",
-            style = MaterialTheme.typography.labelMedium,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary
-        )
+    text = "SECTION 3: WRITING",
+    style = (LumenTheme.typography.labelMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.primary
+)
 
         Text(
-            text = task?.title ?: "Writing Task",
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onSurface
-        )
+    text = task?.title ?: "Writing Task",
+    style = (LumenTheme.typography.titleLarge).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSurface
+)
 
-        Card(
+        LumenCard(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(10.dp),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+            colors = LumenCardDefaults.cardColors(containerColor = LumenTheme.colors.surfaceVariant)
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(
-                    text = "TASK PROMPT",
-                    style = MaterialTheme.typography.labelSmall,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.primary
-                )
+    text = "TASK PROMPT",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.primary
+)
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = task?.prompt ?: "",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    style = LumenTheme.typography.bodyMedium,
+                    color = LumenTheme.colors.onSurfaceVariant
                 )
             }
         }
@@ -804,26 +789,24 @@ fun MockWritingSection(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Your Essay Response",
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold
-            )
+    text = "Your Essay Response",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold)
+)
 
-            Surface(
+            LumenSurface(
                 shape = RoundedCornerShape(10.dp),
-                color = if (wordCount >= (task?.targetWordCount ?: 250)) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceVariant
+                color = if (wordCount >= (task?.targetWordCount ?: 250)) LumenTheme.colors.primaryContainer else LumenTheme.colors.surfaceVariant
             ) {
                 Text(
-                    text = "$wordCount / ${task?.targetWordCount ?: 250} words",
-                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
-                    style = MaterialTheme.typography.labelMedium,
-                    fontWeight = FontWeight.Bold,
-                    color = if (wordCount >= (task?.targetWordCount ?: 250)) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurfaceVariant
-                )
+    text = "$wordCount / ${task?.targetWordCount ?: 250} words",
+    modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
+    style = (LumenTheme.typography.labelMedium).copy(fontWeight = FontWeight.Bold),
+    color = if (wordCount >= (task?.targetWordCount ?: 250)) LumenTheme.colors.onPrimaryContainer else LumenTheme.colors.onSurfaceVariant
+)
             }
         }
 
-        OutlinedTextField(
+        LumenField(
             value = essayText,
             onValueChange = onEssayChanged,
             modifier = Modifier
@@ -834,7 +817,7 @@ fun MockWritingSection(
             shape = RoundedCornerShape(10.dp)
         )
 
-        Button(
+        LumenButton(
             onClick = onSubmitSection,
             modifier = Modifier
                 .fillMaxWidth()
@@ -842,7 +825,10 @@ fun MockWritingSection(
                 .testTag("submit_writing_section_btn"),
             shape = RoundedCornerShape(10.dp)
         ) {
-            Text("Submit Writing & Proceed to Speaking", fontWeight = FontWeight.Bold)
+            Text(
+    "Submit Writing & Proceed to Speaking",
+    style = LumenTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
+)
         }
     }
 }
@@ -865,45 +851,41 @@ fun MockSpeakingSection(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
-            text = "SECTION 4: SPEAKING",
-            style = MaterialTheme.typography.labelMedium,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary
-        )
+    text = "SECTION 4: SPEAKING",
+    style = (LumenTheme.typography.labelMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.primary
+)
 
         Text(
-            text = task?.title ?: "Speaking Interview",
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onSurface
-        )
+    text = task?.title ?: "Speaking Interview",
+    style = (LumenTheme.typography.titleLarge).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSurface
+)
 
-        Card(
+        LumenCard(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(10.dp),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+            colors = LumenCardDefaults.cardColors(containerColor = LumenTheme.colors.surfaceVariant)
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(
-                    text = "PART 2 CUE CARD",
-                    style = MaterialTheme.typography.labelSmall,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.primary
-                )
+    text = "PART 2 CUE CARD",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.primary
+)
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = task?.part2CueCard ?: "Describe a memorable experience...",
-                    style = MaterialTheme.typography.bodyLarge,
-                    fontWeight = FontWeight.SemiBold,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+    text = task?.part2CueCard ?: "Describe a memorable experience...",
+    style = (LumenTheme.typography.bodyLarge).copy(fontWeight = FontWeight.SemiBold),
+    color = LumenTheme.colors.onSurfaceVariant
+)
 
                 task?.part2Bullets?.forEach { bullet ->
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = "• $bullet",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        style = LumenTheme.typography.bodyMedium,
+                        color = LumenTheme.colors.onSurfaceVariant
                     )
                 }
             }
@@ -912,11 +894,11 @@ fun MockSpeakingSection(
         Spacer(modifier = Modifier.height(10.dp))
 
         // Record Audio Simulation Component
-        Card(
+        LumenCard(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(20.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = if (isRecorded) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface
+            colors = LumenCardDefaults.cardColors(
+                containerColor = if (isRecorded) LumenTheme.colors.primaryContainer else LumenTheme.colors.surface
             )
         ) {
             Column(
@@ -925,12 +907,12 @@ fun MockSpeakingSection(
                     .padding(20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                IconButton(
+                LumenIconButton(
                     onClick = onToggleRecording,
                     modifier = Modifier
                         .size(64.dp)
                         .clip(CircleShape)
-                        .background(if (isRecorded) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error)
+                        .background(if (isRecorded) LumenTheme.colors.primary else LumenTheme.colors.error)
                         .testTag("record_speaking_btn")
                 ) {
                     Icon(
@@ -944,17 +926,16 @@ fun MockSpeakingSection(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 Text(
-                    text = if (isRecorded) "Audio Response Recorded" else "Tap to Record Speaking Answer",
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold,
-                    color = if (isRecorded) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface
-                )
+    text = if (isRecorded) "Audio Response Recorded" else "Tap to Record Speaking Answer",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = if (isRecorded) LumenTheme.colors.onPrimaryContainer else LumenTheme.colors.onSurface
+)
             }
         }
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        Button(
+        LumenButton(
             onClick = onSubmitExam,
             modifier = Modifier
                 .fillMaxWidth()
@@ -964,11 +945,10 @@ fun MockSpeakingSection(
             colors = ButtonDefaults.buttonColors(containerColor = DarkFeatureBandColor)
         ) {
             Text(
-                text = "FINISH OFFICIAL MOCK EXAM SITTING",
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-                color = Color.White
-            )
+    text = "FINISH OFFICIAL MOCK EXAM SITTING",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = Color.White
+)
         }
     }
 }

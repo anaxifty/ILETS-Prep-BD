@@ -10,7 +10,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.material3.*
+import com.example.ui.components.*
+import com.example.ui.theme.LumenTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -29,7 +30,7 @@ import java.util.Locale
 
 // Feature-band color is resolved inside composables (Emerald Focus brand primary).
 val DarkFeatureBandColor: androidx.compose.ui.graphics.Color
-  @Composable get() = MaterialTheme.colorScheme.primary
+  @Composable get() = LumenTheme.colors.primary
 
 @Composable
 fun MockExamListScreen(
@@ -44,15 +45,15 @@ fun MockExamListScreen(
         viewModel.loadMockExamsData()
     }
 
-    Scaffold(
+    LumenScaffold(
         modifier = modifier.fillMaxSize(),
-        containerColor = MaterialTheme.colorScheme.background,
+        containerColor = LumenTheme.colors.background,
         topBar = {
-            Surface(
+            LumenSurface(
                 modifier = Modifier
                     .fillMaxWidth()
                     .statusBarsPadding(),
-                color = MaterialTheme.colorScheme.surface,
+                color = LumenTheme.colors.surface,
                 shadowElevation = 2.dp
             ) {
                 Row(
@@ -61,18 +62,18 @@ fun MockExamListScreen(
                         .padding(horizontal = 20.dp, vertical = 14.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    IconButton(
+                    LumenIconButton(
                         onClick = onBack,
                         modifier = Modifier
                             .size(40.dp)
                             .clip(CircleShape)
-                            .background(MaterialTheme.colorScheme.surfaceVariant)
+                            .background(LumenTheme.colors.surfaceVariant)
                             .testTag("mock_exam_back_button")
                     ) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
                             contentDescription = "Back",
-                            tint = MaterialTheme.colorScheme.onSurface
+                            tint = LumenTheme.colors.onSurface
                         )
                     }
 
@@ -80,18 +81,15 @@ fun MockExamListScreen(
 
                     Column {
                         Text(
-                            text = "IELTS FULL SITTING",
-                            style = MaterialTheme.typography.labelSmall,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.primary,
-                            letterSpacing = 1.sp
-                        )
+    text = "IELTS FULL SITTING",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold, letterSpacing = 1.sp),
+    color = LumenTheme.colors.primary
+)
                         Text(
-                            text = "Weekly & Monthly Mock Exams",
-                            style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
+    text = "Weekly & Monthly Mock Exams",
+    style = (LumenTheme.typography.titleLarge).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSurface
+)
                     }
                 }
             }
@@ -108,12 +106,12 @@ fun MockExamListScreen(
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
+                    LumenSpinner(color = LumenTheme.colors.primary)
                     Spacer(modifier = Modifier.height(12.dp))
                     Text(
                         text = "Loading Mock Exams...",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        style = LumenTheme.typography.bodyMedium,
+                        color = LumenTheme.colors.onSurfaceVariant
                     )
                 }
             } else {
@@ -127,12 +125,12 @@ fun MockExamListScreen(
                     val activeAttempt = uiState.activeAttempt
                     if (activeAttempt != null && activeAttempt.status == "IN_PROGRESS") {
                         item {
-                            Card(
+                            LumenCard(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .testTag("active_exam_resume_card"),
                                 shape = RoundedCornerShape(20.dp),
-                                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
+                                colors = LumenCardDefaults.cardColors(containerColor = LumenTheme.colors.primaryContainer)
                             ) {
                                 Row(
                                     modifier = Modifier
@@ -149,13 +147,13 @@ fun MockExamListScreen(
                                             modifier = Modifier
                                                 .size(44.dp)
                                                 .clip(CircleShape)
-                                                .background(MaterialTheme.colorScheme.primary),
+                                                .background(LumenTheme.colors.primary),
                                             contentAlignment = Alignment.Center
                                         ) {
                                             Icon(
                                                 imageVector = Icons.Default.PlayArrow,
                                                 contentDescription = null,
-                                                tint = MaterialTheme.colorScheme.onPrimary
+                                                tint = LumenTheme.colors.onPrimary
                                             )
                                         }
 
@@ -163,20 +161,19 @@ fun MockExamListScreen(
 
                                         Column {
                                             Text(
-                                                text = "Exam in Progress",
-                                                style = MaterialTheme.typography.titleMedium,
-                                                fontWeight = FontWeight.Bold,
-                                                color = MaterialTheme.colorScheme.onPrimaryContainer
-                                            )
+    text = "Exam in Progress",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onPrimaryContainer
+)
                                             Text(
                                                 text = "${activeAttempt.examTitle} • Section: ${activeAttempt.currentSection}",
-                                                style = MaterialTheme.typography.bodySmall,
-                                                color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
+                                                style = LumenTheme.typography.bodySmall,
+                                                color = LumenTheme.colors.onPrimaryContainer.copy(alpha = 0.8f)
                                             )
                                         }
                                     }
 
-                                    Button(
+                                    LumenButton(
                                         onClick = {
                                             val exam = uiState.mockExams.find { it.id == activeAttempt.mockExamId }
                                                 ?: MockExam(id = activeAttempt.mockExamId, title = activeAttempt.examTitle)
@@ -195,12 +192,10 @@ fun MockExamListScreen(
                     // Scheduled Mock Exams Section
                     item {
                         Text(
-                            text = "AVAILABLE SCHEDULED SITTINGS",
-                            style = MaterialTheme.typography.labelSmall,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.primary,
-                            letterSpacing = 1.sp
-                        )
+    text = "AVAILABLE SCHEDULED SITTINGS",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold, letterSpacing = 1.sp),
+    color = LumenTheme.colors.primary
+)
                     }
 
                     items(uiState.mockExams, key = { it.id }) { exam ->
@@ -220,12 +215,10 @@ fun MockExamListScreen(
                         item {
                             Spacer(modifier = Modifier.height(10.dp))
                             Text(
-                                text = "RECENT MOCK EXAM RESULTS",
-                                style = MaterialTheme.typography.labelSmall,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.primary,
-                                letterSpacing = 1.sp
-                            )
+    text = "RECENT MOCK EXAM RESULTS",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold, letterSpacing = 1.sp),
+    color = LumenTheme.colors.primary
+)
                         }
 
                         items(completedAttempts, key = { it.attemptId }) { attempt ->
@@ -251,12 +244,12 @@ fun MockExamCard(
     onStart: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Card(
+    LumenCard(
         modifier = modifier
             .fillMaxWidth()
             .testTag("mock_exam_card_${exam.id}"),
         shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+        colors = LumenCardDefaults.cardColors(containerColor = LumenTheme.colors.surfaceVariant)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(
@@ -264,28 +257,27 @@ fun MockExamCard(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Surface(
+                LumenSurface(
                     shape = RoundedCornerShape(10.dp),
-                    color = if (exam.examType == "WEEKLY") MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.secondaryContainer
+                    color = if (exam.examType == "WEEKLY") LumenTheme.colors.primaryContainer else LumenTheme.colors.secondaryContainer
                 ) {
                     Text(
-                        text = "${exam.examType} MOCK",
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-                        style = MaterialTheme.typography.labelSmall,
-                        fontWeight = FontWeight.Bold,
-                        color = if (exam.examType == "WEEKLY") MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSecondaryContainer
-                    )
+    text = "${exam.examType} MOCK",
+    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = if (exam.examType == "WEEKLY") LumenTheme.colors.onPrimaryContainer else LumenTheme.colors.onSecondaryContainer
+)
                 }
 
-                Surface(
+                LumenSurface(
                     shape = RoundedCornerShape(10.dp),
-                    color = MaterialTheme.colorScheme.surface
+                    color = LumenTheme.colors.surface
                 ) {
                     Text(
                         text = exam.difficultyLevel,
                         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        style = LumenTheme.typography.labelSmall,
+                        color = LumenTheme.colors.onSurfaceVariant
                     )
                 }
             }
@@ -293,11 +285,10 @@ fun MockExamCard(
             Spacer(modifier = Modifier.height(12.dp))
 
             Text(
-                text = exam.title,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+    text = exam.title,
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSurfaceVariant
+)
 
             Spacer(modifier = Modifier.height(6.dp))
 
@@ -305,14 +296,14 @@ fun MockExamCard(
                 Icon(
                     imageVector = Icons.Default.Schedule,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    tint = LumenTheme.colors.onSurfaceVariant,
                     modifier = Modifier.size(14.dp)
                 )
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
                     text = "4-Skill Sitting • approx. 2h 40m total duration",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    style = LumenTheme.typography.bodySmall,
+                    color = LumenTheme.colors.onSurfaceVariant
                 )
             }
 
@@ -320,8 +311,8 @@ fun MockExamCard(
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = "Window: ${exam.startDate} to ${exam.endDate}",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f)
+                    style = LumenTheme.typography.labelSmall,
+                    color = LumenTheme.colors.onSurfaceVariant.copy(alpha = 0.8f)
                 )
             }
 
@@ -329,14 +320,14 @@ fun MockExamCard(
 
             val isCurrentActive = activeAttempt?.mockExamId == exam.id && activeAttempt.status == "IN_PROGRESS"
 
-            Button(
+            LumenButton(
                 onClick = onStart,
                 modifier = Modifier
                     .fillMaxWidth()
                     .testTag("start_mock_exam_btn_${exam.id}"),
                 shape = RoundedCornerShape(10.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = if (isCurrentActive) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.primary
+                    containerColor = if (isCurrentActive) LumenTheme.colors.tertiary else LumenTheme.colors.primary
                 )
             ) {
                 Icon(
@@ -346,9 +337,9 @@ fun MockExamCard(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = if (isCurrentActive) "Resume Exam in Progress" else "Start This Mock Exam",
-                    fontWeight = FontWeight.Bold
-                )
+    text = if (isCurrentActive) "Resume Exam in Progress" else "Start This Mock Exam",
+    style = LumenTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
+)
             }
         }
     }
@@ -360,13 +351,13 @@ fun PastMockResultCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Card(
+    LumenCard(
         modifier = modifier
             .fillMaxWidth()
             .clickable { onClick() }
             .testTag("past_result_card_${attempt.attemptId}"),
         shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+        colors = LumenCardDefaults.cardColors(containerColor = LumenTheme.colors.surfaceVariant)
     ) {
         Row(
             modifier = Modifier
@@ -377,11 +368,10 @@ fun PastMockResultCard(
         ) {
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = attempt.examTitle,
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+    text = attempt.examTitle,
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSurfaceVariant
+)
 
                 Spacer(modifier = Modifier.height(4.dp))
 
@@ -391,14 +381,14 @@ fun PastMockResultCard(
 
                 Text(
                     text = "$dateStr • L: ${attempt.listeningBand} | R: ${attempt.readingBand} | W: ${attempt.writingBand} | S: ${attempt.speakingBand}",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f)
+                    style = LumenTheme.typography.bodySmall,
+                    color = LumenTheme.colors.onSurfaceVariant.copy(alpha = 0.8f)
                 )
             }
 
             Spacer(modifier = Modifier.width(12.dp))
 
-            // Overall Band Score Badge
+            // Overall Band Score LumenBadge
             Box(
                 modifier = Modifier
                     .size(54.dp)
@@ -408,17 +398,15 @@ fun PastMockResultCard(
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
-                        text = "BAND",
-                        style = MaterialTheme.typography.labelSmall,
-                        fontSize = 9.sp,
-                        color = Color.White.copy(alpha = 0.8f)
-                    )
+    text = "BAND",
+    style = (LumenTheme.typography.labelSmall).copy(fontSize = 9.sp),
+    color = Color.White.copy(alpha = 0.8f)
+)
                     Text(
-                        text = attempt.overallBand.toString(),
-                        style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.White
-                    )
+    text = attempt.overallBand.toString(),
+    style = (LumenTheme.typography.titleLarge).copy(fontWeight = FontWeight.Bold),
+    color = Color.White
+)
                 }
             }
         }

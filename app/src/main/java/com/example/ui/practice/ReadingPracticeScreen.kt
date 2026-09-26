@@ -13,7 +13,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Timer
-import androidx.compose.material3.*
+import com.example.ui.components.*
+import com.example.ui.theme.LumenTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -50,27 +51,26 @@ fun ReadingPracticeScreen(
         }
     }
 
-    Scaffold(
+    LumenScaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
-            TopAppBar(
+            LumenTopBar(
                 title = {
                     Column {
                         Text(
-                            text = test.title,
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold,
-                            maxLines = 1
-                        )
+    text = test.title,
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    maxLines = 1
+)
                         Text(
                             text = "IELTS Reading Passage • ${answeredCount}/${test.questions.size} Answered",
-                            style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                            style = LumenTheme.typography.labelSmall,
+                            color = LumenTheme.colors.onSurfaceVariant
                         )
                     }
                 },
                 navigationIcon = {
-                    IconButton(
+                    LumenIconButton(
                         onClick = onBack,
                         modifier = Modifier.testTag("exit_reading_test")
                     ) {
@@ -88,13 +88,13 @@ fun ReadingPracticeScreen(
                             .padding(end = 8.dp)
                             .clip(RoundedCornerShape(50))
                             .background(
-                                if (uiState.timeRemainingSeconds < 300) MaterialTheme.colorScheme.errorContainer
-                                else MaterialTheme.colorScheme.surfaceVariant
+                                if (uiState.timeRemainingSeconds < 300) LumenTheme.colors.errorContainer
+                                else LumenTheme.colors.surfaceVariant
                             )
                             .border(
                                 width = 1.dp,
-                                color = if (uiState.timeRemainingSeconds < 300) MaterialTheme.colorScheme.error
-                                else MaterialTheme.colorScheme.outlineVariant,
+                                color = if (uiState.timeRemainingSeconds < 300) LumenTheme.colors.error
+                                else LumenTheme.colors.outlineVariant,
                                 shape = RoundedCornerShape(50)
                             )
                             .padding(horizontal = 12.dp, vertical = 6.dp)
@@ -104,24 +104,24 @@ fun ReadingPracticeScreen(
                                 imageVector = Icons.Default.Timer,
                                 contentDescription = null,
                                 modifier = Modifier.size(16.dp),
-                                tint = if (uiState.timeRemainingSeconds < 300) MaterialTheme.colorScheme.error
-                                else MaterialTheme.colorScheme.primary
+                                tint = if (uiState.timeRemainingSeconds < 300) LumenTheme.colors.error
+                                else LumenTheme.colors.primary
                             )
                             Spacer(modifier = Modifier.width(6.dp))
                             Text(
                                 text = timeString,
-                                style = MaterialTheme.typography.labelMedium.copy(
+                                style = LumenTheme.typography.labelMedium.copy(
                                     fontFamily = FontFamily.Monospace,
                                     fontWeight = FontWeight.Bold
                                 ),
-                                color = if (uiState.timeRemainingSeconds < 300) MaterialTheme.colorScheme.error
-                                else MaterialTheme.colorScheme.onSurfaceVariant
+                                color = if (uiState.timeRemainingSeconds < 300) LumenTheme.colors.error
+                                else LumenTheme.colors.onSurfaceVariant
                             )
                         }
                     }
 
-                    // Submit Button
-                    Button(
+                    // Submit LumenButton
+                    LumenButton(
                         onClick = { showConfirmDialog = true },
                         modifier = Modifier
                             .padding(end = 12.dp)
@@ -130,14 +130,13 @@ fun ReadingPracticeScreen(
                         shape = RoundedCornerShape(50)
                     ) {
                         Text(
-                            text = "Submit",
-                            style = MaterialTheme.typography.labelMedium,
-                            fontWeight = FontWeight.Bold
-                        )
+    text = "Submit",
+    style = (LumenTheme.typography.labelMedium).copy(fontWeight = FontWeight.Bold)
+)
                     }
                 },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surface
+                colors = LumenTopBarDefaults.topAppBarColors(
+                    containerColor = LumenTheme.colors.surface
                 )
             )
         }
@@ -147,29 +146,29 @@ fun ReadingPracticeScreen(
                 .fillMaxSize()
                 .padding(padding)
         ) {
-            // Tab Header (Passage vs Questions)
-            TabRow(
+            // LumenTab Header (Passage vs Questions)
+            LumenTabRow(
                 selectedTabIndex = uiState.activeTab,
-                containerColor = MaterialTheme.colorScheme.surface
+                containerColor = LumenTheme.colors.surface
             ) {
-                Tab(
+                LumenTab(
                     selected = uiState.activeTab == 0,
                     onClick = { viewModel.setActiveTab(0) },
                     text = {
                         Text(
-                            text = "Reading Passage",
-                            fontWeight = FontWeight.Bold
-                        )
+    text = "Reading Passage",
+    style = LumenTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
+)
                     }
                 )
-                Tab(
+                LumenTab(
                     selected = uiState.activeTab == 1,
                     onClick = { viewModel.setActiveTab(1) },
                     text = {
                         Text(
-                            text = "Questions (${answeredCount}/${test.questions.size})",
-                            fontWeight = FontWeight.Bold
-                        )
+    text = "Questions (${answeredCount}/${test.questions.size})",
+    style = LumenTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
+)
                     }
                 )
             }
@@ -197,10 +196,9 @@ fun ReadingPracticeScreen(
             onDismissRequest = { showConfirmDialog = false },
             title = {
                 Text(
-                    text = "Submit Reading Test?",
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold
-                )
+    text = "Submit Reading Test?",
+    style = (LumenTheme.typography.titleLarge).copy(fontWeight = FontWeight.Bold)
+)
             },
             text = {
                 Text(
@@ -208,7 +206,7 @@ fun ReadingPracticeScreen(
                 )
             },
             confirmButton = {
-                Button(
+                LumenButton(
                     onClick = {
                         showConfirmDialog = false
                         viewModel.submitTest()
@@ -219,7 +217,7 @@ fun ReadingPracticeScreen(
                 }
             },
             dismissButton = {
-                TextButton(onClick = { showConfirmDialog = false }) {
+                LumenTextButton(onClick = { showConfirmDialog = false }) {
                     Text("Keep Reviewing")
                 }
             }
@@ -239,17 +237,17 @@ private fun PassageView(
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        Card(
+        LumenCard(
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()
                 .border(
                     width = 1.dp,
-                    color = MaterialTheme.colorScheme.outlineVariant,
+                    color = LumenTheme.colors.outlineVariant,
                     shape = RoundedCornerShape(20.dp)
                 ),
             shape = RoundedCornerShape(20.dp),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+            colors = LumenCardDefaults.cardColors(containerColor = LumenTheme.colors.surface)
         ) {
             Box(
                 modifier = Modifier
@@ -259,19 +257,19 @@ private fun PassageView(
             ) {
                 Text(
                     text = passageText,
-                    style = MaterialTheme.typography.bodyMedium.copy(
+                    style = LumenTheme.typography.bodyMedium.copy(
                         lineHeight = 26.sp,
                         fontSize = 15.sp,
                         letterSpacing = 0.2.sp
                     ),
-                    color = MaterialTheme.colorScheme.onSurface
+                    color = LumenTheme.colors.onSurface
                 )
             }
         }
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        Button(
+        LumenButton(
             onClick = onGoToQuestions,
             modifier = Modifier
                 .fillMaxWidth()
@@ -279,10 +277,9 @@ private fun PassageView(
             shape = RoundedCornerShape(50)
         ) {
             Text(
-                text = "Proceed to Questions",
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold
-            )
+    text = "Proceed to Questions",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold)
+)
         }
     }
 }
@@ -314,7 +311,7 @@ private fun QuestionsView(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Button(
+        LumenButton(
             onClick = onSubmit,
             modifier = Modifier
                 .fillMaxWidth()
@@ -323,10 +320,9 @@ private fun QuestionsView(
             shape = RoundedCornerShape(50)
         ) {
             Text(
-                text = "Submit Test & View Score",
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold
-            )
+    text = "Submit Test & View Score",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold)
+)
         }
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -340,16 +336,16 @@ private fun QuestionCard(
     currentAnswer: String,
     onAnswerSelected: (String) -> Unit
 ) {
-    Card(
+    LumenCard(
         modifier = Modifier
             .fillMaxWidth()
             .border(
                 width = 1.dp,
-                color = if (currentAnswer.isNotEmpty()) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant,
+                color = if (currentAnswer.isNotEmpty()) LumenTheme.colors.primary else LumenTheme.colors.outlineVariant,
                 shape = RoundedCornerShape(20.dp)
             ),
         shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+        colors = LumenCardDefaults.cardColors(containerColor = LumenTheme.colors.surface)
     ) {
         Column(
             modifier = Modifier
@@ -364,21 +360,20 @@ private fun QuestionCard(
                 Box(
                     modifier = Modifier
                         .clip(RoundedCornerShape(10.dp))
-                        .background(MaterialTheme.colorScheme.primaryContainer)
+                        .background(LumenTheme.colors.primaryContainer)
                         .padding(horizontal = 10.dp, vertical = 4.dp)
                 ) {
                     Text(
-                        text = "Question $index",
-                        style = MaterialTheme.typography.labelSmall,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer
-                    )
+    text = "Question $index",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onPrimaryContainer
+)
                 }
 
                 Box(
                     modifier = Modifier
                         .clip(RoundedCornerShape(10.dp))
-                        .background(MaterialTheme.colorScheme.surfaceVariant)
+                        .background(LumenTheme.colors.surfaceVariant)
                         .padding(horizontal = 8.dp, vertical = 4.dp)
                 ) {
                     Text(
@@ -387,8 +382,8 @@ private fun QuestionCard(
                             QuestionType.TRUE_FALSE_NOT_GIVEN -> "True / False / Not Given"
                             QuestionType.FILL_IN_BLANK -> "Fill in Blank"
                         },
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        style = LumenTheme.typography.labelSmall,
+                        color = LumenTheme.colors.onSurfaceVariant
                     )
                 }
             }
@@ -396,11 +391,10 @@ private fun QuestionCard(
             Spacer(modifier = Modifier.height(12.dp))
 
             Text(
-                text = question.questionText,
-                style = MaterialTheme.typography.titleSmall,
-                fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.onSurface
-            )
+    text = question.questionText,
+    style = (LumenTheme.typography.titleSmall).copy(fontWeight = FontWeight.SemiBold),
+    color = LumenTheme.colors.onSurface
+)
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -410,7 +404,7 @@ private fun QuestionCard(
                         val optionKey = option.take(1) // E.g., 'A' from 'A) ...'
                         val isSelected = currentAnswer.equals(optionKey, ignoreCase = true) || currentAnswer.equals(option, ignoreCase = true)
 
-                        OutlinedCard(
+                        LumenOutlinedCard(
                             onClick = { onAnswerSelected(optionKey) },
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -418,10 +412,10 @@ private fun QuestionCard(
                             shape = RoundedCornerShape(14.dp),
                             border = BorderStroke(
                                 width = if (isSelected) 2.dp else 1.dp,
-                                color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant
+                                color = if (isSelected) LumenTheme.colors.primary else LumenTheme.colors.outlineVariant
                             ),
-                            colors = CardDefaults.outlinedCardColors(
-                                containerColor = if (isSelected) MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f) else MaterialTheme.colorScheme.surface
+                            colors = LumenCardDefaults.outlinedCardColors(
+                                containerColor = if (isSelected) LumenTheme.colors.primaryContainer.copy(alpha = 0.4f) else LumenTheme.colors.surface
                             )
                         ) {
                             Row(
@@ -430,15 +424,15 @@ private fun QuestionCard(
                                     .padding(14.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                RadioButton(
+                                LumenRadio(
                                     selected = isSelected,
                                     onClick = { onAnswerSelected(optionKey) }
                                 )
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text(
                                     text = option,
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = MaterialTheme.colorScheme.onSurface
+                                    style = LumenTheme.typography.bodyMedium,
+                                    color = LumenTheme.colors.onSurface
                                 )
                             }
                         }
@@ -458,36 +452,35 @@ private fun QuestionCard(
                                     .weight(1f)
                                     .clip(RoundedCornerShape(14.dp))
                                     .background(
-                                        if (isSelected) MaterialTheme.colorScheme.primary
-                                        else MaterialTheme.colorScheme.surfaceVariant
+                                        if (isSelected) LumenTheme.colors.primary
+                                        else LumenTheme.colors.surfaceVariant
                                     )
                                     .clickable { onAnswerSelected(choice) }
                                     .padding(vertical = 12.dp),
                                 contentAlignment = Alignment.Center
                             ) {
                                 Text(
-                                    text = choice,
-                                    style = MaterialTheme.typography.labelSmall,
-                                    fontWeight = FontWeight.Bold,
-                                    color = if (isSelected) MaterialTheme.colorScheme.onPrimary
-                                    else MaterialTheme.colorScheme.onSurfaceVariant
-                                )
+    text = choice,
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = if (isSelected) LumenTheme.colors.onPrimary
+                                    else LumenTheme.colors.onSurfaceVariant
+)
                             }
                         }
                     }
                 }
 
                 QuestionType.FILL_IN_BLANK -> {
-                    OutlinedTextField(
+                    LumenField(
                         value = currentAnswer,
                         onValueChange = { onAnswerSelected(it) },
                         modifier = Modifier.fillMaxWidth(),
                         placeholder = { Text("Type your answer here...") },
                         singleLine = true,
                         shape = RoundedCornerShape(14.dp),
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = MaterialTheme.colorScheme.primary,
-                            unfocusedBorderColor = MaterialTheme.colorScheme.outlineVariant
+                        colors = LumenFieldDefaults.colors(
+                            focusedBorderColor = LumenTheme.colors.primary,
+                            unfocusedBorderColor = LumenTheme.colors.outlineVariant
                         )
                     )
                 }

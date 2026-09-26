@@ -10,7 +10,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.material3.*
+import com.example.ui.components.*
+import com.example.ui.theme.LumenTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,9 +37,9 @@ fun PracticeHubScreen(
 
     val scrollState = rememberScrollState()
 
-    Scaffold(
+    LumenScaffold(
         modifier = modifier.fillMaxSize(),
-        containerColor = MaterialTheme.colorScheme.background
+        containerColor = LumenTheme.colors.background
     ) { padding ->
         Column(
             modifier = Modifier
@@ -54,18 +55,18 @@ fun PracticeHubScreen(
                     .padding(vertical = 8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                IconButton(
+                LumenIconButton(
                     onClick = onBack,
                     modifier = Modifier
                         .size(44.dp)
                         .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.surfaceVariant)
+                        .background(LumenTheme.colors.surfaceVariant)
                         .testTag("practice_back_button")
                 ) {
                     Icon(
                         imageVector = Icons.Default.ArrowBack,
                         contentDescription = "Back to Home",
-                        tint = MaterialTheme.colorScheme.onSurface
+                        tint = LumenTheme.colors.onSurface
                     )
                 }
 
@@ -73,35 +74,32 @@ fun PracticeHubScreen(
 
                 Column {
                     Text(
-                        text = "IELTS PRACTICE HUB",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.primary,
-                        fontWeight = FontWeight.Bold,
-                        letterSpacing = 1.sp
-                    )
+    text = "IELTS PRACTICE HUB",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold, letterSpacing = 1.sp),
+    color = LumenTheme.colors.primary
+)
                     Text(
-                        text = "Target Skill Modules",
-                        style = MaterialTheme.typography.headlineSmall,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onBackground
-                    )
+    text = "Target Skill Modules",
+    style = (LumenTheme.typography.headlineSmall).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onBackground
+)
                 }
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
             // User Baseline Info Banner
-            Card(
+            LumenCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .border(
                         width = 1.dp,
-                        color = MaterialTheme.colorScheme.outline,
+                        color = LumenTheme.colors.outline,
                         shape = RoundedCornerShape(26.dp)
                     ),
                 shape = RoundedCornerShape(26.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer
+                colors = LumenCardDefaults.cardColors(
+                    containerColor = LumenTheme.colors.primaryContainer
                 )
             ) {
                 Row(
@@ -114,20 +112,19 @@ fun PracticeHubScreen(
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
                             text = "Assessed Reading Level",
-                            style = MaterialTheme.typography.labelMedium,
-                            color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
+                            style = LumenTheme.typography.labelMedium,
+                            color = LumenTheme.colors.onPrimaryContainer.copy(alpha = 0.8f)
                         )
                         Text(
-                            text = "Band ${"%.1f".format(uiState.userProfile.readingBand)} Baseline",
-                            style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onPrimaryContainer
-                        )
+    text = "Band ${"%.1f".format(uiState.userProfile.readingBand)} Baseline",
+    style = (LumenTheme.typography.titleLarge).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onPrimaryContainer
+)
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
                             text = "Recommended passages tailored to your self-assessed target.",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
+                            style = LumenTheme.typography.bodySmall,
+                            color = LumenTheme.colors.onPrimaryContainer.copy(alpha = 0.8f)
                         )
                     }
 
@@ -135,13 +132,13 @@ fun PracticeHubScreen(
                         modifier = Modifier
                             .size(48.dp)
                             .clip(CircleShape)
-                            .background(MaterialTheme.colorScheme.surface),
+                            .background(LumenTheme.colors.surface),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
                             imageVector = Icons.Default.MenuBook,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary,
+                            tint = LumenTheme.colors.primary,
                             modifier = Modifier.size(24.dp)
                         )
                     }
@@ -151,11 +148,10 @@ fun PracticeHubScreen(
             Spacer(modifier = Modifier.height(24.dp))
 
             Text(
-                text = "Skill Practice Modules",
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onBackground
-            )
+    text = "Skill Practice Modules",
+    style = (LumenTheme.typography.titleLarge).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onBackground
+)
 
             Spacer(modifier = Modifier.height(12.dp))
 
@@ -166,17 +162,17 @@ fun PracticeHubScreen(
                         .height(200.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
+                    LumenSpinner(color = LumenTheme.colors.primary)
                 }
             } else if (uiState.errorMessage != null) {
-                Card(
+                LumenCard(
                     modifier = Modifier.fillMaxWidth(),
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer)
+                    colors = LumenCardDefaults.cardColors(containerColor = LumenTheme.colors.errorContainer)
                 ) {
                     Text(
                         text = uiState.errorMessage,
                         modifier = Modifier.padding(16.dp),
-                        color = MaterialTheme.colorScheme.onErrorContainer
+                        color = LumenTheme.colors.onErrorContainer
                     )
                 }
             } else {
@@ -208,11 +204,10 @@ fun PracticeHubScreen(
                 // Additional Reading Passages available
                 if (uiState.readingTests.size > 1) {
                     Text(
-                        text = "All Reading Passages (${uiState.readingTests.size})",
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onBackground
-                    )
+    text = "All Reading Passages (${uiState.readingTests.size})",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onBackground
+)
 
                     Spacer(modifier = Modifier.height(8.dp))
 
@@ -302,18 +297,18 @@ private fun SkillModuleCard(
     buttonLabel: String = "Start Test",
     onStart: () -> Unit
 ) {
-    Card(
+    LumenCard(
         modifier = Modifier
             .fillMaxWidth()
             .border(
                 width = 1.dp,
-                color = if (isUnlocked) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant,
+                color = if (isUnlocked) LumenTheme.colors.primary else LumenTheme.colors.outlineVariant,
                 shape = RoundedCornerShape(26.dp)
             )
             .testTag(if (isUnlocked) "${title.lowercase().replace(" ", "_")}_card" else "locked_card_${title.lowercase()}"),
         shape = RoundedCornerShape(26.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = if (isUnlocked) MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+        colors = LumenCardDefaults.cardColors(
+            containerColor = if (isUnlocked) LumenTheme.colors.surface else LumenTheme.colors.surfaceVariant.copy(alpha = 0.5f)
         )
     ) {
         Column(
@@ -332,15 +327,15 @@ private fun SkillModuleCard(
                             .size(44.dp)
                             .clip(RoundedCornerShape(14.dp))
                             .background(
-                                if (isUnlocked) MaterialTheme.colorScheme.primaryContainer
-                                else MaterialTheme.colorScheme.surfaceVariant
+                                if (isUnlocked) LumenTheme.colors.primaryContainer
+                                else LumenTheme.colors.surfaceVariant
                             ),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
                             imageVector = icon,
                             contentDescription = null,
-                            tint = if (isUnlocked) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurfaceVariant,
+                            tint = if (isUnlocked) LumenTheme.colors.onPrimaryContainer else LumenTheme.colors.onSurfaceVariant,
                             modifier = Modifier.size(24.dp)
                         )
                     }
@@ -349,15 +344,14 @@ private fun SkillModuleCard(
 
                     Column {
                         Text(
-                            text = title,
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
+    text = title,
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSurface
+)
                         Text(
                             text = subtitle,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                            style = LumenTheme.typography.bodySmall,
+                            color = LumenTheme.colors.onSurfaceVariant
                         )
                     }
                 }
@@ -366,17 +360,16 @@ private fun SkillModuleCard(
                     modifier = Modifier
                         .clip(RoundedCornerShape(10.dp))
                         .background(
-                            if (isUnlocked) MaterialTheme.colorScheme.primaryContainer
-                            else MaterialTheme.colorScheme.surfaceVariant
+                            if (isUnlocked) LumenTheme.colors.primaryContainer
+                            else LumenTheme.colors.surfaceVariant
                         )
                         .padding(horizontal = 10.dp, vertical = 6.dp)
                 ) {
                     Text(
-                        text = badgeText ?: difficulty ?: "Available",
-                        style = MaterialTheme.typography.labelSmall,
-                        fontWeight = FontWeight.Bold,
-                        color = if (isUnlocked) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+    text = badgeText ?: difficulty ?: "Available",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = if (isUnlocked) LumenTheme.colors.primary else LumenTheme.colors.onSurfaceVariant
+)
                 }
             }
 
@@ -387,30 +380,27 @@ private fun SkillModuleCard(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(20.dp))
-                        .background(MaterialTheme.colorScheme.surfaceVariant)
+                        .background(LumenTheme.colors.surfaceVariant)
                         .padding(14.dp)
                 ) {
                     Column {
                         Text(
-                            text = "RECOMMENDED TEST",
-                            style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.primary,
-                            fontWeight = FontWeight.Bold,
-                            letterSpacing = 0.5.sp
-                        )
+    text = "RECOMMENDED TEST",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold, letterSpacing = 0.5.sp),
+    color = LumenTheme.colors.primary
+)
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
-                            text = recommendedTestTitle,
-                            style = MaterialTheme.typography.titleSmall,
-                            fontWeight = FontWeight.SemiBold,
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
+    text = recommendedTestTitle,
+    style = (LumenTheme.typography.titleSmall).copy(fontWeight = FontWeight.SemiBold),
+    color = LumenTheme.colors.onSurface
+)
                     }
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                Button(
+                LumenButton(
                     onClick = onStart,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -418,8 +408,8 @@ private fun SkillModuleCard(
                         .testTag("start_${title.lowercase().replace(" ", "_")}_button"),
                     shape = RoundedCornerShape(50),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.primary,
-                        contentColor = MaterialTheme.colorScheme.onPrimary
+                        containerColor = LumenTheme.colors.primary,
+                        contentColor = LumenTheme.colors.onPrimary
                     )
                 ) {
                     Row(
@@ -427,10 +417,9 @@ private fun SkillModuleCard(
                         horizontalArrangement = Arrangement.Center
                     ) {
                         Text(
-                            text = buttonLabel,
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold
-                        )
+    text = buttonLabel,
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold)
+)
                         Spacer(modifier = Modifier.width(8.dp))
                         Icon(
                             imageVector = Icons.Default.PlayArrow,
@@ -449,17 +438,17 @@ private fun ReadingPassageRow(
     test: ReadingTest,
     onStart: () -> Unit
 ) {
-    Card(
+    LumenCard(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onStart() }
             .border(
                 width = 1.dp,
-                color = MaterialTheme.colorScheme.outlineVariant,
+                color = LumenTheme.colors.outlineVariant,
                 shape = RoundedCornerShape(20.dp)
             ),
         shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+        colors = LumenCardDefaults.cardColors(containerColor = LumenTheme.colors.surface)
     ) {
         Row(
             modifier = Modifier
@@ -473,38 +462,36 @@ private fun ReadingPassageRow(
                     Box(
                         modifier = Modifier
                             .clip(RoundedCornerShape(10.dp))
-                            .background(MaterialTheme.colorScheme.secondaryContainer)
+                            .background(LumenTheme.colors.secondaryContainer)
                             .padding(horizontal = 8.dp, vertical = 2.dp)
                     ) {
                         Text(
-                            text = test.difficultyLevel,
-                            style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.onSecondaryContainer,
-                            fontWeight = FontWeight.Bold
-                        )
+    text = test.difficultyLevel,
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSecondaryContainer
+)
                     }
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
                         text = "${test.questions.size} Questions",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        style = LumenTheme.typography.labelSmall,
+                        color = LumenTheme.colors.onSurfaceVariant
                     )
                 }
 
                 Spacer(modifier = Modifier.height(4.dp))
 
                 Text(
-                    text = test.title,
-                    style = MaterialTheme.typography.titleSmall,
-                    fontWeight = FontWeight.SemiBold,
-                    color = MaterialTheme.colorScheme.onSurface
-                )
+    text = test.title,
+    style = (LumenTheme.typography.titleSmall).copy(fontWeight = FontWeight.SemiBold),
+    color = LumenTheme.colors.onSurface
+)
             }
 
             Icon(
                 imageVector = Icons.Default.ChevronRight,
                 contentDescription = "Start Test",
-                tint = MaterialTheme.colorScheme.primary,
+                tint = LumenTheme.colors.primary,
                 modifier = Modifier.size(24.dp)
             )
         }

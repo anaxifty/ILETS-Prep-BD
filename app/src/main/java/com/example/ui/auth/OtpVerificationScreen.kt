@@ -11,7 +11,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.MarkEmailRead
-import androidx.compose.material3.*
+import com.example.ui.components.*
+import com.example.ui.theme.LumenTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,26 +33,26 @@ fun OtpVerificationScreen(
     onVerified: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Scaffold(
+    LumenScaffold(
         modifier = modifier.fillMaxSize(),
-        containerColor = MaterialTheme.colorScheme.background,
+        containerColor = LumenTheme.colors.background,
         topBar = {
-            TopAppBar(
+            LumenTopBar(
                 title = {},
                 navigationIcon = {
-                    IconButton(
+                    LumenIconButton(
                         onClick = onBack,
                         modifier = Modifier.testTag("otp_back_button")
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back",
-                            tint = MaterialTheme.colorScheme.onBackground
+                            tint = LumenTheme.colors.onBackground
                         )
                     }
                 },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background
+                colors = LumenTopBarDefaults.topAppBarColors(
+                    containerColor = LumenTheme.colors.background
                 )
             )
         }
@@ -73,13 +74,13 @@ fun OtpVerificationScreen(
                     modifier = Modifier
                         .size(56.dp)
                         .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.primaryContainer),
+                        .background(LumenTheme.colors.primaryContainer),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
                         imageVector = Icons.Default.MarkEmailRead,
                         contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                        tint = LumenTheme.colors.onPrimaryContainer,
                         modifier = Modifier.size(28.dp)
                     )
                 }
@@ -88,37 +89,37 @@ fun OtpVerificationScreen(
 
                 Text(
                     text = "Verify Code",
-                    style = MaterialTheme.typography.headlineLarge.copy(
+                    style = LumenTheme.typography.headlineLarge.copy(
                         fontWeight = FontWeight.Bold,
                         fontSize = 32.sp,
                         letterSpacing = (-0.5).sp
                     ),
-                    color = MaterialTheme.colorScheme.onBackground
+                    color = LumenTheme.colors.onBackground
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
                     text = "Sent 6-digit verification code to ${uiState.phoneNumber}",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    style = LumenTheme.typography.bodyMedium,
+                    color = LumenTheme.colors.onSurfaceVariant
                 )
             }
 
             // OTP Input Box Container
-            Card(
+            LumenCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .border(
                         width = 1.dp,
-                        color = MaterialTheme.colorScheme.outline,
+                        color = LumenTheme.colors.outline,
                         shape = RoundedCornerShape(26.dp)
                     ),
                 shape = RoundedCornerShape(26.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surface
+                colors = LumenCardDefaults.cardColors(
+                    containerColor = LumenTheme.colors.surface
                 ),
-                elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+                elevation = 0.dp
             ) {
                 Column(
                     modifier = Modifier
@@ -127,16 +128,14 @@ fun OtpVerificationScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "ENTER 6-DIGIT OTP",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        fontWeight = FontWeight.Bold,
-                        letterSpacing = 1.sp
-                    )
+    text = "ENTER 6-DIGIT OTP",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold, letterSpacing = 1.sp),
+    color = LumenTheme.colors.onSurfaceVariant
+)
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    OutlinedTextField(
+                    LumenField(
                         value = uiState.otpCode,
                         onValueChange = { viewModel.onOtpCodeChanged(it) },
                         modifier = Modifier
@@ -150,19 +149,19 @@ fun OtpVerificationScreen(
                             )
                         },
                         singleLine = true,
-                        textStyle = MaterialTheme.typography.headlineMedium.copy(
+                        textStyle = LumenTheme.typography.headlineMedium.copy(
                             textAlign = TextAlign.Center,
                             fontWeight = FontWeight.Bold,
                             letterSpacing = 8.sp,
-                            color = MaterialTheme.colorScheme.primary
+                            color = LumenTheme.colors.primary
                         ),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         shape = RoundedCornerShape(20.dp),
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = MaterialTheme.colorScheme.primary,
-                            unfocusedBorderColor = MaterialTheme.colorScheme.outline,
-                            focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
-                            unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant
+                        colors = LumenFieldDefaults.colors(
+                            focusedBorderColor = LumenTheme.colors.primary,
+                            unfocusedBorderColor = LumenTheme.colors.outline,
+                            focusedContainerColor = LumenTheme.colors.surfaceVariant,
+                            unfocusedContainerColor = LumenTheme.colors.surfaceVariant
                         )
                     )
 
@@ -170,8 +169,8 @@ fun OtpVerificationScreen(
                         Spacer(modifier = Modifier.height(12.dp))
                         Text(
                             text = uiState.errorMessage,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.error,
+                            style = LumenTheme.typography.bodySmall,
+                            color = LumenTheme.colors.error,
                             textAlign = TextAlign.Center
                         )
                     }
@@ -182,7 +181,7 @@ fun OtpVerificationScreen(
                     Row(
                         modifier = Modifier
                             .clip(RoundedCornerShape(20.dp))
-                            .background(MaterialTheme.colorScheme.surfaceVariant)
+                            .background(LumenTheme.colors.surfaceVariant)
                             .clickable {
                                 viewModel.onOtpCodeChanged("123456")
                             }
@@ -192,14 +191,14 @@ fun OtpVerificationScreen(
                         Icon(
                             imageVector = Icons.Default.Check,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary,
+                            tint = LumenTheme.colors.primary,
                             modifier = Modifier.size(16.dp)
                         )
                         Spacer(modifier = Modifier.width(6.dp))
                         Text(
                             text = "Auto-fill test OTP (123456)",
-                            style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.primary
+                            style = LumenTheme.typography.labelSmall,
+                            color = LumenTheme.colors.primary
                         )
                     }
                 }
@@ -212,7 +211,7 @@ fun OtpVerificationScreen(
                     .padding(bottom = 16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Button(
+                LumenButton(
                     onClick = {
                         viewModel.verifyOtp()
                     },
@@ -223,22 +222,21 @@ fun OtpVerificationScreen(
                     enabled = !uiState.isLoading && uiState.otpCode.length == 6,
                     shape = RoundedCornerShape(50),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.primary,
-                        contentColor = MaterialTheme.colorScheme.onPrimary
+                        containerColor = LumenTheme.colors.primary,
+                        contentColor = LumenTheme.colors.onPrimary
                     )
                 ) {
                     if (uiState.isLoading) {
-                        CircularProgressIndicator(
+                        LumenSpinner(
                             modifier = Modifier.size(24.dp),
-                            color = MaterialTheme.colorScheme.onPrimary,
+                            color = LumenTheme.colors.onPrimary,
                             strokeWidth = 2.dp
                         )
                     } else {
                         Text(
-                            text = "Confirm & Proceed",
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold
-                        )
+    text = "Confirm & Proceed",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold)
+)
                     }
                 }
             }

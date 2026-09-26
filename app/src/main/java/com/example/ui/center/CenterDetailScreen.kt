@@ -14,7 +14,8 @@ import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.Timer
-import androidx.compose.material3.*
+import com.example.ui.components.*
+import com.example.ui.theme.LumenTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,21 +40,20 @@ fun CenterDetailScreen(
     var studentName by remember { mutableStateOf("") }
     var studentPhone by remember { mutableStateOf("") }
 
-    val darkGreen = MaterialTheme.colorScheme.primary // Emerald Focus brand green
+    val darkGreen = LumenTheme.colors.primary // Emerald Focus brand green
 
-    Scaffold(
+    LumenScaffold(
         topBar = {
-            TopAppBar(
+            LumenTopBar(
                 title = {
                     Text(
-                        text = "Partner Center Details",
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.White
-                    )
+    text = "Partner Center Details",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = Color.White
+)
                 },
                 navigationIcon = {
-                    IconButton(onClick = onBack, modifier = Modifier.testTag("center_detail_back_button")) {
+                    LumenIconButton(onClick = onBack, modifier = Modifier.testTag("center_detail_back_button")) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back",
@@ -61,11 +61,11 @@ fun CenterDetailScreen(
                         )
                     }
                 },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = darkGreen),
+                colors = LumenTopBarDefaults.topAppBarColors(containerColor = darkGreen),
                 modifier = Modifier.statusBarsPadding()
             )
         },
-        containerColor = MaterialTheme.colorScheme.background,
+        containerColor = LumenTheme.colors.background,
         modifier = modifier.fillMaxSize().testTag("center_detail_screen")
     ) { innerPadding ->
         LazyColumn(
@@ -77,11 +77,11 @@ fun CenterDetailScreen(
         ) {
             // Center Profile Info Header
             item {
-                Card(
+                LumenCard(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(20.dp),
-                    colors = CardDefaults.cardColors(containerColor = darkGreen),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+                    colors = LumenCardDefaults.cardColors(containerColor = darkGreen),
+                    elevation = 4.dp
                 ) {
                     Column(
                         modifier = Modifier
@@ -95,11 +95,10 @@ fun CenterDetailScreen(
                         ) {
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(
-                                    text = center.name,
-                                    style = MaterialTheme.typography.titleLarge,
-                                    fontWeight = FontWeight.Bold,
-                                    color = Color.White
-                                )
+    text = center.name,
+    style = (LumenTheme.typography.titleLarge).copy(fontWeight = FontWeight.Bold),
+    color = Color.White
+)
                                 Spacer(modifier = Modifier.height(4.dp))
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Icon(
@@ -111,14 +110,14 @@ fun CenterDetailScreen(
                                     Spacer(modifier = Modifier.width(4.dp))
                                     Text(
                                         text = center.address,
-                                        style = MaterialTheme.typography.bodySmall,
+                                        style = LumenTheme.typography.bodySmall,
                                         color = Color.White.copy(alpha = 0.85f)
                                     )
                                 }
                             }
 
-                            // Rating Badge
-                            Surface(
+                            // Rating LumenBadge
+                            LumenSurface(
                                 shape = RoundedCornerShape(10.dp),
                                 color = Color.White.copy(alpha = 0.18f)
                             ) {
@@ -134,11 +133,10 @@ fun CenterDetailScreen(
                                     )
                                     Spacer(modifier = Modifier.width(4.dp))
                                     Text(
-                                        text = "${center.rating}",
-                                        style = MaterialTheme.typography.labelMedium,
-                                        fontWeight = FontWeight.Bold,
-                                        color = Color.White
-                                    )
+    text = "${center.rating}",
+    style = (LumenTheme.typography.labelMedium).copy(fontWeight = FontWeight.Bold),
+    color = Color.White
+)
                                 }
                             }
                         }
@@ -147,12 +145,12 @@ fun CenterDetailScreen(
 
                         Text(
                             text = center.description,
-                            style = MaterialTheme.typography.bodyMedium,
+                            style = LumenTheme.typography.bodyMedium,
                             color = Color.White.copy(alpha = 0.9f)
                         )
 
                         Spacer(modifier = Modifier.height(16.dp))
-                        Divider(color = Color.White.copy(alpha = 0.2f))
+                        LumenDivider(color = Color.White.copy(alpha = 0.2f))
                         Spacer(modifier = Modifier.height(16.dp))
 
                         // Contacts
@@ -169,11 +167,10 @@ fun CenterDetailScreen(
                                 )
                                 Spacer(modifier = Modifier.width(6.dp))
                                 Text(
-                                    text = center.contactPhone,
-                                    style = MaterialTheme.typography.bodySmall,
-                                    fontWeight = FontWeight.Bold,
-                                    color = Color.White
-                                )
+    text = center.contactPhone,
+    style = (LumenTheme.typography.bodySmall).copy(fontWeight = FontWeight.Bold),
+    color = Color.White
+)
                             }
 
                             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -186,7 +183,7 @@ fun CenterDetailScreen(
                                 Spacer(modifier = Modifier.width(6.dp))
                                 Text(
                                     text = center.contactEmail,
-                                    style = MaterialTheme.typography.bodySmall,
+                                    style = LumenTheme.typography.bodySmall,
                                     color = Color.White.copy(alpha = 0.85f)
                                 )
                             }
@@ -197,7 +194,7 @@ fun CenterDetailScreen(
 
             // Practice Test Disclaimer Banner
             item {
-                Surface(
+                LumenSurface(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(14.dp),
                     color = Color(0xFFCDF4E0)
@@ -214,11 +211,10 @@ fun CenterDetailScreen(
                         )
                         Spacer(modifier = Modifier.width(10.dp))
                         Text(
-                            text = "Practice Mock Test & Coaching Slots. Seats reserved via secure SSLCommerz payment.",
-                            style = MaterialTheme.typography.labelMedium,
-                            fontWeight = FontWeight.Medium,
-                            color = Color(0xFF00341D)
-                        )
+    text = "Practice Mock Test & Coaching Slots. Seats reserved via secure SSLCommerz payment.",
+    style = (LumenTheme.typography.labelMedium).copy(fontWeight = FontWeight.Medium),
+    color = Color(0xFF00341D)
+)
                     }
                 }
             }
@@ -226,11 +222,10 @@ fun CenterDetailScreen(
             // Slots Header
             item {
                 Text(
-                    text = "Available Practice Mock Slots",
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onBackground
-                )
+    text = "Available Practice Mock Slots",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onBackground
+)
             }
 
             // Slot Cards List
@@ -256,34 +251,31 @@ fun CenterDetailScreen(
             },
             title = {
                 Text(
-                    text = "Confirm Slot Booking",
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold
-                )
+    text = "Confirm Slot Booking",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold)
+)
             },
             text = {
                 Column(modifier = Modifier.fillMaxWidth()) {
                     Text(
-                        text = slot.title,
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = darkGreen
-                    )
+    text = slot.title,
+    style = (LumenTheme.typography.bodyMedium).copy(fontWeight = FontWeight.Bold),
+    color = darkGreen
+)
                     Text(
                         text = "${slot.date} | ${slot.time}",
-                        style = MaterialTheme.typography.bodySmall,
+                        style = LumenTheme.typography.bodySmall,
                         color = Color.Gray
                     )
                     Text(
-                        text = "Price: ৳${slot.priceBdt.toInt()} BDT",
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary
-                    )
+    text = "Price: ৳${slot.priceBdt.toInt()} BDT",
+    style = (LumenTheme.typography.bodyMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.primary
+)
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    OutlinedTextField(
+                    LumenField(
                         value = studentName,
                         onValueChange = { studentName = it },
                         label = { Text("Student Full Name") },
@@ -295,7 +287,7 @@ fun CenterDetailScreen(
 
                     Spacer(modifier = Modifier.height(10.dp))
 
-                    OutlinedTextField(
+                    LumenField(
                         value = studentPhone,
                         onValueChange = { studentPhone = it },
                         label = { Text("Phone Number for SMS Confirmation") },
@@ -307,7 +299,7 @@ fun CenterDetailScreen(
                 }
             },
             confirmButton = {
-                Button(
+                LumenButton(
                     onClick = {
                         val sSlot = slot
                         showBookingDialog = null
@@ -320,7 +312,7 @@ fun CenterDetailScreen(
                 }
             },
             dismissButton = {
-                TextButton(onClick = { showBookingDialog = null }) {
+                LumenTextButton(onClick = { showBookingDialog = null }) {
                     Text("Cancel")
                 }
             }
@@ -333,15 +325,15 @@ private fun SlotCard(
     slot: PartnerSlot,
     onBookClick: () -> Unit
 ) {
-    val darkGreen = MaterialTheme.colorScheme.primary // Emerald Focus brand green
+    val darkGreen = LumenTheme.colors.primary // Emerald Focus brand green
 
-    Card(
+    LumenCard(
         modifier = Modifier
             .fillMaxWidth()
             .testTag("center_slot_card_${slot.slotId}"),
         shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)),
-        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+        colors = LumenCardDefaults.cardColors(containerColor = LumenTheme.colors.surfaceVariant.copy(alpha = 0.5f)),
+        elevation = 1.dp
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(
@@ -349,35 +341,32 @@ private fun SlotCard(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Surface(
+                LumenSurface(
                     shape = RoundedCornerShape(10.dp),
                     color = if (slot.slotType == "PRACTICE_MOCK") darkGreen.copy(alpha = 0.12f) else Color(0xFF00658F).copy(alpha = 0.12f)
                 ) {
                     Text(
-                        text = if (slot.slotType == "PRACTICE_MOCK") "PRACTICE MOCK TEST" else "COACHING SESSION",
-                        style = MaterialTheme.typography.labelSmall,
-                        fontWeight = FontWeight.Bold,
-                        color = if (slot.slotType == "PRACTICE_MOCK") darkGreen else Color(0xFF00658F),
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
-                    )
+    text = if (slot.slotType == "PRACTICE_MOCK") "PRACTICE MOCK TEST" else "COACHING SESSION",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = if (slot.slotType == "PRACTICE_MOCK") darkGreen else Color(0xFF00658F),
+    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+)
                 }
 
                 Text(
-                    text = "৳${slot.priceBdt.toInt()} BDT",
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold,
-                    color = darkGreen
-                )
+    text = "৳${slot.priceBdt.toInt()} BDT",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = darkGreen
+)
             }
 
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = slot.title,
-                style = MaterialTheme.typography.titleSmall,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSurface
-            )
+    text = slot.title,
+    style = (LumenTheme.typography.titleSmall).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSurface
+)
 
             Spacer(modifier = Modifier.height(6.dp))
 
@@ -391,7 +380,7 @@ private fun SlotCard(
                 Spacer(modifier = Modifier.width(6.dp))
                 Text(
                     text = "${slot.date} | ${slot.time}",
-                    style = MaterialTheme.typography.bodySmall,
+                    style = LumenTheme.typography.bodySmall,
                     color = Color.Gray
                 )
             }
@@ -403,20 +392,19 @@ private fun SlotCard(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Surface(
+                LumenSurface(
                     shape = RoundedCornerShape(10.dp),
                     color = if (slot.seatsRemaining > 3) Color(0xFFCDF4E0) else Color(0xFFFFDAD6)
                 ) {
                     Text(
-                        text = if (slot.seatsRemaining > 0) "${slot.seatsRemaining} of ${slot.capacity} Seats Available" else "FULLY BOOKED",
-                        style = MaterialTheme.typography.labelSmall,
-                        fontWeight = FontWeight.Bold,
-                        color = if (slot.seatsRemaining > 3) Color(0xFF1B8A5A) else Color(0xFFBA1A1A),
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
-                    )
+    text = if (slot.seatsRemaining > 0) "${slot.seatsRemaining} of ${slot.capacity} Seats Available" else "FULLY BOOKED",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = if (slot.seatsRemaining > 3) Color(0xFF1B8A5A) else Color(0xFFBA1A1A),
+    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+)
                 }
 
-                Button(
+                LumenButton(
                     onClick = onBookClick,
                     enabled = slot.seatsRemaining > 0,
                     colors = ButtonDefaults.buttonColors(containerColor = darkGreen),
@@ -424,10 +412,9 @@ private fun SlotCard(
                     modifier = Modifier.testTag("book_slot_button_${slot.slotId}")
                 ) {
                     Text(
-                        text = if (slot.seatsRemaining > 0) "Book Practice Slot" else "Sold Out",
-                        style = MaterialTheme.typography.labelMedium,
-                        fontWeight = FontWeight.Bold
-                    )
+    text = if (slot.seatsRemaining > 0) "Book Practice Slot" else "Sold Out",
+    style = (LumenTheme.typography.labelMedium).copy(fontWeight = FontWeight.Bold)
+)
                 }
             }
         }

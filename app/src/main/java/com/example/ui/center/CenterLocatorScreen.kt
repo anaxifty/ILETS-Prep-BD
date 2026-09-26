@@ -24,7 +24,8 @@ import androidx.compose.material.icons.filled.OpenInNew
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material3.*
+import com.example.ui.components.*
+import com.example.ui.theme.LumenTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -49,7 +50,7 @@ fun CenterLocatorScreen(
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
-    val darkGreen = MaterialTheme.colorScheme.primary // Emerald Focus brand green
+    val darkGreen = LumenTheme.colors.primary // Emerald Focus brand green
 
     var showMapCanvas by remember { mutableStateOf(true) }
 
@@ -94,24 +95,23 @@ fun CenterLocatorScreen(
                     Column {
                         Text(
                             text = "Your practice slot at ${paymentState.booking.centerName} is confirmed.",
-                            style = MaterialTheme.typography.bodyMedium
+                            style = LumenTheme.typography.bodyMedium
                         )
                         Spacer(modifier = Modifier.height(6.dp))
                         Text(
-                            text = "Slot: ${paymentState.booking.slotDate} (${paymentState.booking.slotTime})",
-                            style = MaterialTheme.typography.bodySmall,
-                            fontWeight = FontWeight.Bold,
-                            color = darkGreen
-                        )
+    text = "Slot: ${paymentState.booking.slotDate} (${paymentState.booking.slotTime})",
+    style = (LumenTheme.typography.bodySmall).copy(fontWeight = FontWeight.Bold),
+    color = darkGreen
+)
                         Text(
                             text = "SSLCommerz TXN: ${paymentState.booking.paymentTranId}",
-                            style = MaterialTheme.typography.labelSmall,
+                            style = LumenTheme.typography.labelSmall,
                             color = Color.Gray
                         )
                     }
                 },
                 confirmButton = {
-                    Button(
+                    LumenButton(
                         onClick = {
                             viewModel.resetPaymentState()
                             onNavigateToMyBookings()
@@ -122,7 +122,7 @@ fun CenterLocatorScreen(
                     }
                 },
                 dismissButton = {
-                    TextButton(onClick = { viewModel.resetPaymentState() }) {
+                    LumenTextButton(onClick = { viewModel.resetPaymentState() }) {
                         Text("Done")
                     }
                 }
@@ -134,7 +134,7 @@ fun CenterLocatorScreen(
                 title = { Text("Payment / Booking Failed") },
                 text = { Text(paymentState.reason) },
                 confirmButton = {
-                    Button(
+                    LumenButton(
                         onClick = { viewModel.resetPaymentState() },
                         colors = ButtonDefaults.buttonColors(containerColor = darkGreen)
                     ) {
@@ -146,26 +146,25 @@ fun CenterLocatorScreen(
         else -> {}
     }
 
-    Scaffold(
+    LumenScaffold(
         topBar = {
-            TopAppBar(
+            LumenTopBar(
                 title = {
                     Column {
                         Text(
-                            text = "Find Practice Center",
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.White
-                        )
+    text = "Find Practice Center",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = Color.White
+)
                         Text(
                             text = "Find a center for practice tests & coaching",
-                            style = MaterialTheme.typography.labelSmall,
+                            style = LumenTheme.typography.labelSmall,
                             color = Color.White.copy(alpha = 0.8f)
                         )
                     }
                 },
                 navigationIcon = {
-                    IconButton(onClick = onBack, modifier = Modifier.testTag("center_locator_back_button")) {
+                    LumenIconButton(onClick = onBack, modifier = Modifier.testTag("center_locator_back_button")) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back",
@@ -174,13 +173,13 @@ fun CenterLocatorScreen(
                     }
                 },
                 actions = {
-                    IconButton(
+                    LumenIconButton(
                         onClick = onNavigateToMyBookings,
                         modifier = Modifier.testTag("my_bookings_header_button")
                     ) {
-                        BadgedBox(badge = {
+                        LumenBadgeBox(badge = {
                             if (uiState.userBookings.isNotEmpty()) {
-                                Badge(containerColor = MaterialTheme.colorScheme.error) {
+                                LumenBadge(containerColor = LumenTheme.colors.error) {
                                     Text("${uiState.userBookings.size}")
                                 }
                             }
@@ -193,11 +192,11 @@ fun CenterLocatorScreen(
                         }
                     }
                 },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = darkGreen),
+                colors = LumenTopBarDefaults.topAppBarColors(containerColor = darkGreen),
                 modifier = Modifier.statusBarsPadding()
             )
         },
-        containerColor = MaterialTheme.colorScheme.background,
+        containerColor = LumenTheme.colors.background,
         modifier = modifier.fillMaxSize().testTag("center_locator_screen")
     ) { innerPadding ->
         Column(
@@ -206,7 +205,7 @@ fun CenterLocatorScreen(
                 .padding(innerPadding)
         ) {
             // HARD REQUIREMENT PERSISTENT DISCLAIMER NOTE/LINK
-            Surface(
+            LumenSurface(
                 modifier = Modifier
                     .fillMaxWidth()
                     .testTag("official_exam_disclaimer_banner"),
@@ -227,18 +226,17 @@ fun CenterLocatorScreen(
                     Spacer(modifier = Modifier.width(10.dp))
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = "PRACTICE MOCK SITTINGS ONLY",
-                            style = MaterialTheme.typography.labelSmall,
-                            fontWeight = FontWeight.Bold,
-                            color = Color(0xFF8A5A00)
-                        )
+    text = "PRACTICE MOCK SITTINGS ONLY",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = Color(0xFF8A5A00)
+)
                         Text(
                             text = "This locator books practice mock tests and coaching at partner centers. Does NOT register for official IELTS exam.",
-                            style = MaterialTheme.typography.bodySmall,
+                            style = LumenTheme.typography.bodySmall,
                             color = Color(0xFF45524B)
                         )
                     }
-                    TextButton(
+                    LumenTextButton(
                         onClick = {
                             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.ieltsidpindia.com"))
                             context.startActivity(intent)
@@ -247,11 +245,10 @@ fun CenterLocatorScreen(
                     ) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(
-                                text = "Official IDP",
-                                style = MaterialTheme.typography.labelSmall,
-                                fontWeight = FontWeight.Bold,
-                                color = Color(0xFF8A5A00)
-                            )
+    text = "Official IDP",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = Color(0xFF8A5A00)
+)
                             Spacer(modifier = Modifier.width(2.dp))
                             Icon(
                                 imageVector = Icons.Default.OpenInNew,
@@ -271,7 +268,7 @@ fun CenterLocatorScreen(
                     .background(darkGreen.copy(alpha = 0.05f))
                     .padding(horizontal = 16.dp, vertical = 12.dp)
             ) {
-                OutlinedTextField(
+                LumenField(
                     value = uiState.searchQuery,
                     onValueChange = { viewModel.onSearchQueryChanged(it) },
                     placeholder = { Text("Search city, area, or center name...") },
@@ -284,7 +281,7 @@ fun CenterLocatorScreen(
                     },
                     singleLine = true,
                     shape = RoundedCornerShape(20.dp),
-                    colors = OutlinedTextFieldDefaults.colors(
+                    colors = LumenFieldDefaults.colors(
                         focusedContainerColor = Color.White,
                         unfocusedContainerColor = Color.White
                     ),
@@ -301,7 +298,7 @@ fun CenterLocatorScreen(
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     items(cities) { city ->
-                        FilterChip(
+                        LumenChip(
                             selected = uiState.selectedCity == city,
                             onClick = { viewModel.onCitySelected(city) },
                             label = { Text(city) },
@@ -312,14 +309,14 @@ fun CenterLocatorScreen(
             }
 
             // Interactive Map Representation Canvas
-            Card(
+            LumenCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp, vertical = 10.dp)
                     .height(160.dp)
                     .testTag("google_maps_canvas_card"),
                 shape = RoundedCornerShape(20.dp),
-                colors = CardDefaults.cardColors(containerColor = Color(0xFFBFF1D8))
+                colors = LumenCardDefaults.cardColors(containerColor = Color(0xFFBFF1D8))
             ) {
                 Box(modifier = Modifier.fillMaxSize()) {
                     // Stylized Map Canvas Graphics
@@ -343,24 +340,22 @@ fun CenterLocatorScreen(
                                 )
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text(
-                                    text = "Google Maps Partner Center View",
-                                    style = MaterialTheme.typography.titleSmall,
-                                    fontWeight = FontWeight.Bold,
-                                    color = darkGreen
-                                )
+    text = "Google Maps Partner Center View",
+    style = (LumenTheme.typography.titleSmall).copy(fontWeight = FontWeight.Bold),
+    color = darkGreen
+)
                             }
 
-                            Surface(
+                            LumenSurface(
                                 shape = RoundedCornerShape(10.dp),
                                 color = darkGreen
                             ) {
                                 Text(
-                                    text = "${uiState.filteredCenters.size} Centers Found",
-                                    style = MaterialTheme.typography.labelSmall,
-                                    fontWeight = FontWeight.Bold,
-                                    color = Color.White,
-                                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
-                                )
+    text = "${uiState.filteredCenters.size} Centers Found",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = Color.White,
+    modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
+)
                             }
                         }
 
@@ -369,7 +364,7 @@ fun CenterLocatorScreen(
                             horizontalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
                             uiState.filteredCenters.take(3).forEach { center ->
-                                Surface(
+                                LumenSurface(
                                     shape = RoundedCornerShape(10.dp),
                                     color = Color.White,
                                     modifier = Modifier
@@ -388,12 +383,11 @@ fun CenterLocatorScreen(
                                         )
                                         Spacer(modifier = Modifier.width(4.dp))
                                         Text(
-                                            text = center.name.split(" ").firstOrNull() ?: center.city,
-                                            style = MaterialTheme.typography.labelSmall,
-                                            fontWeight = FontWeight.Bold,
-                                            maxLines = 1,
-                                            color = darkGreen
-                                        )
+    text = center.name.split(" ").firstOrNull() ?: center.city,
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    maxLines = 1,
+    color = darkGreen
+)
                                     }
                                 }
                             }
@@ -426,16 +420,16 @@ private fun PartnerCenterCard(
     center: PartnerCenter,
     onClick: () -> Unit
 ) {
-    val darkGreen = MaterialTheme.colorScheme.primary // Emerald Focus brand green
+    val darkGreen = LumenTheme.colors.primary // Emerald Focus brand green
 
-    Card(
+    LumenCard(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onClick() }
             .testTag("partner_center_card_${center.id}"),
         shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        colors = LumenCardDefaults.cardColors(containerColor = LumenTheme.colors.surface),
+        elevation = 2.dp
     ) {
         Row(
             modifier = Modifier
@@ -447,11 +441,10 @@ private fun PartnerCenterCard(
             Column(modifier = Modifier.weight(1f)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
-                        text = center.name,
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
+    text = center.name,
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSurface
+)
                 }
 
                 Spacer(modifier = Modifier.height(4.dp))
@@ -466,7 +459,7 @@ private fun PartnerCenterCard(
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
                         text = center.address,
-                        style = MaterialTheme.typography.bodySmall,
+                        style = LumenTheme.typography.bodySmall,
                         color = Color.Gray
                     )
                 }
@@ -477,17 +470,16 @@ private fun PartnerCenterCard(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Surface(
+                    LumenSurface(
                         shape = RoundedCornerShape(10.dp),
                         color = darkGreen.copy(alpha = 0.1f)
                     ) {
                         Text(
-                            text = "${center.slots.sumOf { it.seatsRemaining }} Practice Seats Available",
-                            style = MaterialTheme.typography.labelSmall,
-                            fontWeight = FontWeight.Bold,
-                            color = darkGreen,
-                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
-                        )
+    text = "${center.slots.sumOf { it.seatsRemaining }} Practice Seats Available",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = darkGreen,
+    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+)
                     }
 
                     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -499,11 +491,10 @@ private fun PartnerCenterCard(
                         )
                         Spacer(modifier = Modifier.width(2.dp))
                         Text(
-                            text = "${center.rating}",
-                            style = MaterialTheme.typography.labelSmall,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.DarkGray
-                        )
+    text = "${center.rating}",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = Color.DarkGray
+)
                     }
                 }
             }

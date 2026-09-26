@@ -12,7 +12,8 @@ import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material.icons.filled.Timer
-import androidx.compose.material3.*
+import com.example.ui.components.*
+import com.example.ui.theme.LumenTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,16 +39,16 @@ fun ReadingResultsScreen(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            CircularProgressIndicator()
+            LumenSpinner()
         }
         return
     }
 
     val scrollState = rememberScrollState()
 
-    Scaffold(
+    LumenScaffold(
         modifier = modifier.fillMaxSize(),
-        containerColor = MaterialTheme.colorScheme.background
+        containerColor = LumenTheme.colors.background
     ) { padding ->
         Column(
             modifier = Modifier
@@ -60,47 +61,44 @@ fun ReadingResultsScreen(
             Box(
                 modifier = Modifier
                     .clip(RoundedCornerShape(50))
-                    .background(MaterialTheme.colorScheme.primaryContainer)
+                    .background(LumenTheme.colors.primaryContainer)
                     .padding(horizontal = 12.dp, vertical = 6.dp)
             ) {
                 Text(
-                    text = "READING TEST COMPLETED",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer,
-                    fontWeight = FontWeight.Bold,
-                    letterSpacing = 1.sp
-                )
+    text = "READING TEST COMPLETED",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold, letterSpacing = 1.sp),
+    color = LumenTheme.colors.onPrimaryContainer
+)
             }
 
             Spacer(modifier = Modifier.height(12.dp))
 
             Text(
-                text = "Performance Breakdown",
-                style = MaterialTheme.typography.headlineMedium,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onBackground
-            )
+    text = "Performance Breakdown",
+    style = (LumenTheme.typography.headlineMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onBackground
+)
 
             Text(
                 text = test.title,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                style = LumenTheme.typography.bodyMedium,
+                color = LumenTheme.colors.onSurfaceVariant
             )
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            // Score Banner Card - Emerald Focus Style
-            Card(
+            // Score Banner LumenCard - Emerald Focus Style
+            LumenCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .border(
                         width = 1.dp,
-                        color = MaterialTheme.colorScheme.primary,
+                        color = LumenTheme.colors.primary,
                         shape = RoundedCornerShape(26.dp)
                     ),
                 shape = RoundedCornerShape(26.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surface
+                colors = LumenCardDefaults.cardColors(
+                    containerColor = LumenTheme.colors.surface
                 )
             ) {
                 Column(
@@ -113,13 +111,13 @@ fun ReadingResultsScreen(
                         modifier = Modifier
                             .size(64.dp)
                             .clip(CircleShape)
-                            .background(MaterialTheme.colorScheme.primaryContainer),
+                            .background(LumenTheme.colors.primaryContainer),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
                             imageVector = Icons.Default.EmojiEvents,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary,
+                            tint = LumenTheme.colors.primary,
                             modifier = Modifier.size(36.dp)
                         )
                     }
@@ -127,20 +125,18 @@ fun ReadingResultsScreen(
                     Spacer(modifier = Modifier.height(12.dp))
 
                     Text(
-                        text = "Estimated Band ${"%.1f".format(attempt.bandScore)}",
-                        style = MaterialTheme.typography.headlineLarge,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary
-                    )
+    text = "Estimated Band ${"%.1f".format(attempt.bandScore)}",
+    style = (LumenTheme.typography.headlineLarge).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.primary
+)
 
                     Spacer(modifier = Modifier.height(4.dp))
 
                     Text(
-                        text = "Raw Score: ${attempt.score} / ${attempt.totalQuestions} Correct",
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.SemiBold,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
+    text = "Raw Score: ${attempt.score} / ${attempt.totalQuestions} Correct",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.SemiBold),
+    color = LumenTheme.colors.onSurface
+)
 
                     Spacer(modifier = Modifier.height(16.dp))
 
@@ -149,23 +145,22 @@ fun ReadingResultsScreen(
                     Row(
                         modifier = Modifier
                             .clip(RoundedCornerShape(50))
-                            .background(MaterialTheme.colorScheme.surfaceVariant)
+                            .background(LumenTheme.colors.surfaceVariant)
                             .padding(horizontal = 16.dp, vertical = 8.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
                             imageVector = Icons.Default.Timer,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            tint = LumenTheme.colors.onSurfaceVariant,
                             modifier = Modifier.size(16.dp)
                         )
                         Spacer(modifier = Modifier.width(6.dp))
                         Text(
-                            text = "Time Spent: ${minutes}m ${seconds}s",
-                            style = MaterialTheme.typography.labelMedium,
-                            fontWeight = FontWeight.SemiBold,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+    text = "Time Spent: ${minutes}m ${seconds}s",
+    style = (LumenTheme.typography.labelMedium).copy(fontWeight = FontWeight.SemiBold),
+    color = LumenTheme.colors.onSurfaceVariant
+)
                     }
                 }
             }
@@ -173,11 +168,10 @@ fun ReadingResultsScreen(
             Spacer(modifier = Modifier.height(24.dp))
 
             Text(
-                text = "Per-Question Analysis",
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onBackground
-            )
+    text = "Per-Question Analysis",
+    style = (LumenTheme.typography.titleLarge).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onBackground
+)
 
             Spacer(modifier = Modifier.height(12.dp))
 
@@ -197,7 +191,7 @@ fun ReadingResultsScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Button(
+            LumenButton(
                 onClick = onDone,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -206,10 +200,9 @@ fun ReadingResultsScreen(
                 shape = RoundedCornerShape(50)
             ) {
                 Text(
-                    text = "Return to Practice Hub",
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold
-                )
+    text = "Return to Practice Hub",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold)
+)
             }
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -224,16 +217,16 @@ private fun ResultQuestionItem(
     userAnswer: String,
     isCorrect: Boolean
 ) {
-    Card(
+    LumenCard(
         modifier = Modifier
             .fillMaxWidth()
             .border(
                 width = 1.dp,
-                color = if (isCorrect) Color(0xFF1B8A5A) else MaterialTheme.colorScheme.error,
+                color = if (isCorrect) Color(0xFF1B8A5A) else LumenTheme.colors.error,
                 shape = RoundedCornerShape(20.dp)
             ),
         shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+        colors = LumenCardDefaults.cardColors(containerColor = LumenTheme.colors.surface)
     ) {
         Column(
             modifier = Modifier
@@ -250,13 +243,13 @@ private fun ResultQuestionItem(
                         modifier = Modifier
                             .size(28.dp)
                             .clip(CircleShape)
-                            .background(if (isCorrect) Color(0xFFCDF4E0) else MaterialTheme.colorScheme.errorContainer),
+                            .background(if (isCorrect) Color(0xFFCDF4E0) else LumenTheme.colors.errorContainer),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
                             imageVector = if (isCorrect) Icons.Default.CheckCircle else Icons.Default.Close,
                             contentDescription = null,
-                            tint = if (isCorrect) Color(0xFF1B8A5A) else MaterialTheme.colorScheme.error,
+                            tint = if (isCorrect) Color(0xFF1B8A5A) else LumenTheme.colors.error,
                             modifier = Modifier.size(18.dp)
                         )
                     }
@@ -264,36 +257,33 @@ private fun ResultQuestionItem(
                     Spacer(modifier = Modifier.width(10.dp))
 
                     Text(
-                        text = "Question $index",
-                        style = MaterialTheme.typography.titleSmall,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
+    text = "Question $index",
+    style = (LumenTheme.typography.titleSmall).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSurface
+)
                 }
 
                 Box(
                     modifier = Modifier
                         .clip(RoundedCornerShape(10.dp))
-                        .background(if (isCorrect) Color(0xFFCDF4E0) else MaterialTheme.colorScheme.errorContainer)
+                        .background(if (isCorrect) Color(0xFFCDF4E0) else LumenTheme.colors.errorContainer)
                         .padding(horizontal = 10.dp, vertical = 4.dp)
                 ) {
                     Text(
-                        text = if (isCorrect) "CORRECT" else "INCORRECT",
-                        style = MaterialTheme.typography.labelSmall,
-                        fontWeight = FontWeight.Bold,
-                        color = if (isCorrect) Color(0xFF1B8A5A) else MaterialTheme.colorScheme.error
-                    )
+    text = if (isCorrect) "CORRECT" else "INCORRECT",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = if (isCorrect) Color(0xFF1B8A5A) else LumenTheme.colors.error
+)
                 }
             }
 
             Spacer(modifier = Modifier.height(10.dp))
 
             Text(
-                text = question.questionText,
-                style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.Medium,
-                color = MaterialTheme.colorScheme.onSurface
-            )
+    text = question.questionText,
+    style = (LumenTheme.typography.bodyMedium).copy(fontWeight = FontWeight.Medium),
+    color = LumenTheme.colors.onSurface
+)
 
             Spacer(modifier = Modifier.height(12.dp))
 
@@ -301,39 +291,35 @@ private fun ResultQuestionItem(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(10.dp))
-                    .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
+                    .background(LumenTheme.colors.surfaceVariant.copy(alpha = 0.5f))
                     .padding(12.dp)
             ) {
                 Row {
                     Text(
-                        text = "Your Answer: ",
-                        style = MaterialTheme.typography.labelSmall,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+    text = "Your Answer: ",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSurfaceVariant
+)
                     Text(
-                        text = userAnswer.ifEmpty { "(No answer provided)" },
-                        style = MaterialTheme.typography.labelSmall,
-                        fontWeight = FontWeight.Bold,
-                        color = if (isCorrect) Color(0xFF1B8A5A) else MaterialTheme.colorScheme.error
-                    )
+    text = userAnswer.ifEmpty { "(No answer provided)" },
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = if (isCorrect) Color(0xFF1B8A5A) else LumenTheme.colors.error
+)
                 }
 
                 if (!isCorrect) {
                     Spacer(modifier = Modifier.height(4.dp))
                     Row {
                         Text(
-                            text = "Correct Answer: ",
-                            style = MaterialTheme.typography.labelSmall,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+    text = "Correct Answer: ",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSurfaceVariant
+)
                         Text(
-                            text = question.correctAnswer,
-                            style = MaterialTheme.typography.labelSmall,
-                            fontWeight = FontWeight.Bold,
-                            color = Color(0xFF1B8A5A)
-                        )
+    text = question.correctAnswer,
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = Color(0xFF1B8A5A)
+)
                     }
                 }
             }
@@ -342,8 +328,8 @@ private fun ResultQuestionItem(
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
                     text = "Explanation: ${question.explanation}",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    style = LumenTheme.typography.bodySmall,
+                    color = LumenTheme.colors.onSurfaceVariant
                 )
             }
         }

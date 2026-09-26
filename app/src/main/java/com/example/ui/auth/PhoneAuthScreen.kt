@@ -17,7 +17,8 @@ import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.Security
-import androidx.compose.material3.*
+import com.example.ui.components.*
+import com.example.ui.theme.LumenTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,9 +45,9 @@ fun PhoneAuthScreen(
     val activity = context as? Activity
     val scrollState = rememberScrollState()
 
-    Scaffold(
+    LumenScaffold(
         modifier = modifier.fillMaxSize(),
-        containerColor = MaterialTheme.colorScheme.background
+        containerColor = LumenTheme.colors.background
     ) { padding ->
         Column(
             modifier = Modifier
@@ -67,36 +68,34 @@ fun PhoneAuthScreen(
                 Box(
                     modifier = Modifier
                         .clip(RoundedCornerShape(50))
-                        .background(MaterialTheme.colorScheme.primaryContainer)
+                        .background(LumenTheme.colors.primaryContainer)
                         .padding(horizontal = 14.dp, vertical = 6.dp)
                 ) {
                     Text(
-                        text = "🇧🇩 BANGLADESH EDITION",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer,
-                        fontWeight = FontWeight.Bold,
-                        letterSpacing = 1.sp
-                    )
+    text = "🇧🇩 BANGLADESH EDITION",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold, letterSpacing = 1.sp),
+    color = LumenTheme.colors.onPrimaryContainer
+)
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
                     text = "Start Your IELTS Journey",
-                    style = MaterialTheme.typography.headlineLarge.copy(
+                    style = LumenTheme.typography.headlineLarge.copy(
                         fontWeight = FontWeight.Bold,
                         fontSize = 30.sp,
                         letterSpacing = (-0.5).sp
                     ),
-                    color = MaterialTheme.colorScheme.onBackground
+                    color = LumenTheme.colors.onBackground
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
                     text = "Sign in to personalize your study plan, track band progress, and access full mock exams.",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    style = LumenTheme.typography.bodyMedium,
+                    color = LumenTheme.colors.onSurfaceVariant
                 )
             }
 
@@ -107,7 +106,7 @@ fun PhoneAuthScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(50))
-                    .background(MaterialTheme.colorScheme.surfaceVariant)
+                    .background(LumenTheme.colors.surfaceVariant)
                     .padding(4.dp)
             ) {
                 Box(
@@ -115,7 +114,7 @@ fun PhoneAuthScreen(
                         .weight(1f)
                         .clip(RoundedCornerShape(50))
                         .background(
-                            if (uiState.authMode == AuthMode.PHONE) MaterialTheme.colorScheme.primary
+                            if (uiState.authMode == AuthMode.PHONE) LumenTheme.colors.primary
                             else Color.Transparent
                         )
                         .clickable { viewModel.setAuthMode(AuthMode.PHONE) }
@@ -127,17 +126,16 @@ fun PhoneAuthScreen(
                             imageVector = Icons.Default.Phone,
                             contentDescription = null,
                             modifier = Modifier.size(16.dp),
-                            tint = if (uiState.authMode == AuthMode.PHONE) MaterialTheme.colorScheme.onPrimary
-                            else MaterialTheme.colorScheme.onSurfaceVariant
+                            tint = if (uiState.authMode == AuthMode.PHONE) LumenTheme.colors.onPrimary
+                            else LumenTheme.colors.onSurfaceVariant
                         )
                         Spacer(modifier = Modifier.width(6.dp))
                         Text(
-                            text = "Phone OTP",
-                            style = MaterialTheme.typography.labelMedium,
-                            fontWeight = FontWeight.Bold,
-                            color = if (uiState.authMode == AuthMode.PHONE) MaterialTheme.colorScheme.onPrimary
-                            else MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+    text = "Phone OTP",
+    style = (LumenTheme.typography.labelMedium).copy(fontWeight = FontWeight.Bold),
+    color = if (uiState.authMode == AuthMode.PHONE) LumenTheme.colors.onPrimary
+                            else LumenTheme.colors.onSurfaceVariant
+)
                     }
                 }
 
@@ -146,7 +144,7 @@ fun PhoneAuthScreen(
                         .weight(1f)
                         .clip(RoundedCornerShape(50))
                         .background(
-                            if (uiState.authMode == AuthMode.EMAIL) MaterialTheme.colorScheme.primary
+                            if (uiState.authMode == AuthMode.EMAIL) LumenTheme.colors.primary
                             else Color.Transparent
                         )
                         .clickable { viewModel.setAuthMode(AuthMode.EMAIL) }
@@ -158,37 +156,36 @@ fun PhoneAuthScreen(
                             imageVector = Icons.Default.Email,
                             contentDescription = null,
                             modifier = Modifier.size(16.dp),
-                            tint = if (uiState.authMode == AuthMode.EMAIL) MaterialTheme.colorScheme.onPrimary
-                            else MaterialTheme.colorScheme.onSurfaceVariant
+                            tint = if (uiState.authMode == AuthMode.EMAIL) LumenTheme.colors.onPrimary
+                            else LumenTheme.colors.onSurfaceVariant
                         )
                         Spacer(modifier = Modifier.width(6.dp))
                         Text(
-                            text = "Email Sign In",
-                            style = MaterialTheme.typography.labelMedium,
-                            fontWeight = FontWeight.Bold,
-                            color = if (uiState.authMode == AuthMode.EMAIL) MaterialTheme.colorScheme.onPrimary
-                            else MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+    text = "Email Sign In",
+    style = (LumenTheme.typography.labelMedium).copy(fontWeight = FontWeight.Bold),
+    color = if (uiState.authMode == AuthMode.EMAIL) LumenTheme.colors.onPrimary
+                            else LumenTheme.colors.onSurfaceVariant
+)
                     }
                 }
             }
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            // Main Input Card Container
-            Card(
+            // Main Input LumenCard Container
+            LumenCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .border(
                         width = 1.dp,
-                        color = MaterialTheme.colorScheme.outline,
+                        color = LumenTheme.colors.outline,
                         shape = RoundedCornerShape(26.dp)
                     ),
                 shape = RoundedCornerShape(26.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surface
+                colors = LumenCardDefaults.cardColors(
+                    containerColor = LumenTheme.colors.surface
                 ),
-                elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+                elevation = 0.dp
             ) {
                 Column(
                     modifier = Modifier
@@ -198,16 +195,14 @@ fun PhoneAuthScreen(
                     if (uiState.authMode == AuthMode.PHONE) {
                         // Phone Auth Mode
                         Text(
-                            text = "MOBILE NUMBER",
-                            style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            fontWeight = FontWeight.Bold,
-                            letterSpacing = 1.sp
-                        )
+    text = "MOBILE NUMBER",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold, letterSpacing = 1.sp),
+    color = LumenTheme.colors.onSurfaceVariant
+)
 
                         Spacer(modifier = Modifier.height(10.dp))
 
-                        OutlinedTextField(
+                        LumenField(
                             value = uiState.phoneNumber,
                             onValueChange = { viewModel.onPhoneNumberChanged(it) },
                             modifier = Modifier
@@ -220,17 +215,16 @@ fun PhoneAuthScreen(
                                     modifier = Modifier.padding(start = 12.dp, end = 8.dp)
                                 ) {
                                     Text(
-                                        text = "🇧🇩 +880",
-                                        style = MaterialTheme.typography.titleMedium,
-                                        fontWeight = FontWeight.SemiBold,
-                                        color = MaterialTheme.colorScheme.onSurface
-                                    )
+    text = "🇧🇩 +880",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.SemiBold),
+    color = LumenTheme.colors.onSurface
+)
                                     Box(
                                         modifier = Modifier
                                             .padding(start = 8.dp)
                                             .width(1.dp)
                                             .height(20.dp)
-                                            .background(MaterialTheme.colorScheme.outline)
+                                            .background(LumenTheme.colors.outline)
                                     )
                                 }
                             },
@@ -238,17 +232,17 @@ fun PhoneAuthScreen(
                                 Icon(
                                     imageVector = Icons.Default.Phone,
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                                    tint = LumenTheme.colors.onSurfaceVariant
                                 )
                             },
                             singleLine = true,
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
                             shape = RoundedCornerShape(20.dp),
-                            colors = OutlinedTextFieldDefaults.colors(
-                                focusedBorderColor = MaterialTheme.colorScheme.primary,
-                                unfocusedBorderColor = MaterialTheme.colorScheme.outline,
-                                focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
-                                unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant
+                            colors = LumenFieldDefaults.colors(
+                                focusedBorderColor = LumenTheme.colors.primary,
+                                unfocusedBorderColor = LumenTheme.colors.outline,
+                                focusedContainerColor = LumenTheme.colors.surfaceVariant,
+                                unfocusedContainerColor = LumenTheme.colors.surfaceVariant
                             )
                         )
 
@@ -259,7 +253,7 @@ fun PhoneAuthScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clip(RoundedCornerShape(14.dp))
-                                .background(MaterialTheme.colorScheme.surfaceVariant)
+                                .background(LumenTheme.colors.surfaceVariant)
                                 .clickable {
                                     viewModel.onPhoneNumberChanged("01700000000")
                                 }
@@ -269,20 +263,20 @@ fun PhoneAuthScreen(
                             Icon(
                                 imageVector = Icons.Default.Security,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary,
+                                tint = LumenTheme.colors.primary,
                                 modifier = Modifier.size(16.dp)
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
                                 text = "Autofill demo number (01700000000)",
-                                style = MaterialTheme.typography.labelSmall,
-                                color = MaterialTheme.colorScheme.primary
+                                style = LumenTheme.typography.labelSmall,
+                                color = LumenTheme.colors.primary
                             )
                         }
 
                         Spacer(modifier = Modifier.height(16.dp))
 
-                        Button(
+                        LumenButton(
                             onClick = {
                                 activity?.let { viewModel.sendOtp(it) }
                             },
@@ -293,14 +287,14 @@ fun PhoneAuthScreen(
                             enabled = !uiState.isLoading && uiState.phoneNumber.length >= 10,
                             shape = RoundedCornerShape(50),
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = MaterialTheme.colorScheme.primary,
-                                contentColor = MaterialTheme.colorScheme.onPrimary
+                                containerColor = LumenTheme.colors.primary,
+                                contentColor = LumenTheme.colors.onPrimary
                             )
                         ) {
                             if (uiState.isLoading) {
-                                CircularProgressIndicator(
+                                LumenSpinner(
                                     modifier = Modifier.size(20.dp),
-                                    color = MaterialTheme.colorScheme.onPrimary,
+                                    color = LumenTheme.colors.onPrimary,
                                     strokeWidth = 2.dp
                                 )
                             } else {
@@ -309,10 +303,9 @@ fun PhoneAuthScreen(
                                     horizontalArrangement = Arrangement.Center
                                 ) {
                                     Text(
-                                        text = "Get Verification OTP",
-                                        style = MaterialTheme.typography.titleMedium,
-                                        fontWeight = FontWeight.Bold
-                                    )
+    text = "Get Verification OTP",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold)
+)
                                     Spacer(modifier = Modifier.width(8.dp))
                                     Icon(
                                         imageVector = Icons.AutoMirrored.Filled.ArrowForward,
@@ -325,16 +318,14 @@ fun PhoneAuthScreen(
                     } else {
                         // Email Auth Mode
                         Text(
-                            text = "EMAIL ADDRESS",
-                            style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            fontWeight = FontWeight.Bold,
-                            letterSpacing = 1.sp
-                        )
+    text = "EMAIL ADDRESS",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold, letterSpacing = 1.sp),
+    color = LumenTheme.colors.onSurfaceVariant
+)
 
                         Spacer(modifier = Modifier.height(8.dp))
 
-                        OutlinedTextField(
+                        LumenField(
                             value = uiState.email,
                             onValueChange = { viewModel.onEmailChanged(it) },
                             modifier = Modifier
@@ -345,33 +336,31 @@ fun PhoneAuthScreen(
                                 Icon(
                                     imageVector = Icons.Default.Email,
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                                    tint = LumenTheme.colors.onSurfaceVariant
                                 )
                             },
                             singleLine = true,
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                             shape = RoundedCornerShape(20.dp),
-                            colors = OutlinedTextFieldDefaults.colors(
-                                focusedBorderColor = MaterialTheme.colorScheme.primary,
-                                unfocusedBorderColor = MaterialTheme.colorScheme.outline,
-                                focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
-                                unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant
+                            colors = LumenFieldDefaults.colors(
+                                focusedBorderColor = LumenTheme.colors.primary,
+                                unfocusedBorderColor = LumenTheme.colors.outline,
+                                focusedContainerColor = LumenTheme.colors.surfaceVariant,
+                                unfocusedContainerColor = LumenTheme.colors.surfaceVariant
                             )
                         )
 
                         Spacer(modifier = Modifier.height(12.dp))
 
                         Text(
-                            text = "PASSWORD",
-                            style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            fontWeight = FontWeight.Bold,
-                            letterSpacing = 1.sp
-                        )
+    text = "PASSWORD",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold, letterSpacing = 1.sp),
+    color = LumenTheme.colors.onSurfaceVariant
+)
 
                         Spacer(modifier = Modifier.height(8.dp))
 
-                        OutlinedTextField(
+                        LumenField(
                             value = uiState.password,
                             onValueChange = { viewModel.onPasswordChanged(it) },
                             modifier = Modifier
@@ -382,24 +371,24 @@ fun PhoneAuthScreen(
                                 Icon(
                                     imageVector = Icons.Default.Lock,
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                                    tint = LumenTheme.colors.onSurfaceVariant
                                 )
                             },
                             singleLine = true,
                             visualTransformation = PasswordVisualTransformation(),
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                             shape = RoundedCornerShape(20.dp),
-                            colors = OutlinedTextFieldDefaults.colors(
-                                focusedBorderColor = MaterialTheme.colorScheme.primary,
-                                unfocusedBorderColor = MaterialTheme.colorScheme.outline,
-                                focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
-                                unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant
+                            colors = LumenFieldDefaults.colors(
+                                focusedBorderColor = LumenTheme.colors.primary,
+                                unfocusedBorderColor = LumenTheme.colors.outline,
+                                focusedContainerColor = LumenTheme.colors.surfaceVariant,
+                                unfocusedContainerColor = LumenTheme.colors.surfaceVariant
                             )
                         )
 
                         Spacer(modifier = Modifier.height(16.dp))
 
-                        Button(
+                        LumenButton(
                             onClick = { viewModel.signInWithEmail() },
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -408,22 +397,21 @@ fun PhoneAuthScreen(
                             enabled = !uiState.isLoading && uiState.email.isNotEmpty() && uiState.password.isNotEmpty(),
                             shape = RoundedCornerShape(50),
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = MaterialTheme.colorScheme.primary,
-                                contentColor = MaterialTheme.colorScheme.onPrimary
+                                containerColor = LumenTheme.colors.primary,
+                                contentColor = LumenTheme.colors.onPrimary
                             )
                         ) {
                             if (uiState.isLoading) {
-                                CircularProgressIndicator(
+                                LumenSpinner(
                                     modifier = Modifier.size(20.dp),
-                                    color = MaterialTheme.colorScheme.onPrimary,
+                                    color = LumenTheme.colors.onPrimary,
                                     strokeWidth = 2.dp
                                 )
                             } else {
                                 Text(
-                                    text = "Sign In with Email",
-                                    style = MaterialTheme.typography.titleMedium,
-                                    fontWeight = FontWeight.Bold
-                                )
+    text = "Sign In with Email",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold)
+)
                             }
                         }
                     }
@@ -432,8 +420,8 @@ fun PhoneAuthScreen(
                         Spacer(modifier = Modifier.height(12.dp))
                         Text(
                             text = uiState.errorMessage,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.error,
+                            style = LumenTheme.typography.bodySmall,
+                            color = LumenTheme.colors.error,
                             textAlign = TextAlign.Center,
                             modifier = Modifier.fillMaxWidth()
                         )
@@ -443,32 +431,31 @@ fun PhoneAuthScreen(
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            // Divider "OR"
+            // LumenDivider "OR"
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 HorizontalDivider(
                     modifier = Modifier.weight(1f),
-                    color = MaterialTheme.colorScheme.outlineVariant
+                    color = LumenTheme.colors.outlineVariant
                 )
                 Text(
-                    text = "OR CONTINUE WITH",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.padding(horizontal = 12.dp)
-                )
+    text = "OR CONTINUE WITH",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.SemiBold),
+    color = LumenTheme.colors.onSurfaceVariant,
+    modifier = Modifier.padding(horizontal = 12.dp)
+)
                 HorizontalDivider(
                     modifier = Modifier.weight(1f),
-                    color = MaterialTheme.colorScheme.outlineVariant
+                    color = LumenTheme.colors.outlineVariant
                 )
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Google Sign-In Button
-            OutlinedButton(
+            // Google Sign-In LumenButton
+            LumenOutlinedButton(
                 onClick = { viewModel.signInWithGoogle() },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -476,7 +463,7 @@ fun PhoneAuthScreen(
                     .testTag("google_signin_button"),
                 shape = RoundedCornerShape(50),
                 colors = ButtonDefaults.outlinedButtonColors(
-                    containerColor = MaterialTheme.colorScheme.surface
+                    containerColor = LumenTheme.colors.surface
                 ),
                 border = ButtonDefaults.outlinedButtonBorder.copy(
                     width = 1.dp
@@ -488,25 +475,24 @@ fun PhoneAuthScreen(
                 ) {
                     Text(
                         text = "G",
-                        style = MaterialTheme.typography.titleLarge.copy(
+                        style = LumenTheme.typography.titleLarge.copy(
                             fontWeight = FontWeight.Black,
-                            color = MaterialTheme.colorScheme.primary
+                            color = LumenTheme.colors.primary
                         )
                     )
                     Spacer(modifier = Modifier.width(10.dp))
                     Text(
-                        text = "Sign in with Google",
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.SemiBold,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
+    text = "Sign in with Google",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.SemiBold),
+    color = LumenTheme.colors.onSurface
+)
                 }
             }
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Guest / Quick Skip Sign-In Button
-            OutlinedButton(
+            // Guest / Quick Skip Sign-In LumenButton
+            LumenOutlinedButton(
                 onClick = { viewModel.signInAsGuest() },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -514,7 +500,7 @@ fun PhoneAuthScreen(
                     .testTag("guest_signin_button"),
                 shape = RoundedCornerShape(50),
                 colors = ButtonDefaults.outlinedButtonColors(
-                    containerColor = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.5f)
+                    containerColor = LumenTheme.colors.secondaryContainer.copy(alpha = 0.5f)
                 ),
                 border = ButtonDefaults.outlinedButtonBorder.copy(
                     width = 1.dp
@@ -527,16 +513,15 @@ fun PhoneAuthScreen(
                     Icon(
                         imageVector = Icons.Default.Person,
                         contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSecondaryContainer,
+                        tint = LumenTheme.colors.onSecondaryContainer,
                         modifier = Modifier.size(20.dp)
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = "Continue as Guest / Quick Skip",
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.SemiBold,
-                        color = MaterialTheme.colorScheme.onSecondaryContainer
-                    )
+    text = "Continue as Guest / Quick Skip",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.SemiBold),
+    color = LumenTheme.colors.onSecondaryContainer
+)
                 }
             }
 
@@ -544,8 +529,8 @@ fun PhoneAuthScreen(
 
             Text(
                 text = "By continuing, you agree to our terms of service and privacy policy.",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                style = LumenTheme.typography.bodySmall,
+                color = LumenTheme.colors.onSurfaceVariant,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )

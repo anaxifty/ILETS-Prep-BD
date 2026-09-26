@@ -9,7 +9,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.material3.*
+import com.example.ui.components.*
+import com.example.ui.theme.LumenTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,21 +32,21 @@ fun WritingResultsScreen(
     if (attempt == null) return
     val scrollState = rememberScrollState()
 
-    Scaffold(
+    LumenScaffold(
         modifier = modifier.fillMaxSize(),
-        containerColor = MaterialTheme.colorScheme.background,
+        containerColor = LumenTheme.colors.background,
         bottomBar = {
-            Surface(
+            LumenSurface(
                 modifier = Modifier.fillMaxWidth(),
                 shadowElevation = 8.dp,
-                color = MaterialTheme.colorScheme.surface
+                color = LumenTheme.colors.surface
             ) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp)
                 ) {
-                    Button(
+                    LumenButton(
                         onClick = onReturnToHub,
                         modifier = Modifier
                             .fillMaxWidth()
@@ -53,15 +54,14 @@ fun WritingResultsScreen(
                             .testTag("return_to_hub_button"),
                         shape = RoundedCornerShape(50),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.primary,
-                            contentColor = MaterialTheme.colorScheme.onPrimary
+                            containerColor = LumenTheme.colors.primary,
+                            contentColor = LumenTheme.colors.onPrimary
                         )
                     ) {
                         Text(
-                            text = "Return to Practice Hub",
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold
-                        )
+    text = "Return to Practice Hub",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold)
+)
                     }
                 }
             }
@@ -79,18 +79,18 @@ fun WritingResultsScreen(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                IconButton(
+                LumenIconButton(
                     onClick = onReturnToHub,
                     modifier = Modifier
                         .size(40.dp)
                         .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.surfaceVariant)
+                        .background(LumenTheme.colors.surfaceVariant)
                         .testTag("results_back_button")
                 ) {
                     Icon(
                         imageVector = Icons.Default.ArrowBack,
                         contentDescription = "Back",
-                        tint = MaterialTheme.colorScheme.onSurface
+                        tint = LumenTheme.colors.onSurface
                     )
                 }
 
@@ -98,28 +98,25 @@ fun WritingResultsScreen(
 
                 Column {
                     Text(
-                        text = "EXAMINER EVALUATION",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.primary,
-                        fontWeight = FontWeight.Bold,
-                        letterSpacing = 1.sp
-                    )
+    text = "EXAMINER EVALUATION",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold, letterSpacing = 1.sp),
+    color = LumenTheme.colors.primary
+)
                     Text(
-                        text = attempt.taskTitle.ifEmpty { "IELTS Writing Score Breakdown" },
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onBackground
-                    )
+    text = attempt.taskTitle.ifEmpty { "IELTS Writing Score Breakdown" },
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onBackground
+)
                 }
             }
 
             Spacer(modifier = Modifier.height(20.dp))
 
             // Overall Band Hero Banner
-            Card(
+            LumenCard(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(26.dp),
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
+                colors = LumenCardDefaults.cardColors(containerColor = LumenTheme.colors.primaryContainer)
             ) {
                 Column(
                     modifier = Modifier
@@ -130,35 +127,31 @@ fun WritingResultsScreen(
                     Box(
                         modifier = Modifier
                             .clip(RoundedCornerShape(10.dp))
-                            .background(MaterialTheme.colorScheme.primary)
+                            .background(LumenTheme.colors.primary)
                             .padding(horizontal = 12.dp, vertical = 4.dp)
                     ) {
                         Text(
-                            text = attempt.taskType.uppercase(),
-                            style = MaterialTheme.typography.labelSmall,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onPrimary
-                        )
+    text = attempt.taskType.uppercase(),
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onPrimary
+)
                     }
 
                     Spacer(modifier = Modifier.height(12.dp))
 
                     Text(
-                        text = "OVERALL BAND SCORE",
-                        style = MaterialTheme.typography.labelMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f),
-                        letterSpacing = 1.sp
-                    )
+    text = "OVERALL BAND SCORE",
+    style = (LumenTheme.typography.labelMedium).copy(fontWeight = FontWeight.Bold, letterSpacing = 1.sp),
+    color = LumenTheme.colors.onPrimaryContainer.copy(alpha = 0.8f)
+)
 
                     Spacer(modifier = Modifier.height(4.dp))
 
                     Text(
-                        text = "%.1f".format(attempt.overallBand),
-                        style = MaterialTheme.typography.displayLarge,
-                        fontWeight = FontWeight.ExtraBold,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer
-                    )
+    text = "%.1f".format(attempt.overallBand),
+    style = (LumenTheme.typography.displayLarge).copy(fontWeight = FontWeight.ExtraBold),
+    color = LumenTheme.colors.onPrimaryContainer
+)
 
                     Spacer(modifier = Modifier.height(8.dp))
 
@@ -166,45 +159,42 @@ fun WritingResultsScreen(
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Surface(
+                        LumenSurface(
                             shape = RoundedCornerShape(10.dp),
-                            color = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f)
+                            color = LumenTheme.colors.surface.copy(alpha = 0.8f)
                         ) {
                             Text(
-                                text = "${attempt.wordCount} words",
-                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
-                                style = MaterialTheme.typography.labelMedium,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.primary
-                            )
+    text = "${attempt.wordCount} words",
+    modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
+    style = (LumenTheme.typography.labelMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.primary
+)
                         }
 
                         Spacer(modifier = Modifier.width(8.dp))
 
                         val mins = attempt.timeTakenSeconds / 60
                         val secs = attempt.timeTakenSeconds % 60
-                        Surface(
+                        LumenSurface(
                             shape = RoundedCornerShape(10.dp),
-                            color = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f)
+                            color = LumenTheme.colors.surface.copy(alpha = 0.8f)
                         ) {
                             Text(
-                                text = "%02d:%02d time spent".format(mins, secs),
-                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
-                                style = MaterialTheme.typography.labelMedium,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.primary
-                            )
+    text = "%02d:%02d time spent".format(mins, secs),
+    modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
+    style = (LumenTheme.typography.labelMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.primary
+)
                         }
                     }
 
                     if (attempt.generalFeedback.isNotEmpty()) {
                         Spacer(modifier = Modifier.height(16.dp))
                         Text(
-                            text = attempt.generalFeedback,
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onPrimaryContainer,
-                            lineHeight = 20.sp
-                        )
+    text = attempt.generalFeedback,
+    style = (LumenTheme.typography.bodyMedium).copy(lineHeight = 20.sp),
+    color = LumenTheme.colors.onPrimaryContainer
+)
                     }
                 }
             }
@@ -213,12 +203,10 @@ fun WritingResultsScreen(
 
             // 4 Criteria Breakdown Header
             Text(
-                text = "CRITERION BREAKDOWN",
-                style = MaterialTheme.typography.labelMedium,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.primary,
-                letterSpacing = 1.sp
-            )
+    text = "CRITERION BREAKDOWN",
+    style = (LumenTheme.typography.labelMedium).copy(fontWeight = FontWeight.Bold, letterSpacing = 1.sp),
+    color = LumenTheme.colors.primary
+)
 
             Spacer(modifier = Modifier.height(12.dp))
 
@@ -230,11 +218,11 @@ fun WritingResultsScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Submitted Text / Transcription Card
-            Card(
+            // Submitted Text / Transcription LumenCard
+            LumenCard(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(20.dp),
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+                colors = LumenCardDefaults.cardColors(containerColor = LumenTheme.colors.surfaceVariant)
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Row(
@@ -243,28 +231,25 @@ fun WritingResultsScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = if (attempt.inputMethod == "PHOTO_SCAN") "TRANSCRIBED HANDWRITTEN ESSAY" else "SUBMITTED ESSAY TEXT",
-                            style = MaterialTheme.typography.labelSmall,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.primary,
-                            letterSpacing = 1.sp
-                        )
+    text = if (attempt.inputMethod == "PHOTO_SCAN") "TRANSCRIBED HANDWRITTEN ESSAY" else "SUBMITTED ESSAY TEXT",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold, letterSpacing = 1.sp),
+    color = LumenTheme.colors.primary
+)
 
                         Text(
                             text = "${attempt.wordCount} Words",
-                            style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                            style = LumenTheme.typography.labelSmall,
+                            color = LumenTheme.colors.onSurfaceVariant
                         )
                     }
 
                     Spacer(modifier = Modifier.height(8.dp))
 
                     Text(
-                        text = attempt.answerText,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        lineHeight = 22.sp
-                    )
+    text = attempt.answerText,
+    style = (LumenTheme.typography.bodyMedium).copy(lineHeight = 22.sp),
+    color = LumenTheme.colors.onSurfaceVariant
+)
                 }
             }
 
@@ -275,16 +260,16 @@ fun WritingResultsScreen(
 
 @Composable
 private fun CriterionCard(criterion: WritingCriterionScore) {
-    Card(
+    LumenCard(
         modifier = Modifier
             .fillMaxWidth()
             .border(
                 width = 1.dp,
-                color = MaterialTheme.colorScheme.outlineVariant,
+                color = LumenTheme.colors.outlineVariant,
                 shape = RoundedCornerShape(20.dp)
             ),
         shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+        colors = LumenCardDefaults.cardColors(containerColor = LumenTheme.colors.surface)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(
@@ -293,44 +278,40 @@ private fun CriterionCard(criterion: WritingCriterionScore) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 // Mono-label style tag for criterion
-                Surface(
+                LumenSurface(
                     shape = RoundedCornerShape(10.dp),
-                    color = MaterialTheme.colorScheme.secondaryContainer
+                    color = LumenTheme.colors.secondaryContainer
                 ) {
                     Text(
-                        text = criterion.criterionName.uppercase(),
-                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
-                        style = MaterialTheme.typography.labelSmall,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSecondaryContainer,
-                        letterSpacing = 0.5.sp
-                    )
+    text = criterion.criterionName.uppercase(),
+    modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold, letterSpacing = 0.5.sp),
+    color = LumenTheme.colors.onSecondaryContainer
+)
                 }
 
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         text = "Band",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        style = LumenTheme.typography.labelSmall,
+                        color = LumenTheme.colors.onSurfaceVariant
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = "%.1f".format(criterion.score),
-                        style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.ExtraBold,
-                        color = MaterialTheme.colorScheme.primary
-                    )
+    text = "%.1f".format(criterion.score),
+    style = (LumenTheme.typography.titleLarge).copy(fontWeight = FontWeight.ExtraBold),
+    color = LumenTheme.colors.primary
+)
                 }
             }
 
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = criterion.feedbackNote,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurface,
-                lineHeight = 18.sp
-            )
+    text = criterion.feedbackNote,
+    style = (LumenTheme.typography.bodySmall).copy(lineHeight = 18.sp),
+    color = LumenTheme.colors.onSurface
+)
         }
     }
 }

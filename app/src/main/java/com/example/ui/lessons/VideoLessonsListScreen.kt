@@ -11,7 +11,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.material3.*
+import com.example.ui.components.*
+import com.example.ui.theme.LumenTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -54,15 +55,15 @@ fun VideoLessonsListScreen(
 
     val lessonsBySkill = filteredLessons.groupBy { it.skillCategory }
 
-    Scaffold(
+    LumenScaffold(
         modifier = modifier.fillMaxSize(),
-        containerColor = MaterialTheme.colorScheme.background,
+        containerColor = LumenTheme.colors.background,
         topBar = {
-            Surface(
+            LumenSurface(
                 modifier = Modifier
                     .fillMaxWidth()
                     .statusBarsPadding(),
-                color = MaterialTheme.colorScheme.surface,
+                color = LumenTheme.colors.surface,
                 shadowElevation = 2.dp
             ) {
                 Column(
@@ -74,18 +75,18 @@ fun VideoLessonsListScreen(
                         modifier = Modifier.fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        IconButton(
+                        LumenIconButton(
                             onClick = onBack,
                             modifier = Modifier
                                 .size(40.dp)
                                 .clip(CircleShape)
-                                .background(MaterialTheme.colorScheme.surfaceVariant)
+                                .background(LumenTheme.colors.surfaceVariant)
                                 .testTag("video_lessons_back_button")
                         ) {
                             Icon(
                                 imageVector = Icons.Default.ArrowBack,
                                 contentDescription = "Back",
-                                tint = MaterialTheme.colorScheme.onSurface
+                                tint = LumenTheme.colors.onSurface
                             )
                         }
 
@@ -93,18 +94,15 @@ fun VideoLessonsListScreen(
 
                         Column {
                             Text(
-                                text = "IELTS VIDEO LESSONS",
-                                style = MaterialTheme.typography.labelSmall,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.primary,
-                                letterSpacing = 1.sp
-                            )
+    text = "IELTS VIDEO LESSONS",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold, letterSpacing = 1.sp),
+    color = LumenTheme.colors.primary
+)
                             Text(
-                                text = "Passive Learning Library",
-                                style = MaterialTheme.typography.titleLarge,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onSurface
-                            )
+    text = "Passive Learning Library",
+    style = (LumenTheme.typography.titleLarge).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSurface
+)
                         }
                     }
 
@@ -117,21 +115,21 @@ fun VideoLessonsListScreen(
                     ) {
                         items(skillCategories) { category ->
                             val isSelected = uiState.selectedSkill == category
-                            FilterChip(
+                            LumenChip(
                                 selected = isSelected,
                                 onClick = { viewModel.setSelectedSkill(category) },
                                 label = {
                                     Text(
-                                        text = category,
-                                        fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
-                                    )
+    text = category,
+    style = LumenTheme.typography.bodyMedium.copy(fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal)
+)
                                 },
                                 shape = RoundedCornerShape(20.dp),
-                                colors = FilterChipDefaults.filterChipColors(
-                                    selectedContainerColor = MaterialTheme.colorScheme.primary,
-                                    selectedLabelColor = MaterialTheme.colorScheme.onPrimary,
-                                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                                    labelColor = MaterialTheme.colorScheme.onSurfaceVariant
+                                colors = LumenChipDefaults.filterChipColors(
+                                    selectedContainerColor = LumenTheme.colors.primary,
+                                    selectedLabelColor = LumenTheme.colors.onPrimary,
+                                    containerColor = LumenTheme.colors.surfaceVariant,
+                                    labelColor = LumenTheme.colors.onSurfaceVariant
                                 )
                             )
                         }
@@ -151,12 +149,12 @@ fun VideoLessonsListScreen(
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
+                    LumenSpinner(color = LumenTheme.colors.primary)
                     Spacer(modifier = Modifier.height(12.dp))
                     Text(
                         text = "Loading Video Lessons...",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        style = LumenTheme.typography.bodyMedium,
+                        color = LumenTheme.colors.onSurfaceVariant
                     )
                 }
             } else if (filteredLessons.isEmpty()) {
@@ -171,20 +169,19 @@ fun VideoLessonsListScreen(
                         imageVector = Icons.Default.OndemandVideo,
                         contentDescription = null,
                         modifier = Modifier.size(64.dp),
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
+                        tint = LumenTheme.colors.onSurfaceVariant.copy(alpha = 0.5f)
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = "No lessons found for '${uiState.selectedSkill}'",
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
+    text = "No lessons found for '${uiState.selectedSkill}'",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSurface
+)
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = "Try switching filters to view other skill modules.",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        style = LumenTheme.typography.bodyMedium,
+                        color = LumenTheme.colors.onSurfaceVariant
                     )
                 }
             } else {
@@ -197,10 +194,10 @@ fun VideoLessonsListScreen(
                     // Global error message card if present
                     if (uiState.errorMessage != null) {
                         item {
-                            Card(
+                            LumenCard(
                                 modifier = Modifier.fillMaxWidth(),
                                 shape = RoundedCornerShape(20.dp),
-                                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer)
+                                colors = LumenCardDefaults.cardColors(containerColor = LumenTheme.colors.errorContainer)
                             ) {
                                 Row(
                                     modifier = Modifier
@@ -216,20 +213,20 @@ fun VideoLessonsListScreen(
                                         Icon(
                                             imageVector = Icons.Default.Warning,
                                             contentDescription = null,
-                                            tint = MaterialTheme.colorScheme.onErrorContainer
+                                            tint = LumenTheme.colors.onErrorContainer
                                         )
                                         Spacer(modifier = Modifier.width(12.dp))
                                         Text(
                                             text = uiState.errorMessage ?: "",
-                                            style = MaterialTheme.typography.bodyMedium,
-                                            color = MaterialTheme.colorScheme.onErrorContainer
+                                            style = LumenTheme.typography.bodyMedium,
+                                            color = LumenTheme.colors.onErrorContainer
                                         )
                                     }
-                                    IconButton(onClick = { viewModel.clearError() }) {
+                                    LumenIconButton(onClick = { viewModel.clearError() }) {
                                         Icon(
                                             imageVector = Icons.Default.Close,
                                             contentDescription = "Dismiss error",
-                                            tint = MaterialTheme.colorScheme.onErrorContainer
+                                            tint = LumenTheme.colors.onErrorContainer
                                         )
                                     }
                                 }
@@ -240,12 +237,10 @@ fun VideoLessonsListScreen(
                     lessonsBySkill.forEach { (skillName, lessonList) ->
                         item {
                             Text(
-                                text = "$skillName Skill Lessons".uppercase(),
-                                style = MaterialTheme.typography.labelSmall,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.primary,
-                                letterSpacing = 1.sp
-                            )
+    text = "$skillName Skill Lessons".uppercase(),
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold, letterSpacing = 1.sp),
+    color = LumenTheme.colors.primary
+)
                         }
 
                         items(lessonList, key = { it.id }) { lesson ->
@@ -286,14 +281,14 @@ fun LessonRowCard(
     modifier: Modifier = Modifier
 ) {
     // House Rules: soft-stone card style (surfaceVariant, 8dp radius)
-    Card(
+    LumenCard(
         modifier = modifier
             .fillMaxWidth()
             .clickable { onSelect() }
             .testTag("video_lesson_card_${lesson.id}"),
         shape = RoundedCornerShape(10.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant
+        colors = LumenCardDefaults.cardColors(
+            containerColor = LumenTheme.colors.surfaceVariant
         )
     ) {
         Column(modifier = Modifier.padding(12.dp)) {
@@ -306,7 +301,7 @@ fun LessonRowCard(
                     modifier = Modifier
                         .size(width = 110.dp, height = 80.dp)
                         .clip(RoundedCornerShape(20.dp))
-                        .background(MaterialTheme.colorScheme.surface)
+                        .background(LumenTheme.colors.surface)
                 ) {
                     if (lesson.thumbnailUrl.isNotEmpty()) {
                         AsyncImage(
@@ -331,13 +326,13 @@ fun LessonRowCard(
                             modifier = Modifier
                                 .size(28.dp)
                                 .clip(CircleShape)
-                                .background(MaterialTheme.colorScheme.primary),
+                                .background(LumenTheme.colors.primary),
                             contentAlignment = Alignment.Center
                         ) {
                             Icon(
                                 imageVector = Icons.Default.PlayArrow,
                                 contentDescription = "Play",
-                                tint = MaterialTheme.colorScheme.onPrimary,
+                                tint = LumenTheme.colors.onPrimary,
                                 modifier = Modifier.size(18.dp)
                             )
                         }
@@ -354,12 +349,10 @@ fun LessonRowCard(
                                 .padding(horizontal = 4.dp, vertical = 2.dp)
                         ) {
                             Text(
-                                text = lesson.duration,
-                                style = MaterialTheme.typography.labelSmall,
-                                fontSize = 10.sp,
-                                color = Color.White,
-                                fontWeight = FontWeight.Bold
-                            )
+    text = lesson.duration,
+    style = (LumenTheme.typography.labelSmall).copy(fontSize = 10.sp, fontWeight = FontWeight.Bold),
+    color = Color.White
+)
                         }
                     }
                 }
@@ -378,61 +371,57 @@ fun LessonRowCard(
                         horizontalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
                         val categoryColor = when (lesson.skillCategory.lowercase()) {
-                            "listening" -> MaterialTheme.colorScheme.primaryContainer
-                            "reading" -> MaterialTheme.colorScheme.secondaryContainer
-                            "writing" -> MaterialTheme.colorScheme.tertiaryContainer
-                            else -> MaterialTheme.colorScheme.surface
+                            "listening" -> LumenTheme.colors.primaryContainer
+                            "reading" -> LumenTheme.colors.secondaryContainer
+                            "writing" -> LumenTheme.colors.tertiaryContainer
+                            else -> LumenTheme.colors.surface
                         }
                         val categoryTextColor = when (lesson.skillCategory.lowercase()) {
-                            "listening" -> MaterialTheme.colorScheme.onPrimaryContainer
-                            "reading" -> MaterialTheme.colorScheme.onSecondaryContainer
-                            "writing" -> MaterialTheme.colorScheme.onTertiaryContainer
-                            else -> MaterialTheme.colorScheme.onSurface
+                            "listening" -> LumenTheme.colors.onPrimaryContainer
+                            "reading" -> LumenTheme.colors.onSecondaryContainer
+                            "writing" -> LumenTheme.colors.onTertiaryContainer
+                            else -> LumenTheme.colors.onSurface
                         }
 
-                        Surface(
+                        LumenSurface(
                             shape = RoundedCornerShape(6.dp),
                             color = categoryColor
                         ) {
                             Text(
-                                text = lesson.skillCategory.uppercase(),
-                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
-                                style = MaterialTheme.typography.labelSmall,
-                                fontSize = 10.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = categoryTextColor
-                            )
+    text = lesson.skillCategory.uppercase(),
+    modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
+    style = (LumenTheme.typography.labelSmall).copy(fontSize = 10.sp, fontWeight = FontWeight.Bold),
+    color = categoryTextColor
+)
                         }
 
                         if (lesson.topic.isNotEmpty()) {
                             Text(
-                                text = lesson.topic,
-                                style = MaterialTheme.typography.labelSmall,
-                                fontSize = 11.sp,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis
-                            )
+    text = lesson.topic,
+    style = (LumenTheme.typography.labelSmall).copy(fontSize = 11.sp),
+    color = LumenTheme.colors.onSurfaceVariant,
+    maxLines = 1,
+    overflow = TextOverflow.Ellipsis
+)
                         }
                     }
 
                     Spacer(modifier = Modifier.height(4.dp))
 
                     Text(
-                        text = lesson.title,
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis
-                    )
+    text = lesson.title,
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSurfaceVariant,
+    maxLines = 2,
+    overflow = TextOverflow.Ellipsis
+)
 
                     Spacer(modifier = Modifier.height(4.dp))
 
                     Text(
                         text = lesson.description,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f),
+                        style = LumenTheme.typography.bodySmall,
+                        color = LumenTheme.colors.onSurfaceVariant.copy(alpha = 0.8f),
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -455,9 +444,9 @@ fun LessonRowCard(
 
                 when {
                     isCompleted -> {
-                        Surface(
+                        LumenSurface(
                             shape = RoundedCornerShape(10.dp),
-                            color = MaterialTheme.colorScheme.primaryContainer
+                            color = LumenTheme.colors.primaryContainer
                         ) {
                             Row(
                                 modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
@@ -466,54 +455,52 @@ fun LessonRowCard(
                                 Icon(
                                     imageVector = Icons.Default.CheckCircle,
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.primary,
+                                    tint = LumenTheme.colors.primary,
                                     modifier = Modifier.size(14.dp)
                                 )
                                 Spacer(modifier = Modifier.width(4.dp))
                                 Text(
-                                    text = "Completed",
-                                    style = MaterialTheme.typography.labelSmall,
-                                    fontWeight = FontWeight.Bold,
-                                    color = MaterialTheme.colorScheme.onPrimaryContainer
-                                )
+    text = "Completed",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onPrimaryContainer
+)
                             }
                         }
                     }
                     progressPercent > 0 -> {
-                        Surface(
+                        LumenSurface(
                             shape = RoundedCornerShape(10.dp),
-                            color = MaterialTheme.colorScheme.secondaryContainer
+                            color = LumenTheme.colors.secondaryContainer
                         ) {
                             Row(
                                 modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                CircularProgressIndicator(
+                                LumenSpinner(
                                     progress = { progressPercent / 100f },
                                     modifier = Modifier.size(12.dp),
                                     strokeWidth = 2.dp,
-                                    color = MaterialTheme.colorScheme.primary
+                                    color = LumenTheme.colors.primary
                                 )
                                 Spacer(modifier = Modifier.width(6.dp))
                                 Text(
-                                    text = "In Progress ($progressPercent%)",
-                                    style = MaterialTheme.typography.labelSmall,
-                                    fontWeight = FontWeight.Bold,
-                                    color = MaterialTheme.colorScheme.onSecondaryContainer
-                                )
+    text = "In Progress ($progressPercent%)",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSecondaryContainer
+)
                             }
                         }
                     }
                     else -> {
-                        Surface(
+                        LumenSurface(
                             shape = RoundedCornerShape(10.dp),
-                            color = MaterialTheme.colorScheme.surface
+                            color = LumenTheme.colors.surface
                         ) {
                             Text(
                                 text = "Not Started",
                                 modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-                                style = MaterialTheme.typography.labelSmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                style = LumenTheme.typography.labelSmall,
+                                color = LumenTheme.colors.onSurfaceVariant
                             )
                         }
                     }
@@ -524,7 +511,7 @@ fun LessonRowCard(
 
                 when (status) {
                     DownloadStatus.NOT_DOWNLOADED -> {
-                        OutlinedButton(
+                        LumenOutlinedButton(
                             onClick = onDownload,
                             modifier = Modifier
                                 .height(32.dp)
@@ -539,45 +526,43 @@ fun LessonRowCard(
                             )
                             Spacer(modifier = Modifier.width(4.dp))
                             Text(
-                                text = "Download",
-                                style = MaterialTheme.typography.labelSmall,
-                                fontWeight = FontWeight.Bold
-                            )
+    text = "Download",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold)
+)
                         }
                     }
 
                     DownloadStatus.DOWNLOADING -> {
                         val percent = downloadState?.progressPercent ?: 0
-                        Surface(
+                        LumenSurface(
                             shape = RoundedCornerShape(20.dp),
-                            color = MaterialTheme.colorScheme.primaryContainer
+                            color = LumenTheme.colors.primaryContainer
                         ) {
                             Row(
                                 modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                CircularProgressIndicator(
+                                LumenSpinner(
                                     progress = { percent / 100f },
                                     modifier = Modifier.size(14.dp),
                                     strokeWidth = 2.dp,
-                                    color = MaterialTheme.colorScheme.primary
+                                    color = LumenTheme.colors.primary
                                 )
                                 Spacer(modifier = Modifier.width(6.dp))
                                 Text(
-                                    text = "Downloading $percent%",
-                                    style = MaterialTheme.typography.labelSmall,
-                                    fontWeight = FontWeight.Bold,
-                                    color = MaterialTheme.colorScheme.onPrimaryContainer
-                                )
+    text = "Downloading $percent%",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onPrimaryContainer
+)
                             }
                         }
                     }
 
                     DownloadStatus.DOWNLOADED -> {
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            Surface(
+                            LumenSurface(
                                 shape = RoundedCornerShape(20.dp),
-                                color = MaterialTheme.colorScheme.tertiaryContainer
+                                color = LumenTheme.colors.tertiaryContainer
                             ) {
                                 Row(
                                     modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
@@ -586,27 +571,26 @@ fun LessonRowCard(
                                     Icon(
                                         imageVector = Icons.Default.OfflinePin,
                                         contentDescription = "Downloaded Offline",
-                                        tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                                        tint = LumenTheme.colors.onTertiaryContainer,
                                         modifier = Modifier.size(14.dp)
                                     )
                                     Spacer(modifier = Modifier.width(4.dp))
                                     Text(
-                                        text = "Downloaded",
-                                        style = MaterialTheme.typography.labelSmall,
-                                        fontWeight = FontWeight.Bold,
-                                        color = MaterialTheme.colorScheme.onTertiaryContainer
-                                    )
+    text = "Downloaded",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onTertiaryContainer
+)
                                 }
                             }
 
-                            IconButton(
+                            LumenIconButton(
                                 onClick = onDeleteDownload,
                                 modifier = Modifier.size(28.dp)
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.DeleteOutline,
                                     contentDescription = "Delete download",
-                                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    tint = LumenTheme.colors.onSurfaceVariant,
                                     modifier = Modifier.size(16.dp)
                                 )
                             }
@@ -614,13 +598,13 @@ fun LessonRowCard(
                     }
 
                     DownloadStatus.ERROR -> {
-                        OutlinedButton(
+                        LumenOutlinedButton(
                             onClick = onDownload,
                             modifier = Modifier.height(32.dp),
                             contentPadding = PaddingValues(horizontal = 8.dp, vertical = 0.dp),
                             shape = RoundedCornerShape(20.dp),
                             colors = ButtonDefaults.outlinedButtonColors(
-                                contentColor = MaterialTheme.colorScheme.error
+                                contentColor = LumenTheme.colors.error
                             )
                         ) {
                             Icon(
@@ -630,10 +614,9 @@ fun LessonRowCard(
                             )
                             Spacer(modifier = Modifier.width(4.dp))
                             Text(
-                                text = "Retry",
-                                style = MaterialTheme.typography.labelSmall,
-                                fontWeight = FontWeight.Bold
-                            )
+    text = "Retry",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold)
+)
                         }
                     }
                 }

@@ -21,7 +21,8 @@ import androidx.compose.material.icons.filled.Headphones
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material.icons.filled.EditNote
-import androidx.compose.material3.*
+import com.example.ui.components.*
+import com.example.ui.theme.LumenTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,11 +45,11 @@ fun OnboardingScreen(
         onOnboardingFinished()
     }
 
-    Scaffold(
+    LumenScaffold(
         modifier = modifier.fillMaxSize(),
-        containerColor = MaterialTheme.colorScheme.background,
+        containerColor = LumenTheme.colors.background,
         topBar = {
-            TopAppBar(
+            LumenTopBar(
                 title = {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -56,10 +57,9 @@ fun OnboardingScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "Setup Profile",
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold
-                        )
+    text = "Setup Profile",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold)
+)
                         // Step Indicator Pills
                         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                             repeat(3) { step ->
@@ -69,8 +69,8 @@ fun OnboardingScreen(
                                         .width(if (uiState.currentStep == step) 24.dp else 8.dp)
                                         .clip(CircleShape)
                                         .background(
-                                            if (uiState.currentStep == step) MaterialTheme.colorScheme.primary
-                                            else MaterialTheme.colorScheme.outline
+                                            if (uiState.currentStep == step) LumenTheme.colors.primary
+                                            else LumenTheme.colors.outline
                                         )
                                 )
                             }
@@ -79,7 +79,7 @@ fun OnboardingScreen(
                 },
                 navigationIcon = {
                     if (uiState.currentStep > 0) {
-                        IconButton(
+                        LumenIconButton(
                             onClick = { viewModel.previousStep() },
                             modifier = Modifier.testTag("onboarding_back_button")
                         ) {
@@ -90,8 +90,8 @@ fun OnboardingScreen(
                         }
                     }
                 },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background
+                colors = LumenTopBarDefaults.topAppBarColors(
+                    containerColor = LumenTheme.colors.background
                 )
             )
         }
@@ -130,8 +130,8 @@ fun OnboardingScreen(
                 }
             }
 
-            // Bottom Navigation CTA Button
-            Button(
+            // Bottom Navigation CTA LumenButton
+            LumenButton(
                 onClick = { viewModel.nextStep() },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -141,14 +141,14 @@ fun OnboardingScreen(
                 enabled = !uiState.isLoading,
                 shape = RoundedCornerShape(50),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = MaterialTheme.colorScheme.onPrimary
+                    containerColor = LumenTheme.colors.primary,
+                    contentColor = LumenTheme.colors.onPrimary
                 )
             ) {
                 if (uiState.isLoading) {
-                    CircularProgressIndicator(
+                    LumenSpinner(
                         modifier = Modifier.size(24.dp),
-                        color = MaterialTheme.colorScheme.onPrimary,
+                        color = LumenTheme.colors.onPrimary,
                         strokeWidth = 2.dp
                     )
                 } else {
@@ -157,10 +157,9 @@ fun OnboardingScreen(
                         horizontalArrangement = Arrangement.Center
                     ) {
                         Text(
-                            text = if (uiState.currentStep == 2) "Complete & Start Learning" else "Continue",
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold
-                        )
+    text = if (uiState.currentStep == 2) "Complete & Start Learning" else "Continue",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold)
+)
                         Spacer(modifier = Modifier.width(8.dp))
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowForward,
@@ -184,36 +183,34 @@ fun TargetBandStep(
         Box(
             modifier = Modifier
                 .clip(RoundedCornerShape(50))
-                .background(MaterialTheme.colorScheme.primaryContainer)
+                .background(LumenTheme.colors.primaryContainer)
                 .padding(horizontal = 14.dp, vertical = 6.dp)
         ) {
             Text(
-                text = "STEP 1 OF 3 • TARGET SCORE",
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
-                fontWeight = FontWeight.Bold,
-                letterSpacing = 1.sp
-            )
+    text = "STEP 1 OF 3 • TARGET SCORE",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold, letterSpacing = 1.sp),
+    color = LumenTheme.colors.onPrimaryContainer
+)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
             text = "What is your target overall band score?",
-            style = MaterialTheme.typography.headlineSmall.copy(
+            style = LumenTheme.typography.headlineSmall.copy(
                 fontWeight = FontWeight.Bold,
                 fontSize = 26.sp,
                 letterSpacing = (-0.5).sp
             ),
-            color = MaterialTheme.colorScheme.onBackground
+            color = LumenTheme.colors.onBackground
         )
 
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
             text = "Most universities and migration visas require Band 6.5 to 7.5.",
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+            style = LumenTheme.typography.bodyMedium,
+            color = LumenTheme.colors.onSurfaceVariant
         )
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -228,7 +225,7 @@ fun TargetBandStep(
         ) {
             items(bands) { band ->
                 val isSelected = band == selectedBand
-                Card(
+                LumenCard(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(72.dp)
@@ -236,12 +233,12 @@ fun TargetBandStep(
                         .clickable { onSelectBand(band) }
                         .border(
                             width = if (isSelected) 2.dp else 1.dp,
-                            color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline,
+                            color = if (isSelected) LumenTheme.colors.primary else LumenTheme.colors.outline,
                             shape = RoundedCornerShape(20.dp)
                         ),
                     shape = RoundedCornerShape(20.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = if (isSelected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface
+                    colors = LumenCardDefaults.cardColors(
+                        containerColor = if (isSelected) LumenTheme.colors.primaryContainer else LumenTheme.colors.surface
                     )
                 ) {
                     Row(
@@ -253,15 +250,14 @@ fun TargetBandStep(
                     ) {
                         Column {
                             Text(
-                                text = "Band $band",
-                                style = MaterialTheme.typography.titleMedium,
-                                fontWeight = FontWeight.Bold,
-                                color = if (isSelected) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface
-                            )
+    text = "Band $band",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = if (isSelected) LumenTheme.colors.onPrimaryContainer else LumenTheme.colors.onSurface
+)
                             Text(
                                 text = getBandDescription(band),
-                                style = MaterialTheme.typography.labelSmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                style = LumenTheme.typography.labelSmall,
+                                color = LumenTheme.colors.onSurfaceVariant
                             )
                         }
 
@@ -269,7 +265,7 @@ fun TargetBandStep(
                             Icon(
                                 imageVector = Icons.Default.Check,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary
+                                tint = LumenTheme.colors.primary
                             )
                         }
                     }
@@ -295,43 +291,41 @@ fun TestDateStep(
         Box(
             modifier = Modifier
                 .clip(RoundedCornerShape(50))
-                .background(MaterialTheme.colorScheme.primaryContainer)
+                .background(LumenTheme.colors.primaryContainer)
                 .padding(horizontal = 14.dp, vertical = 6.dp)
         ) {
             Text(
-                text = "STEP 2 OF 3 • TIMELINE",
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
-                fontWeight = FontWeight.Bold,
-                letterSpacing = 1.sp
-            )
+    text = "STEP 2 OF 3 • TIMELINE",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold, letterSpacing = 1.sp),
+    color = LumenTheme.colors.onPrimaryContainer
+)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
             text = "When do you plan to take the exam?",
-            style = MaterialTheme.typography.headlineSmall.copy(
+            style = LumenTheme.typography.headlineSmall.copy(
                 fontWeight = FontWeight.Bold,
                 fontSize = 26.sp,
                 letterSpacing = (-0.5).sp
             ),
-            color = MaterialTheme.colorScheme.onBackground
+            color = LumenTheme.colors.onBackground
         )
 
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
             text = "This helps us pace your daily practice modules and mock exam schedules.",
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+            style = LumenTheme.typography.bodyMedium,
+            color = LumenTheme.colors.onSurfaceVariant
         )
 
         Spacer(modifier = Modifier.height(24.dp))
 
         options.forEach { (option, subtitle) ->
             val isSelected = option == selectedDateOption
-            Card(
+            LumenCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 12.dp)
@@ -339,12 +333,12 @@ fun TestDateStep(
                     .clickable { onSelectOption(option) }
                     .border(
                         width = if (isSelected) 2.dp else 1.dp,
-                        color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline,
+                        color = if (isSelected) LumenTheme.colors.primary else LumenTheme.colors.outline,
                         shape = RoundedCornerShape(20.dp)
                     ),
                 shape = RoundedCornerShape(20.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = if (isSelected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface
+                colors = LumenCardDefaults.cardColors(
+                    containerColor = if (isSelected) LumenTheme.colors.primaryContainer else LumenTheme.colors.surface
                 )
             ) {
                 Row(
@@ -358,21 +352,20 @@ fun TestDateStep(
                         Icon(
                             imageVector = Icons.Default.Event,
                             contentDescription = null,
-                            tint = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                            tint = if (isSelected) LumenTheme.colors.primary else LumenTheme.colors.onSurfaceVariant,
                             modifier = Modifier.size(24.dp)
                         )
                         Spacer(modifier = Modifier.width(16.dp))
                         Column {
                             Text(
-                                text = option,
-                                style = MaterialTheme.typography.titleMedium,
-                                fontWeight = FontWeight.Bold,
-                                color = if (isSelected) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface
-                            )
+    text = option,
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = if (isSelected) LumenTheme.colors.onPrimaryContainer else LumenTheme.colors.onSurface
+)
                             Text(
                                 text = subtitle,
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                style = LumenTheme.typography.bodySmall,
+                                color = LumenTheme.colors.onSurfaceVariant
                             )
                         }
                     }
@@ -381,7 +374,7 @@ fun TestDateStep(
                         Icon(
                             imageVector = Icons.Default.Check,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary
+                            tint = LumenTheme.colors.primary
                         )
                     }
                 }
@@ -405,36 +398,34 @@ fun SelfAssessmentStep(
         Box(
             modifier = Modifier
                 .clip(RoundedCornerShape(50))
-                .background(MaterialTheme.colorScheme.primaryContainer)
+                .background(LumenTheme.colors.primaryContainer)
                 .padding(horizontal = 14.dp, vertical = 6.dp)
         ) {
             Text(
-                text = "STEP 3 OF 3 • SELF ASSESSMENT",
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
-                fontWeight = FontWeight.Bold,
-                letterSpacing = 1.sp
-            )
+    text = "STEP 3 OF 3 • SELF ASSESSMENT",
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold, letterSpacing = 1.sp),
+    color = LumenTheme.colors.onPrimaryContainer
+)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
             text = "Assess your current skill levels",
-            style = MaterialTheme.typography.headlineSmall.copy(
+            style = LumenTheme.typography.headlineSmall.copy(
                 fontWeight = FontWeight.Bold,
                 fontSize = 26.sp,
                 letterSpacing = (-0.5).sp
             ),
-            color = MaterialTheme.colorScheme.onBackground
+            color = LumenTheme.colors.onBackground
         )
 
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
             text = "Set your estimated starting band score for each of the 4 IELTS skills.",
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+            style = LumenTheme.typography.bodyMedium,
+            color = LumenTheme.colors.onSurfaceVariant
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -489,19 +480,19 @@ fun SkillSliderCard(
     onValueChange: (Double) -> Unit,
     testTag: String
 ) {
-    Card(
+    LumenCard(
         modifier = Modifier
             .fillMaxWidth()
             .border(
                 width = 1.dp,
-                color = MaterialTheme.colorScheme.outline,
+                color = LumenTheme.colors.outline,
                 shape = RoundedCornerShape(20.dp)
             ),
         shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
+        colors = LumenCardDefaults.cardColors(
+            containerColor = LumenTheme.colors.surface
         ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+        elevation = 0.dp
     ) {
         Column(
             modifier = Modifier
@@ -518,13 +509,13 @@ fun SkillSliderCard(
                         modifier = Modifier
                             .size(36.dp)
                             .clip(RoundedCornerShape(10.dp))
-                            .background(MaterialTheme.colorScheme.primaryContainer),
+                            .background(LumenTheme.colors.primaryContainer),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
                             imageVector = icon,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                            tint = LumenTheme.colors.onPrimaryContainer,
                             modifier = Modifier.size(20.dp)
                         )
                     }
@@ -532,41 +523,39 @@ fun SkillSliderCard(
                     Spacer(modifier = Modifier.width(12.dp))
 
                     Text(
-                        text = title,
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
+    text = title,
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSurface
+)
                 }
 
                 // Band Tag
                 Box(
                     modifier = Modifier
                         .clip(RoundedCornerShape(10.dp))
-                        .background(MaterialTheme.colorScheme.secondaryContainer)
+                        .background(LumenTheme.colors.secondaryContainer)
                         .padding(horizontal = 12.dp, vertical = 6.dp)
                 ) {
                     Text(
-                        text = "Band ${"%.1f".format(value)}",
-                        style = MaterialTheme.typography.labelMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSecondaryContainer
-                    )
+    text = "Band ${"%.1f".format(value)}",
+    style = (LumenTheme.typography.labelMedium).copy(fontWeight = FontWeight.Bold),
+    color = LumenTheme.colors.onSecondaryContainer
+)
                 }
             }
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            Slider(
+            LumenSlider(
                 value = value.toFloat(),
                 onValueChange = { onValueChange(it.toDouble()) },
                 valueRange = 1.0f..9.0f,
                 steps = 15, // 0.5 increments between 1.0 and 9.0
                 modifier = Modifier.testTag(testTag),
-                colors = SliderDefaults.colors(
-                    thumbColor = MaterialTheme.colorScheme.primary,
-                    activeTrackColor = MaterialTheme.colorScheme.primary,
-                    inactiveTrackColor = MaterialTheme.colorScheme.outline
+                colors = LumenSliderDefaults.colors(
+                    thumbColor = LumenTheme.colors.primary,
+                    activeTrackColor = LumenTheme.colors.primary,
+                    inactiveTrackColor = LumenTheme.colors.outline
                 )
             )
         }

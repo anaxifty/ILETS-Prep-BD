@@ -15,7 +15,8 @@ import androidx.compose.material.icons.filled.CreditCard
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.PhoneAndroid
 import androidx.compose.material.icons.filled.Shield
-import androidx.compose.material3.*
+import com.example.ui.components.*
+import com.example.ui.theme.LumenTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -45,9 +46,9 @@ fun SslCommerzPaymentSheet(
     var selectedMethod by remember { mutableStateOf("bKash") }
     var isProcessing by remember { mutableStateOf(false) }
 
-    val primaryGreen = MaterialTheme.colorScheme.primary
+    val primaryGreen = LumenTheme.colors.primary
 
-    ModalBottomSheet(
+    LumenSheet(
         onDismissRequest = { if (!isProcessing) onDismiss() },
         shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
         containerColor = Color.White,
@@ -83,20 +84,19 @@ fun SslCommerzPaymentSheet(
                     Spacer(modifier = Modifier.width(12.dp))
                     Column {
                         Text(
-                            text = "SSLCommerz Secured Payment",
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold,
-                            color = primaryGreen
-                        )
+    text = "SSLCommerz Secured Payment",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = primaryGreen
+)
                         Text(
                             text = "Secure Bangladesh Payment Gateway",
-                            style = MaterialTheme.typography.labelSmall,
+                            style = LumenTheme.typography.labelSmall,
                             color = Color.Gray
                         )
                     }
                 }
 
-                IconButton(
+                LumenIconButton(
                     onClick = { if (!isProcessing) onDismiss() },
                     enabled = !isProcessing,
                     modifier = Modifier.testTag("sslcommerz_close_button")
@@ -111,11 +111,11 @@ fun SslCommerzPaymentSheet(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Transaction Summary Card
-            Card(
+            // Transaction Summary LumenCard
+            LumenCard(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(20.dp),
-                colors = CardDefaults.cardColors(containerColor = Color(0xFFEFF4F0))
+                colors = LumenCardDefaults.cardColors(containerColor = Color(0xFFEFF4F0))
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Row(
@@ -123,34 +123,32 @@ fun SslCommerzPaymentSheet(
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = slot.title,
-                            style = MaterialTheme.typography.bodyMedium,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.DarkGray
-                        )
+    text = slot.title,
+    style = (LumenTheme.typography.bodyMedium).copy(fontWeight = FontWeight.Bold),
+    color = Color.DarkGray
+)
                         Text(
-                            text = "৳${slot.priceBdt.toInt()} BDT",
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.ExtraBold,
-                            color = primaryGreen
-                        )
+    text = "৳${slot.priceBdt.toInt()} BDT",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.ExtraBold),
+    color = primaryGreen
+)
                     }
 
                     Spacer(modifier = Modifier.height(6.dp))
 
                     Text(
                         text = "Center: ${center.name}",
-                        style = MaterialTheme.typography.bodySmall,
+                        style = LumenTheme.typography.bodySmall,
                         color = Color.Gray
                     )
                     Text(
                         text = "Slot: ${slot.date} (${slot.time})",
-                        style = MaterialTheme.typography.bodySmall,
+                        style = LumenTheme.typography.bodySmall,
                         color = Color.Gray
                     )
 
                     Spacer(modifier = Modifier.height(8.dp))
-                    Divider(color = Color.LightGray.copy(alpha = 0.5f))
+                    LumenDivider(color = Color.LightGray.copy(alpha = 0.5f))
                     Spacer(modifier = Modifier.height(8.dp))
 
                     Row(
@@ -159,15 +157,14 @@ fun SslCommerzPaymentSheet(
                     ) {
                         Text(
                             text = "Transaction ID:",
-                            style = MaterialTheme.typography.labelSmall,
+                            style = LumenTheme.typography.labelSmall,
                             color = Color.Gray
                         )
                         Text(
-                            text = tranId,
-                            style = MaterialTheme.typography.labelSmall,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.DarkGray
-                        )
+    text = tranId,
+    style = (LumenTheme.typography.labelSmall).copy(fontWeight = FontWeight.Bold),
+    color = Color.DarkGray
+)
                     }
                 }
             }
@@ -176,11 +173,10 @@ fun SslCommerzPaymentSheet(
 
             // Payment Method Selector
             Text(
-                text = "Select Payment Method",
-                style = MaterialTheme.typography.titleSmall,
-                fontWeight = FontWeight.Bold,
-                color = primaryGreen
-            )
+    text = "Select Payment Method",
+    style = (LumenTheme.typography.titleSmall).copy(fontWeight = FontWeight.Bold),
+    color = primaryGreen
+)
 
             Spacer(modifier = Modifier.height(12.dp))
 
@@ -214,7 +210,7 @@ fun SslCommerzPaymentSheet(
             Spacer(modifier = Modifier.height(24.dp))
 
             // Disclaimer Banner (Hard Requirement)
-            Surface(
+            LumenSurface(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(10.dp),
                 color = Color(0xFFFFE5B0)
@@ -232,7 +228,7 @@ fun SslCommerzPaymentSheet(
                     Spacer(modifier = Modifier.width(10.dp))
                     Text(
                         text = "Booking is for a practice mock test / coaching sitting at partner center. Does NOT register for official IELTS exam.",
-                        style = MaterialTheme.typography.labelSmall,
+                        style = LumenTheme.typography.labelSmall,
                         color = Color(0xFF3A2500)
                     )
                 }
@@ -240,23 +236,22 @@ fun SslCommerzPaymentSheet(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Pay Button / Processing Indicator
+            // Pay LumenButton / Processing Indicator
             if (isProcessing) {
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    CircularProgressIndicator(color = primaryGreen)
+                    LumenSpinner(color = primaryGreen)
                     Spacer(modifier = Modifier.height(12.dp))
                     Text(
-                        text = "Connecting SSLCommerz Gateway ($selectedMethod)...",
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = primaryGreen
-                    )
+    text = "Connecting SSLCommerz Gateway ($selectedMethod)...",
+    style = (LumenTheme.typography.bodyMedium).copy(fontWeight = FontWeight.Bold),
+    color = primaryGreen
+)
                     Text(
                         text = "Please do not close app during transaction processing",
-                        style = MaterialTheme.typography.labelSmall,
+                        style = LumenTheme.typography.labelSmall,
                         color = Color.Gray
                     )
                 }
@@ -267,7 +262,7 @@ fun SslCommerzPaymentSheet(
                     onPaymentSuccess(tranId)
                 }
             } else {
-                Button(
+                LumenButton(
                     onClick = { isProcessing = true },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -285,17 +280,16 @@ fun SslCommerzPaymentSheet(
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = "Pay ৳${slot.priceBdt.toInt()} BDT via SSLCommerz",
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.White
-                        )
+    text = "Pay ৳${slot.priceBdt.toInt()} BDT via SSLCommerz",
+    style = (LumenTheme.typography.titleMedium).copy(fontWeight = FontWeight.Bold),
+    color = Color.White
+)
                     }
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                TextButton(
+                LumenTextButton(
                     onClick = { onPaymentFailed("Payment cancelled by user.") },
                     modifier = Modifier.fillMaxWidth()
                 ) {
@@ -314,10 +308,10 @@ private fun PaymentMethodChip(
     onSelect: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val borderColor = if (isSelected) MaterialTheme.colorScheme.primary else Color.LightGray
-    val bgColor = if (isSelected) MaterialTheme.colorScheme.primary.copy(alpha = 0.08f) else Color.White
+    val borderColor = if (isSelected) LumenTheme.colors.primary else Color.LightGray
+    val bgColor = if (isSelected) LumenTheme.colors.primary.copy(alpha = 0.08f) else Color.White
 
-    Surface(
+    LumenSurface(
         modifier = modifier
             .clickable { onSelect() }
             .border(1.5.dp, borderColor, RoundedCornerShape(10.dp)),
@@ -333,16 +327,15 @@ private fun PaymentMethodChip(
             Icon(
                 imageVector = icon,
                 contentDescription = name,
-                tint = if (isSelected) MaterialTheme.colorScheme.primary else Color.Gray,
+                tint = if (isSelected) LumenTheme.colors.primary else Color.Gray,
                 modifier = Modifier.size(20.dp)
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = name,
-                style = MaterialTheme.typography.labelMedium,
-                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
-                color = if (isSelected) MaterialTheme.colorScheme.primary else Color.DarkGray
-            )
+    text = name,
+    style = (LumenTheme.typography.labelMedium).copy(fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal),
+    color = if (isSelected) LumenTheme.colors.primary else Color.DarkGray
+)
         }
     }
 }
